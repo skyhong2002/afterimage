@@ -1,26 +1,4 @@
 # Report only. Review by hand; nothing here is removed automatically.
-- score: 1.0
-  a:
-    id: 4f1ad1cb4a54
-    path: phone wallpaper/2331627.jpg
-    size: [1440, 2560]
-    bytes: 268021
-  b:
-    id: ac54123c1159
-    path: phone wallpaper/662899.jpg
-    size: [1440, 2560]
-    bytes: 290171
-- score: 0.9983
-  a:
-    id: 5d7407a54c43
-    path: phone wallpaper/2128630.jpg
-    size: [1500, 2668]
-    bytes: 307044
-  b:
-    id: eff8e2d6abc3
-    path: phone wallpaper/9FSRNyT.jpg
-    size: [1500, 2668]
-    bytes: 385241
 - score: 0.9609
   a:
     id: 836166381b3b

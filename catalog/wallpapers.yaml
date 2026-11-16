@@ -4,8 +4,8 @@
   device: phone
   size: [854, 1590]
   bytes: 4081817
-  similar: [5d7407a54c43, eff8e2d6abc3, cc6ba319d730, f66c03949b24, ac54123c1159, 4f1ad1cb4a54, 6b6f2db908fb,
-    3325538d1204]
+  similar: [eff8e2d6abc3, cc6ba319d730, f66c03949b24, ac54123c1159, 6b6f2db908fb, 3325538d1204, e430608c0fc8,
+    c140c02818b0]
   palette: ['#000000']
 - id: 2436df657b32
   path: phone wallpaper/1927240.png
@@ -16,15 +16,6 @@
   similar: [e9e8d2dc5ac6, d6a54afc8e57, 071d329e61ea, ac3bfbd5aca8, 3407254324d2, db07cd56b951, d636fc953667,
     c121ff24c027]
   palette: ['#d00e2d', '#190607', '#fbfaf9', '#6c0917', '#c8c5c1']
-- id: 5d7407a54c43
-  path: phone wallpaper/2128630.jpg
-  caption: '2128630'
-  device: phone
-  size: [1500, 2668]
-  bytes: 307044
-  similar: [eff8e2d6abc3, cc6ba319d730, b02dbe91bf01, 4f1ad1cb4a54, ac54123c1159, 6b6f2db908fb, c121ff24c027,
-    f66c03949b24]
-  palette: ['#000000', '#474747', '#2a2a29', '#7a7a79']
 - id: db07cd56b951
   path: phone wallpaper/2128633.jpg
   caption: '2128633'
@@ -40,8 +31,8 @@
   device: phone
   size: [1080, 1920]
   bytes: 80123
-  similar: [e9e8d2dc5ac6, 071d329e61ea, 3407254324d2, ac54123c1159, 4f1ad1cb4a54, d636fc953667, 3325538d1204,
-    2436df657b32]
+  similar: [e9e8d2dc5ac6, 071d329e61ea, 3407254324d2, ac54123c1159, d636fc953667, 3325538d1204, 2436df657b32,
+    926b0c903117]
   palette: ['#f40000', '#000000', '#670101']
 - id: 071d329e61ea
   path: phone wallpaper/2128640.jpg
@@ -52,15 +43,6 @@
   similar: [e9e8d2dc5ac6, c121ff24c027, 2436df657b32, ac3bfbd5aca8, d6a54afc8e57, 3407254324d2, a139e30e2179,
     926b0c903117]
   palette: ['#ed1e24', '#010101', '#fefefe', '#b9babb', '#473e34']
-- id: 4f1ad1cb4a54
-  path: phone wallpaper/2331627.jpg
-  caption: '2331627'
-  device: phone
-  size: [1440, 2560]
-  bytes: 268021
-  similar: [ac54123c1159, c121ff24c027, e9e8d2dc5ac6, 071d329e61ea, 5d7407a54c43, eff8e2d6abc3, cc6ba319d730,
-    b02dbe91bf01]
-  palette: ['#dc0814', '#fdfdfd', '#0d0d0d', '#302d2e', '#818384']
 - id: ac3bfbd5aca8
   path: phone wallpaper/476307.png
   caption: '476307'
@@ -76,8 +58,8 @@
   device: phone
   size: [1440, 2560]
   bytes: 290171
-  similar: [4f1ad1cb4a54, c121ff24c027, e9e8d2dc5ac6, 071d329e61ea, 5d7407a54c43, eff8e2d6abc3, cc6ba319d730,
-    b02dbe91bf01]
+  similar: [c121ff24c027, e9e8d2dc5ac6, 071d329e61ea, eff8e2d6abc3, cc6ba319d730, b02dbe91bf01, 9b750e34e45c,
+    e430608c0fc8]
   palette: ['#dc0814', '#fdfdfd', '#0d0d0d', '#302d2e', '#818384']
 - id: 4a941ef561c9
   path: phone wallpaper/841340.png
@@ -103,8 +85,8 @@
   device: phone
   size: [1500, 2668]
   bytes: 385241
-  similar: [5d7407a54c43, cc6ba319d730, b02dbe91bf01, 4f1ad1cb4a54, ac54123c1159, 6b6f2db908fb, c121ff24c027,
-    9b750e34e45c]
+  similar: [cc6ba319d730, b02dbe91bf01, ac54123c1159, 6b6f2db908fb, c121ff24c027, 9b750e34e45c, 61feb0bc32dd,
+    f66c03949b24]
   palette: ['#000000', '#494848', '#2c2b2b', '#7b7a7a']
 - id: 1a8965372389
   path: phone wallpaper/Android魔龍的佔據.jpg
@@ -265,8 +247,8 @@
   device: phone
   size: [854, 1590]
   bytes: 374197
-  similar: [5d7407a54c43, eff8e2d6abc3, b02dbe91bf01, 4f1ad1cb4a54, ac54123c1159, e430608c0fc8, c121ff24c027,
-    9b750e34e45c]
+  similar: [eff8e2d6abc3, b02dbe91bf01, ac54123c1159, e430608c0fc8, c121ff24c027, 9b750e34e45c, a139e30e2179,
+    f66c03949b24]
   palette: ['#f5f5f5', '#494949', '#757575', '#151515', '#9d9d9d']
 - id: 2baf53fb2439
   path: phone wallpaper/wp5357207-persona-landscape-phone-wallpapers.jpg
@@ -337,8 +319,8 @@
   device: desktop
   size: [2880, 1800]
   bytes: 2383667
-  similar: [b1b6dc80ce83, 61c69c9864a8, f66c03949b24, 44624dd4edad, 35f765091a04, 5d7407a54c43, b02dbe91bf01,
-    eff8e2d6abc3]
+  similar: [b1b6dc80ce83, 61c69c9864a8, f66c03949b24, 44624dd4edad, 35f765091a04, b02dbe91bf01, eff8e2d6abc3,
+    c140c02818b0]
   palette: ['#828282', '#d95fc8', '#ed6247', '#fcaa3c']
 - id: c014b508207a
   path: wallpaper/2E.png
@@ -473,7 +455,7 @@
   size: [1680, 1050]
   bytes: 246534
   similar: [f66c03949b24, 1a8965372389, 35f765091a04, c140c02818b0, ed9ed48e16d6, b02dbe91bf01, 495a100fb7a8,
-    5d7407a54c43]
+    eff8e2d6abc3]
   palette: ['#000000', '#222222']
 - id: 189c71dfd024
   path: wallpaper/alpha.jpg
@@ -850,8 +832,8 @@
   device: desktop
   size: [1440, 810]
   bytes: 354264
-  similar: [c121ff24c027, 5d7407a54c43, eff8e2d6abc3, b02dbe91bf01, 7c70eaccc9cd, 3325538d1204, ac54123c1159,
-    4f1ad1cb4a54]
+  similar: [c121ff24c027, eff8e2d6abc3, b02dbe91bf01, 7c70eaccc9cd, 3325538d1204, ac54123c1159, c140c02818b0,
+    e6544a6075cf]
   palette: ['#000000', '#24150d', '#6c5e3b', '#857956']
 - id: 507c5ccd1269
   path: wallpaper/drags.jpg
@@ -1174,8 +1156,8 @@
   device: desktop
   size: [2560, 1440]
   bytes: 141834
-  similar: [44cf034ba930, de489d7593c2, ff80a294804b, 1dddaf606064, 44624dd4edad, c121ff24c027, 4f1ad1cb4a54,
-    ac54123c1159]
+  similar: [44cf034ba930, de489d7593c2, ff80a294804b, 1dddaf606064, 44624dd4edad, c121ff24c027, ac54123c1159,
+    92c4ce2a4c8c]
   palette: ['#a43713', '#fd5d03', '#300406', '#721a0b']
 - id: 485c35b1e549
   path: wallpaper/glory.jpg
@@ -1480,8 +1462,8 @@
   device: desktop
   size: [1920, 1078]
   bytes: 2101300
-  similar: [7e108910c591, cca6d00ef2e7, 7c70eaccc9cd, 57d72a550c95, 5d7407a54c43, d76bbc39d5bf, 82ac527cd058,
-    eff8e2d6abc3]
+  similar: [7e108910c591, cca6d00ef2e7, 7c70eaccc9cd, 57d72a550c95, d76bbc39d5bf, 82ac527cd058, eff8e2d6abc3,
+    4eb13ed0794f]
   palette: ['#161d25', '#535455', '#090909', '#363c42']
 - id: 9cb56af4f5b3
   path: wallpaper/let_us_start_the_game.jpeg
@@ -1561,8 +1543,8 @@
   device: desktop
   size: [1680, 1050]
   bytes: 2145732
-  similar: [4e0dc5a6205a, b6eb0a0f89cf, bada3e28785d, bdeb1d004cd1, ac54123c1159, 4f1ad1cb4a54, 9b750e34e45c,
-    5d7407a54c43]
+  similar: [4e0dc5a6205a, b6eb0a0f89cf, bada3e28785d, bdeb1d004cd1, ac54123c1159, 9b750e34e45c, 61feb0bc32dd,
+    b02dbe91bf01]
   palette: ['#2a2626', '#464240', '#010101', '#6b6760', '#848177']
 - id: 61a6d18c9174
   path: wallpaper/matrix.png
@@ -1580,7 +1562,7 @@
   size: [1920, 1080]
   bytes: 822962
   similar: [8fb5febcd7dd, 61c69c9864a8, f66c03949b24, 6b6f2db908fb, b02dbe91bf01, e430608c0fc8, 35f765091a04,
-    5d7407a54c43]
+    555ba2f4dbd1]
   palette: ['#828282', '#e46684', '#0f7eaf', '#24993d']
 - id: 71264d82c316
   path: wallpaper/mc.jpg
@@ -1597,8 +1579,8 @@
   device: desktop
   size: [1920, 1080]
   bytes: 77546
-  similar: [8fb5febcd7dd, b1b6dc80ce83, f66c03949b24, eff8e2d6abc3, b02dbe91bf01, 5d7407a54c43, 6b6f2db908fb,
-    1dddaf606064]
+  similar: [8fb5febcd7dd, b1b6dc80ce83, f66c03949b24, eff8e2d6abc3, b02dbe91bf01, 6b6f2db908fb, 1dddaf606064,
+    35f765091a04]
   palette: ['#f2f2f2', '#2b1f1f', '#ebbb38', '#4e8cae', '#df5a40']
 - id: 44624dd4edad
   path: wallpaper/mom.png
@@ -1777,8 +1759,8 @@
   device: desktop
   size: [1920, 1080]
   bytes: 490349
-  similar: [5d7407a54c43, eff8e2d6abc3, cc6ba319d730, fdd4f0e9f70b, ac54123c1159, 4f1ad1cb4a54, 033c1f314dfd,
-    b02dbe91bf01]
+  similar: [eff8e2d6abc3, cc6ba319d730, fdd4f0e9f70b, ac54123c1159, 033c1f314dfd, b02dbe91bf01, d6a54afc8e57,
+    7c70eaccc9cd]
   palette: ['#fced42', '#cfc32e', '#978d35', '#33322b', '#ebda25']
 - id: 3b9f41b3021c
   path: wallpaper/P4GA.jpg
@@ -2110,8 +2092,8 @@
   device: desktop
   size: [1920, 1080]
   bytes: 89880
-  similar: [bf4fc5bb43dc, c121ff24c027, 2436df657b32, 3407254324d2, e9e8d2dc5ac6, 4f1ad1cb4a54, ac54123c1159,
-    071d329e61ea]
+  similar: [bf4fc5bb43dc, c121ff24c027, 2436df657b32, 3407254324d2, e9e8d2dc5ac6, ac54123c1159, 071d329e61ea,
+    d636fc953667]
   palette: ['#e90000']
 - id: d99f67a7d42d
   path: wallpaper/takethis.jpg
@@ -2164,8 +2146,8 @@
   device: desktop
   size: [2880, 1800]
   bytes: 1941995
-  similar: [61feb0bc32dd, 57d72a550c95, 6b4405418a8a, 8c51c927fdab, 5d7407a54c43, 96864c670929, cda748ffd8a4,
-    7a473b6a545a]
+  similar: [61feb0bc32dd, 57d72a550c95, 6b4405418a8a, 8c51c927fdab, 96864c670929, cda748ffd8a4, 7a473b6a545a,
+    ad4a0cbef494]
   palette: ['#030404', '#0f1d26', '#442914']
 - id: 5ac9e927582d
   path: wallpaper/The gardian.jpg
@@ -2380,8 +2362,8 @@
   device: desktop
   size: [2560, 1600]
   bytes: 551432
-  similar: [c121ff24c027, c3c5c1078fdd, 08f81901f8fe, 071d329e61ea, 2436df657b32, 4f1ad1cb4a54, ac54123c1159,
-    d636fc953667]
+  similar: [c121ff24c027, c3c5c1078fdd, 08f81901f8fe, 071d329e61ea, 2436df657b32, ac54123c1159, d636fc953667,
+    ef5062ce9b87]
   palette: ['#0d0f0e', '#c82126', '#401314', '#72181a']
 - id: e4a7d1e448e7
   path: wallpaper/wauuuttt?.png
