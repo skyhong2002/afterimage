@@ -76,6 +76,8 @@ const payload = { items, works };
 
     <dialog id="lightbox">
       <button id="close" aria-label="關閉">×</button>
+      <button id="prev" class="nav" aria-label="上一張" title="上一張 ←">‹</button>
+      <button id="next" class="nav" aria-label="下一張" title="下一張 →">›</button>
       <img id="lb-img" alt="" />
       <footer>
         <strong id="lb-cap"></strong>
@@ -84,10 +86,15 @@ const payload = { items, works };
         <span id="lb-pal" aria-label="主要色彩"></span>
       </footer>
       <div id="lb-tags"></div>
-      <section id="lb-sim-wrap" hidden>
-        <h2>相似的圖</h2>
+      <section id="lb-rel">
+        <div id="lb-tabs" role="tablist" aria-label="聯想方式"></div>
         <div id="lb-sim"></div>
       </section>
+      <section id="lb-trail-wrap" hidden>
+        <h2>思緒軌跡 <small>Backspace 回上一步</small></h2>
+        <div id="lb-trail"></div>
+      </section>
+      <p id="lb-hint">← → 上一張 / 下一張 · 1–8 跳到聯想 · T 換聯想方式 · Esc 關閉</p>
     </dialog>
 
     <script type="application/json" id="data" set:html={JSON.stringify(payload)} />
@@ -122,6 +129,7 @@ const payload = { items, works };
       const workSel = document.getElementById('work') as HTMLSelectElement;
       const emoSel = document.getElementById('emotion') as HTMLSelectElement;
       let device = 'all';
+      let visible: Item[] = items; // grid order after filtering; used by the arrow keys
 
       const opt = (value: string, text: string) => Object.assign(document.createElement('option'), { value, textContent: text });
       const unassigned = items.filter((i) => i.works.length === 0).length;
@@ -153,7 +161,7 @@ const payload = { items, works };
           dot.title = emo.label;
           a.append(dot);
         }
-        a.addEventListener('click', (ev) => { ev.preventDefault(); open(it); });
+        a.addEventListener('click', (ev) => { ev.preventDefault(); go(it, 'fresh'); });
         grid.append(a);
         const hay = [it.caption, ...it.works.map((w) => workTitle.get(w) ?? w)].join(' ').toLowerCase();
         return { it, a, hay };
@@ -174,9 +182,96 @@ const payload = { items, works };
           if (ok) n++;
         }
         count.textContent = `${n} / ${items.length}`;
+        visible = cards.filter((c) => !c.a.hidden).map((c) => c.it);
       }
 
-      function open(it: Item) {
+      // ---- Associations: different ways to wander from one memory to another ----
+      type Mode = 'sim' | 'work' | 'emo' | 'color';
+      const MODES: { key: Mode; label: string }[] = [
+        { key: 'sim', label: '相似畫面' },
+        { key: 'work', label: '同作品' },
+        { key: 'emo', label: '同情緒・不同作品' },
+        { key: 'color', label: '相近色調' },
+      ];
+      const LIMIT = 12;
+      let mode: Mode = 'sim';
+      let current: Item | null = null;
+      let currentList: Item[] = [];
+      let trail: Item[] = [];
+
+      const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+      function colorDist(a: Item, b: Item): number {
+        if (!a.palette.length || !b.palette.length) return Infinity;
+        const W = [0.5, 0.3, 0.2];
+        let d = 0;
+        for (let i = 0; i < 3; i++) {
+          const ca = rgb(a.palette[Math.min(i, a.palette.length - 1)]);
+          const cb = rgb(b.palette[Math.min(i, b.palette.length - 1)]);
+          d += W[i] * Math.hypot(ca[0] - cb[0], ca[1] - cb[1], ca[2] - cb[2]);
+        }
+        return d;
+      }
+
+      function relatedOf(it: Item, m: Mode): Item[] {
+        switch (m) {
+          case 'sim':
+            return it.similar.map((id) => byId.get(id)).filter((x): x is Item => !!x);
+          case 'work': {
+            const mine = new Set(it.works);
+            if (!mine.size) return [];
+            const rank = (o: Item) => { const i = it.similar.indexOf(o.id); return i < 0 ? 99 : i; };
+            return items
+              .filter((o) => o.id !== it.id && o.works.some((w) => mine.has(w)))
+              .sort((a, b) => rank(a) - rank(b) || colorDist(it, a) - colorDist(it, b))
+              .slice(0, LIMIT);
+          }
+          case 'emo': {
+            if (!it.emotion) return [];
+            const mine = new Set(it.works);
+            return items
+              .filter((o) => o.id !== it.id && o.emotion === it.emotion && !o.works.some((w) => mine.has(w)))
+              .sort((a, b) => colorDist(it, a) - colorDist(it, b))
+              .slice(0, LIMIT);
+          }
+          case 'color':
+            return items
+              .filter((o) => o.id !== it.id)
+              .sort((a, b) => colorDist(it, a) - colorDist(it, b))
+              .slice(0, LIMIT);
+        }
+      }
+
+      const thumb = (r: Item) => {
+        const img = new Image();
+        img.alt = r.caption;
+        img.src = `/thumbs/${r.id}.avif`;
+        return img;
+      };
+
+      // fresh: start a new wander (grid click, arrow keys). assoc: follow an association, remembered in the trail.
+      function go(it: Item, via: 'fresh' | 'assoc') {
+        if (via === 'assoc' && current) { trail.push(current); if (trail.length > 14) trail.shift(); }
+        if (via === 'fresh') trail = [];
+        current = it;
+        show(it);
+      }
+
+      function back() {
+        const prev = trail.pop();
+        if (!prev) return;
+        current = prev;
+        show(prev);
+      }
+
+      function step(d: number) {
+        if (!current) return;
+        const list = visible.length ? visible : items;
+        let i = list.findIndex((x) => x.id === current!.id);
+        if (i < 0) i = d > 0 ? -1 : 0;
+        go(list[(i + d + list.length) % list.length], 'fresh');
+      }
+
+      function show(it: Item) {
         (document.getElementById('lb-img') as HTMLImageElement).src = it.src;
         document.getElementById('lb-cap')!.textContent = it.caption;
         document.getElementById('lb-meta')!.textContent = `${it.w}×${it.h} · ${it.mb} MB`;
@@ -218,25 +313,74 @@ const payload = { items, works };
         }
         tags.replaceChildren(...chips);
 
+        // association tabs: keep the chosen mode if it has results, otherwise fall back
+        const lists = new Map(MODES.map((m) => [m.key, relatedOf(it, m.key)] as const));
+        if (!lists.get(mode)!.length) mode = MODES.find((m) => lists.get(m.key)!.length)?.key ?? 'sim';
+        document.getElementById('lb-tabs')!.replaceChildren(...MODES.map((m) => {
+          const n = lists.get(m.key)!.length;
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'tab';
+          b.disabled = n === 0;
+          b.setAttribute('role', 'tab');
+          b.setAttribute('aria-selected', String(m.key === mode));
+          b.textContent = `${m.label} ${n}`;
+          b.addEventListener('click', () => { mode = m.key; show(it); });
+          return b;
+        }));
+
+        currentList = lists.get(mode)!;
         const sim = document.getElementById('lb-sim')!;
-        const related = it.similar.map((id) => byId.get(id)).filter((x): x is Item => !!x);
-        document.getElementById('lb-sim-wrap')!.hidden = related.length === 0;
-        sim.replaceChildren(...related.map((r) => {
+        sim.replaceChildren(...currentList.map((r, i) => {
           const b = document.createElement('button');
           b.type = 'button';
           b.title = r.caption;
-          const img = new Image();
-          img.alt = r.caption;
-          img.src = `/thumbs/${r.id}.avif`;
-          b.append(img);
-          b.addEventListener('click', () => open(r));
+          b.append(thumb(r));
+          if (i < 8) b.append(Object.assign(document.createElement('span'), { className: 'n', textContent: String(i + 1) }));
+          const e = EMOTIONS[r.emotion];
+          if (e) b.style.setProperty('--c', e.color);
+          b.addEventListener('click', () => go(r, 'assoc'));
           return b;
         }));
         sim.scrollLeft = 0;
-        box.scrollTop = 0;
 
+        // trail of memories visited by following associations
+        document.getElementById('lb-trail-wrap')!.hidden = trail.length === 0;
+        document.getElementById('lb-trail')!.replaceChildren(...trail.map((r, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.title = r.caption;
+          b.append(thumb(r));
+          b.addEventListener('click', () => { trail = trail.slice(0, i); current = r; show(r); });
+          return b;
+        }));
+
+        box.scrollTop = 0;
         if (!box.open) box.showModal();
       }
+
+      function cycleMode() {
+        if (!current) return;
+        const order = MODES.map((m) => m.key);
+        for (let k = 1; k <= order.length; k++) {
+          const next = order[(order.indexOf(mode) + k) % order.length];
+          if (relatedOf(current, next).length) { mode = next; show(current); return; }
+        }
+      }
+
+      document.addEventListener('keydown', (ev) => {
+        if (!box.open || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+        const k = ev.key;
+        if (k === 'ArrowLeft') step(-1);
+        else if (k === 'ArrowRight') step(1);
+        else if (/^[1-8]$/.test(k)) { const r = currentList[Number(k) - 1]; if (r) go(r, 'assoc'); }
+        else if (k === 't' || k === 'T') cycleMode();
+        else if (k === 'Backspace') back();
+        else return;
+        ev.preventDefault();
+      });
+      document.getElementById('prev')!.addEventListener('click', () => step(-1));
+      document.getElementById('next')!.addEventListener('click', () => step(1));
 
       q.addEventListener('input', apply);
       workSel.addEventListener('change', apply);
@@ -254,7 +398,7 @@ const payload = { items, works };
 
       apply();
       const hit = items.find((i) => '#' + i.id === location.hash);
-      if (hit) open(hit);
+      if (hit) go(hit, 'fresh');
     </script>
 
     <style is:global>
@@ -280,7 +424,7 @@ const payload = { items, works };
       dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; color: var(--fg); }
       dialog::backdrop { background: rgba(0,0,0,.88); }
       dialog { overflow-y: auto; }
-      #lb-img { display: block; max-width: 96vw; max-height: calc(96vh - 230px); margin: 0 auto; border-radius: 4px; }
+      #lb-img { display: block; max-width: 96vw; max-height: calc(96vh - 320px); margin: 0 auto; border-radius: 4px; }
       dialog footer { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; justify-content: center; padding: 10px; }
       select { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; max-width: 220px; font: inherit; }
       .card { position: relative; }
@@ -292,11 +436,31 @@ const payload = { items, works };
       .chip.emo { border-color: var(--c); }
       .chip.note { font-style: italic; }
       #lb-pal { display: inline-flex; gap: 4px; }
+      .nav { position: fixed; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; border: 1px solid #ffffff22;
+        background: #000a; color: var(--fg); font-size: 28px; line-height: 1; cursor: pointer; z-index: 3; padding: 0 0 4px; }
+      .nav:hover { background: #000d; border-color: #ffffff55; }
+      #prev { left: 14px; }
+      #next { right: 14px; }
+      #lb-rel { padding: 0 10px; }
+      #lb-tabs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding-bottom: 8px; }
+      .tab { font: inherit; font-size: 12px; color: var(--dim); background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 11px; cursor: pointer; }
+      .tab[aria-selected=true] { color: var(--fg); background: #1d1d25; border-color: var(--dim); }
+      .tab:disabled { opacity: .35; cursor: default; }
+      #lb-sim button { position: relative; border-color: color-mix(in srgb, var(--c, #23232a) 55%, transparent); }
+      #lb-sim .n { position: absolute; left: 0; top: 0; background: #000b; color: #ffeb3b; font-size: 11px; font-weight: 700; padding: 0 5px; border-radius: 0 0 4px 0; }
+      #lb-trail-wrap { padding: 2px 10px 0; }
+      #lb-trail-wrap h2 small { font-weight: 400; margin-left: 8px; opacity: .7; }
+      #lb-trail { display: flex; gap: 6px; overflow-x: auto; }
+      #lb-trail button { flex: none; height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #15151a; cursor: pointer; opacity: .75; }
+      #lb-trail button:hover { opacity: 1; }
+      #lb-trail img { height: 100%; width: auto; display: block; }
+      #lb-hint { text-align: center; color: var(--dim); font-size: 12px; margin: 4px 0 10px; }
       #lb-pal i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff33; }
-      #lb-sim-wrap { padding: 0 10px 14px; }
-      #lb-sim-wrap h2 { margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--dim); text-align: center; letter-spacing: .08em; }
-      #lb-sim { display: flex; gap: 8px; overflow-x: auto; justify-content: center; }
-      #lb-sim button { flex: none; height: 84px; padding: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #15151a; cursor: pointer; }
+            #lb-trail-wrap h2 { margin: 0 0 4px; font-size: 12px; font-weight: 500; color: var(--dim); text-align: center; letter-spacing: .08em; }
+      #lb-sim { display: flex; gap: 8px; overflow-x: auto; }
+      #lb-sim > :first-child, #lb-trail > :first-child { margin-left: auto; }
+      #lb-sim > :last-child, #lb-trail > :last-child { margin-right: auto; }
+      #lb-sim button { flex: none; height: 74px; padding: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #15151a; cursor: pointer; }
       #lb-sim button:hover { border-color: var(--dim); }
       #lb-sim img { height: 100%; width: auto; display: block; }
       dialog footer span { color: var(--dim); }
