@@ -21,7 +21,16 @@
   ],
   "palette": [
    "#000000"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "dark Tokyo map"
  },
  {
   "id": "2436df657b32",
@@ -49,7 +58,15 @@
    "#fbfaf9",
    "#6c0917",
    "#c8c5c1"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "db07cd56b951",
@@ -77,7 +94,15 @@
    "#2c262f",
    "#8b716f",
    "#574953"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c121ff24c027",
@@ -103,7 +128,15 @@
    "#f40000",
    "#000000",
    "#670101"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "071d329e61ea",
@@ -131,7 +164,16 @@
    "#fefefe",
    "#b9babb",
    "#473e34"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Akechi with gun"
  },
  {
   "id": "ac3bfbd5aca8",
@@ -159,7 +201,15 @@
    "#393032",
    "#d0bfa0",
    "#856d78"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ac54123c1159",
@@ -187,7 +237,15 @@
    "#0d0d0d",
    "#302d2e",
    "#818384"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4a941ef561c9",
@@ -215,7 +273,13 @@
    "#445551",
    "#a6a99c",
    "#233436"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "ruined city, lone figure"
  },
  {
   "id": "fb7d962db0fb",
@@ -243,7 +307,13 @@
    "#1f1f1e",
    "#ededed",
    "#979795"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "grey ruin, figure with glowing sign"
  },
  {
   "id": "eff8e2d6abc3",
@@ -270,7 +340,16 @@
    "#494848",
    "#2c2b2b",
    "#7b7a7a"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Tokyo map"
  },
  {
   "id": "1a8965372389",
@@ -296,7 +375,16 @@
    "#000000",
    "#0e2108",
    "#254a12"
-  ]
+  ],
+  "works": [
+   "word-game"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "pixel word game, Android version"
  },
  {
   "id": "ea240c061c70",
@@ -324,7 +412,15 @@
    "#6f444b",
    "#896c6e",
    "#a79191"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xiii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "495a100fb7a8",
@@ -349,7 +445,16 @@
   "palette": [
    "#000000",
    "#18330c"
-  ]
+  ],
+  "works": [
+   "word-game"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "pixel word game, iOS version"
  },
  {
   "id": "d636fc953667",
@@ -377,7 +482,15 @@
    "#f31503",
    "#182521",
    "#b97e51"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "236ea4f1e170",
@@ -405,7 +518,15 @@
    "#f4f1ed",
    "#6a7066",
    "#b8b2a8"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "3407254324d2",
@@ -433,7 +554,15 @@
    "#eab6c5",
    "#f01503",
    "#bb8086"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "033c1f314dfd",
@@ -461,7 +590,15 @@
    "#28221c",
    "#a07616",
    "#4d463c"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f4e4e67439d0",
@@ -489,7 +626,15 @@
    "#e80b0b",
    "#7f0506",
    "#f4f3ed"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e81970fcdbe2",
@@ -517,7 +662,15 @@
    "#151623",
    "#ae9793",
    "#8c7b75"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bf4fc5bb43dc",
@@ -545,7 +698,15 @@
    "#484848",
    "#a9a9a9",
    "#797979"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7df7e54cc736",
@@ -573,7 +734,15 @@
    "#3f373c",
    "#1f3559",
    "#615a5d"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c3f356912b7d",
@@ -601,7 +770,15 @@
    "#bb0d0d",
    "#f5f6f9",
    "#dadce2"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "836166381b3b",
@@ -628,7 +805,15 @@
    "#90c5f1",
    "#bfdef1",
    "#d6cbda"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "619a9b200ec6",
@@ -656,7 +841,16 @@
    "#f2ebf1",
    "#241619",
    "#56342e"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xv"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "four on a road"
  },
  {
   "id": "ba1380d98b3a",
@@ -684,7 +878,15 @@
    "#182ba1",
    "#3d5790",
    "#2b4abf"
-  ]
+  ],
+  "works": [
+   "final-fantasy-x"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "18386afc2504",
@@ -712,7 +914,16 @@
    "#533c35",
    "#a3988c",
    "#74594e"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xiii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Lightning"
  },
  {
   "id": "e9e8d2dc5ac6",
@@ -740,7 +951,15 @@
    "#f2eded",
    "#ed222a",
    "#7b7674"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cc6ba319d730",
@@ -768,7 +987,16 @@
    "#757575",
    "#151515",
    "#9d9d9d"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "minimal B/W city"
  },
  {
   "id": "2baf53fb2439",
@@ -796,7 +1024,15 @@
    "#2f653d",
    "#268c54",
    "#32b477"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "926b0c903117",
@@ -824,7 +1060,15 @@
    "#fdeb60",
    "#16161f",
    "#9f9aa2"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "17604a74e895",
@@ -852,7 +1096,15 @@
    "#f7e6b9",
    "#bf9673",
    "#876f52"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7339f2bba4bc",
@@ -880,7 +1132,13 @@
    "#3a4841",
    "#4b6661",
    "#729085"
-  ]
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "busy battle art"
  },
  {
   "id": "4e1631019a4c",
@@ -908,7 +1166,16 @@
    "#40281f",
    "#644031",
    "#835d45"
-  ]
+  ],
+  "works": [
+   "bravely-default"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "party on cake base"
  },
  {
   "id": "e430608c0fc8",
@@ -936,7 +1203,15 @@
    "#f2f3f3",
    "#c9d4d6",
    "#a3aeb0"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "99f52f81bb15",
@@ -964,7 +1239,15 @@
    "#eeeff3",
    "#c8ba91",
    "#dbdaaa"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "8fb5febcd7dd",
@@ -991,7 +1274,16 @@
    "#d95fc8",
    "#ed6247",
    "#fcaa3c"
-  ]
+  ],
+  "works": [
+   "140"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "pixel pyramid on noise"
  },
  {
   "id": "c014b508207a",
@@ -1019,7 +1311,15 @@
    "#4b4a4d",
    "#f0faf9",
    "#272528"
-  ]
+  ],
+  "works": [
+   "assassination-classroom"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "66ec4f4bfc0f",
@@ -1044,7 +1344,15 @@
   "palette": [
    "#000000",
    "#2b2b2b"
-  ]
+  ],
+  "works": [
+   "one-piece"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "2e566d94a2ab",
@@ -1069,7 +1377,16 @@
   "palette": [
    "#010101",
    "#2e1c1c"
-  ]
+  ],
+  "works": [
+   "queen"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "band portrait"
  },
  {
   "id": "ff80a294804b",
@@ -1097,7 +1414,15 @@
    "#476baa",
    "#8ea3c1",
    "#d6c0c8"
-  ]
+  ],
+  "works": [
+   "5-centimeters-per-second"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "83a17ad0bcae",
@@ -1125,7 +1450,13 @@
    "#8a8377",
    "#a89984",
    "#3c5554"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d914fbb2c20b",
@@ -1153,7 +1484,15 @@
    "#606368",
    "#99948b",
    "#b0ada7"
-  ]
+  ],
+  "works": [
+   "made-in-abyss"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false
  },
  {
   "id": "7186f77acc74",
@@ -1181,7 +1520,15 @@
    "#51171c",
    "#6f3b32",
    "#b3959d"
-  ]
+  ],
+  "works": [
+   "ace-attorney"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c6857973890c",
@@ -1209,7 +1556,16 @@
    "#c6d5e2",
    "#6897a9",
    "#997b6b"
-  ]
+  ],
+  "works": [
+   "one-piece"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Ace arms wide"
  },
  {
   "id": "0a28f8c1c6fc",
@@ -1237,7 +1593,15 @@
    "#8e6c57",
    "#8c31ca",
    "#070504"
-  ]
+  ],
+  "works": [
+   "advance-wars"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "08a97e5000d5",
@@ -1261,7 +1625,16 @@
   ],
   "palette": [
    "#000000"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "leave here dialog"
  },
  {
   "id": "3325538d1204",
@@ -1286,7 +1659,16 @@
   "palette": [
    "#0d0c0b",
    "#f8f3ee"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Cloud vs Sephiroth silhouette"
  },
  {
   "id": "d5d81accb09e",
@@ -1314,7 +1696,16 @@
    "#f9f5ae",
    "#414142",
    "#f1d87f"
-  ]
+  ],
+  "works": [
+   "sword-art-online"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Aincrad"
  },
  {
   "id": "f82845ed3862",
@@ -1342,7 +1733,15 @@
    "#11183b",
    "#192d63",
    "#777079"
-  ]
+  ],
+  "works": [
+   "ajin"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bdeb1d004cd1",
@@ -1370,7 +1769,13 @@
    "#433448",
    "#765b6d",
    "#927177"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "dark group huddled"
  },
  {
   "id": "6b6f2db908fb",
@@ -1395,7 +1800,16 @@
   "palette": [
    "#000000",
    "#222222"
-  ]
+  ],
+  "works": [
+   "alphago"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "DeepMind title"
  },
  {
   "id": "189c71dfd024",
@@ -1422,7 +1836,15 @@
    "#d4c8c6",
    "#e5e6e9",
    "#b69b97"
-  ]
+  ],
+  "works": [
+   "cytus"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "456ca1cb5edc",
@@ -1450,7 +1872,13 @@
    "#a5b4cc",
    "#ccd6e5",
    "#8594b3"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "cave with beast silhouette"
  },
  {
   "id": "7f2a23ec89b0",
@@ -1478,7 +1906,15 @@
    "#b2b3b3",
    "#94c8a3",
    "#dec29b"
-  ]
+  ],
+  "works": [
+   "your-lie-in-april"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "482ea049bece",
@@ -1506,7 +1942,13 @@
    "#182c35",
    "#abdaf2",
    "#72bbdb"
-  ]
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "island with tanks and explosions"
  },
  {
   "id": "4103e76dce71",
@@ -1534,7 +1976,15 @@
    "#8f939d",
    "#696978",
    "#3d3a45"
-  ]
+  ],
+  "works": [
+   "deemo"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "3d7baf15d1c8",
@@ -1562,7 +2012,16 @@
    "#6a4b37",
    "#906c52",
    "#ddf0e6"
-  ]
+  ],
+  "works": [
+   "about-time"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "chess scene"
  },
  {
   "id": "56801f39ec5f",
@@ -1590,7 +2049,13 @@
    "#7b81cb",
    "#181a1a",
    "#8c146b"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a69f8951747b",
@@ -1618,7 +2083,15 @@
    "#2a2d31",
    "#414852",
    "#457278"
-  ]
+  ],
+  "works": [
+   "tokyo-ghoul"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "82def1ec6ce3",
@@ -1646,7 +2119,13 @@
    "#c9c8c6",
    "#f0f0f0",
    "#aaa8a6"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "blurry frame"
  },
  {
   "id": "801ceadb491a",
@@ -1674,7 +2153,15 @@
    "#242c25",
    "#504632",
    "#a99884"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "35f765091a04",
@@ -1700,7 +2187,13 @@
    "#010101",
    "#d9c7d3",
    "#5b0148"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "pixel puzzle game, same game as 73"
  },
  {
   "id": "93b9425b6fe3",
@@ -1728,7 +2221,13 @@
    "#6d5a4c",
    "#d6dee0",
    "#3d3a37"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "44cf034ba930",
@@ -1756,7 +2255,15 @@
    "#fcc26c",
    "#ee850e",
    "#b85718"
-  ]
+  ],
+  "works": [
+   "bohemian-rhapsody"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "48c7e18f7ac7",
@@ -1784,7 +2291,15 @@
    "#c4baab",
    "#988d84",
    "#463332"
-  ]
+  ],
+  "works": [
+   "bravely-default"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "87ebb90617e7",
@@ -1812,7 +2327,16 @@
    "#1e1d22",
    "#575463",
    "#757384"
-  ]
+  ],
+  "works": [
+   "attack-on-titan"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Levi and Eren"
  },
  {
   "id": "cda748ffd8a4",
@@ -1839,7 +2363,15 @@
    "#a37c51",
    "#864b3b",
    "#2a100f"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c140c02818b0",
@@ -1863,7 +2395,15 @@
   ],
   "palette": [
    "#000000"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4e0dc5a6205a",
@@ -1890,7 +2430,13 @@
    "#1e1c1e",
    "#3e383c",
    "#666369"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "crowd watching two players at monitors"
  },
  {
   "id": "1f0ed6523ac7",
@@ -1918,7 +2464,13 @@
    "#848573",
    "#5c605b",
    "#7c704d"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime girl in bookshop"
  },
  {
   "id": "1bb5aec217d6",
@@ -1944,7 +2496,13 @@
    "#1e1310",
    "#cbb295",
    "#856a5b"
-  ]
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime close-up, subtitle wants chocolate"
  },
  {
   "id": "21c73ba54ffa",
@@ -1972,7 +2530,15 @@
    "#0d324a",
    "#2c2523",
    "#246c9f"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c856400f6e07",
@@ -2000,7 +2566,13 @@
    "#d6aa96",
    "#2c100f",
    "#938a7f"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "guy in red hoodie with coffee"
  },
  {
   "id": "814cc5fb9efd",
@@ -2027,7 +2599,13 @@
    "#6d0c3d",
    "#221625",
    "#4b4d58"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "pixel puzzle game combine"
  },
  {
   "id": "74636daf2131",
@@ -2055,7 +2633,13 @@
    "#31383c",
    "#524d3f",
    "#838c96"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "people clapping around a cake, live action"
  },
  {
   "id": "211963efce7e",
@@ -2083,7 +2667,13 @@
    "#485557",
    "#7a8f9b",
    "#93aab6"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "couple embracing in storm"
  },
  {
   "id": "7cc5eda81335",
@@ -2108,7 +2698,15 @@
   "palette": [
    "#000000",
    "#2c322f"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "71611fa429e8",
@@ -2136,7 +2734,15 @@
    "#182a3c",
    "#1f606e",
    "#f1a305"
-  ]
+  ],
+  "works": [
+   "cosmos"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e7f106efca88",
@@ -2163,7 +2769,16 @@
    "#556563",
    "#384341",
    "#7d918d"
-  ]
+  ],
+  "works": [
+   "creaks"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "dark cave robot"
  },
  {
   "id": "870a087f00de",
@@ -2191,7 +2806,15 @@
    "#e7b26c",
    "#ad7f39",
    "#020101"
-  ]
+  ],
+  "works": [
+   "your-lie-in-april"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false
  },
  {
   "id": "955b84fca5e5",
@@ -2219,7 +2842,13 @@
    "#010101",
    "#9ca09e",
    "#d2ceb1"
-  ]
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "pastel pair at vending machine"
  },
  {
   "id": "8ff355094252",
@@ -2247,7 +2876,13 @@
    "#333e44",
    "#7f9da3",
    "#667e85"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "dark cavern with crystal"
  },
  {
   "id": "d25635c25114",
@@ -2275,7 +2910,13 @@
    "#dec7a8",
    "#6a5948",
    "#504031"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "man with harmonica"
  },
  {
   "id": "98a71c9db124",
@@ -2303,7 +2944,15 @@
    "#52341a",
    "#88a72b",
    "#4d8627"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "0c4b856b93f1",
@@ -2328,7 +2977,13 @@
   "palette": [
    "#4f173f",
    "#5a2061"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "DATAWING title card"
  },
  {
   "id": "b6eb0a0f89cf",
@@ -2355,7 +3010,15 @@
    "#050b3d",
    "#172e84",
    "#5771e1"
-  ]
+  ],
+  "works": [
+   "daft-punk"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e0eeefe63fe8",
@@ -2383,7 +3046,16 @@
    "#434033",
    "#24201b",
    "#60654b"
-  ]
+  ],
+  "works": [
+   "attack-on-titan"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "scouts on horseback"
  },
  {
   "id": "e4f23132a996",
@@ -2411,7 +3083,15 @@
    "#c8ad96",
    "#d7eef2",
    "#110e18"
-  ]
+  ],
+  "works": [
+   "naruto"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e5708ff763a5",
@@ -2437,7 +3117,15 @@
    "#000000",
    "#222222",
    "#a2a2a2"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "3b923be1a9a0",
@@ -2465,7 +3153,15 @@
    "#46534d",
    "#514126",
    "#836d4b"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bf2b052f142f",
@@ -2493,7 +3189,15 @@
    "#4c4a4b",
    "#f4f4f4",
    "#67686c"
-  ]
+  ],
+  "works": [
+   "doctor-who"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7c70eaccc9cd",
@@ -2519,7 +3223,16 @@
    "#070707",
    "#0f2425",
    "#1f584d"
-  ]
+  ],
+  "works": [
+   "psycho-pass"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "caption says dominator"
  },
  {
   "id": "b0d4244b174c",
@@ -2546,7 +3259,13 @@
    "#24150d",
    "#6c5e3b",
    "#857956"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "falling dominoes"
  },
  {
   "id": "507c5ccd1269",
@@ -2574,7 +3293,15 @@
    "#d6e1e2",
    "#2b2044",
    "#5c3a61"
-  ]
+  ],
+  "works": [
+   "kuzu-no-honkai"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "545aea12a04f",
@@ -2602,7 +3329,15 @@
    "#7c817a",
    "#524b53",
    "#969b94"
-  ]
+  ],
+  "works": [
+   "harry-potter"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "8fd983de6d85",
@@ -2629,7 +3364,15 @@
    "#565e35",
    "#737a7d",
    "#4e3e68"
-  ]
+  ],
+  "works": [
+   "dynamix"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7fa106a974ec",
@@ -2657,7 +3400,13 @@
    "#323232",
    "#4a4a4a",
    "#1c1c1c"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "empty music stand"
  },
  {
   "id": "38475e375c5e",
@@ -2685,7 +3434,15 @@
    "#a09d9a",
    "#8c8683",
    "#b7b5b1"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7f4369f5c72d",
@@ -2713,7 +3470,16 @@
    "#413c2a",
    "#685936",
    "#252215"
-  ]
+  ],
+  "works": [
+   "machinarium"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "dome with propeller"
  },
  {
   "id": "607b4b0e3d5f",
@@ -2741,7 +3507,15 @@
    "#f0eff4",
    "#596478",
    "#bdb3bd"
-  ]
+  ],
+  "works": [
+   "evangelion"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "78cff59895c0",
@@ -2769,7 +3543,15 @@
    "#aaa69d",
    "#928e81",
    "#6f726d"
-  ]
+  ],
+  "works": [
+   "violet-evergarden"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f86a3c50931c",
@@ -2797,7 +3579,15 @@
    "#312821",
    "#594b40",
    "#bbb8b1"
-  ]
+  ],
+  "works": [
+   "the-good-place"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f657f92570fc",
@@ -2825,7 +3615,15 @@
    "#dbcdc4",
    "#b4b4b4",
    "#989999"
-  ]
+  ],
+  "works": [
+   "house-md"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bada3e28785d",
@@ -2853,7 +3651,13 @@
    "#010001",
    "#514a46",
    "#756259"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "three men in coats, game CG"
  },
  {
   "id": "b08afcd30b48",
@@ -2881,7 +3685,15 @@
    "#6e7474",
    "#3d4244",
    "#555b5c"
-  ]
+  ],
+  "works": [
+   "ex-machina"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7689327cf255",
@@ -2909,7 +3721,13 @@
    "#53665b",
    "#79836e",
    "#aaa292"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a314385eb17a",
@@ -2937,7 +3755,13 @@
    "#f7f2ee",
    "#683741",
    "#ba7e7d"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime embrace in pink light"
  },
  {
   "id": "475ecf63f597",
@@ -2965,7 +3789,15 @@
    "#c2c4af",
    "#6badd8",
    "#a4ad8e"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "13ace94993e6",
@@ -2993,7 +3825,13 @@
    "#cbaa9c",
    "#ae9285",
    "#635c5c"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "fairy girl game CG"
  },
  {
   "id": "d284fe48ae82",
@@ -3019,7 +3857,15 @@
    "#000000",
    "#3a3948",
    "#cac4e1"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "5b43620ed11f",
@@ -3047,7 +3893,15 @@
    "#426c83",
    "#284b5b",
    "#98bcc9"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "424515d0a3ae",
@@ -3075,7 +3929,15 @@
    "#524a46",
    "#797268",
    "#979594"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "495c9391b5cf",
@@ -3103,7 +3965,15 @@
    "#2c3134",
    "#494b48",
    "#726f5f"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "692a73c9b417",
@@ -3128,7 +3998,15 @@
   "palette": [
    "#000000",
    "#545454"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "126c0cca7188",
@@ -3156,7 +4034,16 @@
    "#a19493",
    "#c4b5ac",
    "#e2d7cd"
-  ]
+  ],
+  "works": [
+   "dissidia-final-fantasy"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "battle CG"
  },
  {
   "id": "554e2eeda9f6",
@@ -3184,7 +4071,13 @@
    "#7a6040",
    "#5d4a33",
    "#967657"
-  ]
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "golden landscape with clasped hands"
  },
  {
   "id": "e85522d633ae",
@@ -3212,7 +4105,15 @@
    "#36606a",
    "#52848b",
    "#8eb8be"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "8f6d7e8cf5ef",
@@ -3240,7 +4141,15 @@
    "#0f0f17",
    "#ced9e7",
    "#636262"
-  ]
+  ],
+  "works": [
+   "final-fantasy-vii"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4a27adb680d9",
@@ -3268,7 +4177,15 @@
    "#071125",
    "#42699e",
    "#303a47"
-  ]
+  ],
+  "works": [
+   "final-fantasy-x"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7c5466237a30",
@@ -3296,7 +4213,15 @@
    "#0d0b0b",
    "#292629",
    "#4a4243"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xv"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7a95a960828b",
@@ -3324,7 +4249,16 @@
    "#21212c",
    "#514f56",
    "#6c686d"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Fran stylized art, caption Fran"
  },
  {
   "id": "9b750e34e45c",
@@ -3352,7 +4286,16 @@
    "#aa9797",
    "#3f3e3e",
    "#555454"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "grey group art with red"
  },
  {
   "id": "8c51c927fdab",
@@ -3380,7 +4323,16 @@
    "#16110e",
    "#eca35a",
    "#b05e35"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Leblanc cafe with cat"
  },
  {
   "id": "d0e9aa200d38",
@@ -3407,7 +4359,13 @@
    "#f1f1f7",
    "#adaabd",
    "#484265"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "visual novel heroine"
  },
  {
   "id": "64d207df72e6",
@@ -3435,7 +4393,15 @@
    "#7879a9",
    "#4c4c69",
    "#37374b"
-  ]
+  ],
+  "works": [
+   "vvvvvv"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "555ba2f4dbd1",
@@ -3462,7 +4428,13 @@
    "#142b41",
    "#1f506d",
    "#30a1ba"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "nebula with blue square"
  },
  {
   "id": "80d53508876b",
@@ -3490,7 +4462,15 @@
    "#0a3866",
    "#c8d6d4",
    "#99c0c2"
-  ]
+  ],
+  "works": [
+   "gattaca"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ba82e7046778",
@@ -3515,7 +4495,15 @@
   "palette": [
    "#403227",
    "#181213"
-  ]
+  ],
+  "works": [
+   "violet-evergarden"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "df32df18cee9",
@@ -3542,7 +4530,15 @@
    "#fd5d03",
    "#300406",
    "#721a0b"
-  ]
+  ],
+  "works": [
+   "daft-punk"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "485c35b1e549",
@@ -3568,7 +4564,15 @@
    "#000000",
    "#3d473c",
    "#c82e2f"
-  ]
+  ],
+  "works": [
+   "papers-please"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e6544a6075cf",
@@ -3596,7 +4600,13 @@
    "#afb0b0",
    "#424548",
    "#8d8e8f"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "white silhouette kid in ink"
  },
  {
   "id": "b4e0d9a04de7",
@@ -3624,7 +4634,13 @@
    "#92959f",
    "#abc8dd",
    "#85768a"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "constellation girl art"
  },
  {
   "id": "946dbdc0642e",
@@ -3652,7 +4668,13 @@
    "#9e9793",
    "#5f5857",
    "#77777d"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "67b570f63327",
@@ -3679,7 +4701,15 @@
    "#010000",
    "#fcf8f5",
    "#fbcabd"
-  ]
+  ],
+  "works": [
+   "gris"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a4a8c421aa28",
@@ -3707,7 +4737,15 @@
    "#d2cdce",
    "#18131d",
    "#44404e"
-  ]
+  ],
+  "works": [
+   "tokyo-ghoul"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "96864c670929",
@@ -3735,7 +4773,13 @@
    "#645a47",
    "#8e6439",
    "#8b8268"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "amber lit room with figures"
  },
  {
   "id": "2d6f95f8c658",
@@ -3763,7 +4807,13 @@
    "#010101",
    "#dbdcda",
    "#435d8e"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "visual novel heroine on rooftop"
  },
  {
   "id": "46208c4ca5ee",
@@ -3791,7 +4841,15 @@
    "#144e5b",
    "#086e87",
    "#6d7e7a"
-  ]
+  ],
+  "works": [
+   "harry-potter"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d76bbc39d5bf",
@@ -3819,7 +4877,13 @@
    "#6c6c6c",
    "#422e23",
    "#865a40"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "blurry anime shot"
  },
  {
   "id": "9faf430c5b6d",
@@ -3845,7 +4909,15 @@
    "#030302",
    "#281f08",
    "#4a3f3b"
-  ]
+  ],
+  "works": [
+   "harry-potter"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bee36b965226",
@@ -3873,7 +4945,15 @@
    "#e7dedc",
    "#c2b9ba",
    "#37302f"
-  ]
+  ],
+  "works": [
+   "house-md"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e8290e7b65c0",
@@ -3899,7 +4979,15 @@
    "#19191e",
    "#030303",
    "#3a3739"
-  ]
+  ],
+  "works": [
+   "house-md"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cdbc0fcb8074",
@@ -3927,7 +5015,13 @@
    "#ac9b8f",
    "#8e7f79",
    "#beb7b5"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "138f7b580b30",
@@ -3955,7 +5049,13 @@
    "#6f6266",
    "#99b2cb",
    "#938387"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime girl at snowy fence"
  },
  {
   "id": "4ce78fd63cbe",
@@ -3983,7 +5083,13 @@
    "#323231",
    "#55504b",
    "#79756c"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "large character lineup"
  },
  {
   "id": "8497371c304b",
@@ -4011,7 +5117,15 @@
    "#2e545f",
    "#658f9e",
    "#457281"
-  ]
+  ],
+  "works": [
+   "inception"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "6b4405418a8a",
@@ -4039,7 +5153,15 @@
    "#9e6a4d",
    "#745a52",
    "#4d2821"
-  ]
+  ],
+  "works": [
+   "life-is-strange"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "78c47da3dd60",
@@ -4065,7 +5187,14 @@
    "#000000",
    "#5a3c3e",
    "#281515"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "m",
+  "reviewed": false,
+  "note": "personal stage photo, piano and singer"
  },
  {
   "id": "3b9282bc8bcb",
@@ -4092,7 +5221,15 @@
    "#8f7854",
    "#614932",
    "#b28d57"
-  ]
+  ],
+  "works": [
+   "beastars"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "de489d7593c2",
@@ -4118,7 +5255,15 @@
    "#f1b37e",
    "#da9767",
    "#7c4b33"
-  ]
+  ],
+  "works": [
+   "journey"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f62fba36731f",
@@ -4146,7 +5291,14 @@
    "#3e312f",
    "#584643",
    "#656060"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "m",
+  "reviewed": false,
+  "note": "personal or event photo, tuxedos"
  },
  {
   "id": "da726a217281",
@@ -4174,7 +5326,13 @@
    "#e2e2e2",
    "#676767",
    "#c8c8c8"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "chalkboard"
  },
  {
   "id": "5b9b10a9682d",
@@ -4202,7 +5360,15 @@
    "#eff6fb",
    "#4187c7",
    "#b5d2ea"
-  ]
+  ],
+  "works": [
+   "naruto"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "2906884645b2",
@@ -4230,7 +5396,13 @@
    "#f6ded5",
    "#d7b8bb",
    "#75697d"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "phone with galaxy call screen"
  },
  {
   "id": "868e93e3aa24",
@@ -4258,7 +5430,15 @@
    "#95939b",
    "#525156",
    "#39383a"
-  ]
+  ],
+  "works": [
+   "detroit-become-human"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b4ac1eb3691e",
@@ -4286,7 +5466,15 @@
    "#73674b",
    "#ddd3cc",
    "#cbbcb0"
-  ]
+  ],
+  "works": [
+   "naruto"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ed8563f10ff0",
@@ -4314,7 +5502,15 @@
    "#5f5d52",
    "#8b7f69",
    "#bfe4eb"
-  ]
+  ],
+  "works": [
+   "kinos-journey"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "8c97a61af225",
@@ -4342,7 +5538,15 @@
    "#303d5b",
    "#0c090f",
    "#bcbecd"
-  ]
+  ],
+  "works": [
+   "psycho-pass"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "6c732542cf3a",
@@ -4370,7 +5574,15 @@
    "#af8990",
    "#947074",
    "#f0efe4"
-  ]
+  ],
+  "works": [
+   "kuzu-no-honkai"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a79f72e0fb79",
@@ -4398,7 +5610,15 @@
    "#624927",
    "#151315",
    "#312c28"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a08d345bf0ea",
@@ -4426,7 +5646,15 @@
    "#9a8c94",
    "#b3a5ad",
    "#756e72"
-  ]
+  ],
+  "works": [
+   "kuzu-no-honkai"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a760567e77bc",
@@ -4453,7 +5681,15 @@
    "#020517",
    "#0b2968",
    "#134588"
-  ]
+  ],
+  "works": [
+   "la-la-land"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "61feb0bc32dd",
@@ -4480,7 +5716,15 @@
    "#535455",
    "#090909",
    "#363c42"
-  ]
+  ],
+  "works": [
+   "portal"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "9cb56af4f5b3",
@@ -4508,7 +5752,16 @@
    "#7d3d3b",
    "#9f5b5c",
    "#453350"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Strikers era group in Shibuya"
  },
  {
   "id": "9151e1502d68",
@@ -4536,7 +5789,15 @@
    "#927726",
    "#d66c6b",
    "#db918a"
-  ]
+  ],
+  "works": [
+   "quintessential-quintuplets"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "fc77d80a7177",
@@ -4564,7 +5825,15 @@
    "#734e52",
    "#cfc1be",
    "#886f71"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xiii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4eb13ed0794f",
@@ -4592,7 +5861,15 @@
    "#0d4050",
    "#17586f",
    "#27718e"
-  ]
+  ],
+  "works": [
+   "portal"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "93a33443e8bb",
@@ -4620,7 +5897,15 @@
    "#c2aca1",
    "#4c3f44",
    "#e8dccf"
-  ]
+  ],
+  "works": [
+   "violet-evergarden"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "21d27b21fe2d",
@@ -4648,7 +5933,15 @@
    "#f5f5f5",
    "#585456",
    "#332826"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "fdd4f0e9f70b",
@@ -4676,7 +5969,13 @@
    "#780b07",
    "#a21d0d",
    "#d6250a"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "girl on rooftop under red sky"
  },
  {
   "id": "946f70566ea4",
@@ -4704,7 +6003,13 @@
    "#512d32",
    "#70494f",
    "#c28694"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "girl in alley bar at night"
  },
  {
   "id": "08c1ddc456a2",
@@ -4732,7 +6037,13 @@
    "#010101",
    "#6b6760",
    "#848177"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "crowd in white in a stadium"
  },
  {
   "id": "61a6d18c9174",
@@ -4759,7 +6070,15 @@
    "#315323",
    "#528743",
    "#6aaa5b"
-  ]
+  ],
+  "works": [
+   "the-matrix"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b1b6dc80ce83",
@@ -4786,7 +6105,15 @@
    "#e46684",
    "#0f7eaf",
    "#24993d"
-  ]
+  ],
+  "works": [
+   "140"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "71264d82c316",
@@ -4814,7 +6141,13 @@
    "#e8e2da",
    "#c3a592",
    "#7f6c5f"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "61c69c9864a8",
@@ -4842,7 +6175,13 @@
    "#ebbb38",
    "#4e8cae",
    "#df5a40"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "logo with coloured bands"
  },
  {
   "id": "44624dd4edad",
@@ -4870,7 +6209,13 @@
    "#361028",
    "#f2c512",
    "#49301d"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "pixel sunset and castle"
  },
  {
   "id": "ad4a0cbef494",
@@ -4898,7 +6243,15 @@
    "#efe9e7",
    "#7d565f",
    "#9f7b78"
-  ]
+  ],
+  "works": [
+   "life-is-strange"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e67bc6bd06b9",
@@ -4926,7 +6279,15 @@
    "#979797",
    "#757575",
    "#494949"
-  ]
+  ],
+  "works": [
+   "nana-to-kaoru"
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "910185001dc5",
@@ -4954,7 +6315,13 @@
    "#12323b",
    "#4a5c59",
    "#7e8170"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "Netflix still, man looking up"
  },
  {
   "id": "ff28c0260b1b",
@@ -4982,7 +6349,16 @@
    "#9a6b5a",
    "#e5cf9d",
    "#675243"
-  ]
+  ],
+  "works": [
+   "school-days"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "sunset boat, caption nice boat is the School Days meme"
  },
  {
   "id": "3fc976b73d99",
@@ -5010,7 +6386,15 @@
    "#424d3a",
    "#9ca28f",
    "#ccccb4"
-  ]
+  ],
+  "works": [
+   "nier-automata"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cab77eb05ead",
@@ -5038,7 +6422,15 @@
    "#5c402c",
    "#825b3d",
    "#d5a26c"
-  ]
+  ],
+  "works": [
+   "attack-on-titan"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "69c544afb666",
@@ -5066,7 +6458,15 @@
    "#8297a3",
    "#a7aab3",
    "#612042"
-  ]
+  ],
+  "works": [
+   "kuzu-no-honkai"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "05004c7247c9",
@@ -5093,7 +6493,13 @@
    "#3e0e0f",
    "#736357",
    "#3d3d3c"
-  ]
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "633950fce6e0",
@@ -5121,7 +6527,15 @@
    "#2a231c",
    "#a8935d",
    "#ddd6c6"
-  ]
+  ],
+  "works": [
+   "octopath-traveler"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "8789d35802c5",
@@ -5149,7 +6563,16 @@
    "#0c3d79",
    "#0a58ac",
    "#1c3152"
-  ]
+  ],
+  "works": [
+   "life-is-strange"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "couple under the moon, caption only Chloe"
  },
  {
   "id": "a139e30e2179",
@@ -5177,7 +6600,15 @@
    "#eed3a6",
    "#ba7d69",
    "#4f3a40"
-  ]
+  ],
+  "works": [
+   "psycho-pass"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "31aa3e8053cf",
@@ -5205,7 +6636,15 @@
    "#5e5b57",
    "#444240",
    "#b3a9a4"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f66c03949b24",
@@ -5230,7 +6669,15 @@
   "palette": [
    "#000000",
    "#91c2d0"
-  ]
+  ],
+  "works": [
+   "vvvvvv"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "2bb922a40ecc",
@@ -5258,7 +6705,16 @@
    "#615327",
    "#987c3b",
    "#c3bd4e"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "group art"
  },
  {
   "id": "655a12a5c117",
@@ -5286,7 +6742,15 @@
    "#99bcd6",
    "#16141c",
    "#23365f"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "aa470bc51931",
@@ -5314,7 +6778,15 @@
    "#f6f23d",
    "#e3e28e",
    "#b79b35"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b1331b507919",
@@ -5342,7 +6814,15 @@
    "#f5f0ee",
    "#bc9f90",
    "#d6c2cd"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "1dddaf606064",
@@ -5370,7 +6850,15 @@
    "#736b39",
    "#e66637",
    "#decc82"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4de8ea70ba11",
@@ -5398,7 +6886,15 @@
    "#978d35",
    "#33322b",
    "#ebda25"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "3b9f41b3021c",
@@ -5426,7 +6922,15 @@
    "#2d1c1f",
    "#c2b5b2",
    "#a28373"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "3c5f7463c37e",
@@ -5454,7 +6958,15 @@
    "#717c73",
    "#a6aea5",
    "#536a67"
-  ]
+  ],
+  "works": [
+   "parasite"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e0dad055628a",
@@ -5482,7 +6994,15 @@
    "#514f4b",
    "#e5efed",
    "#696d64"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d32f7c622ca8",
@@ -5510,7 +7030,17 @@
    "#1e1c1d",
    "#3b393e",
    "#5e626a"
-  ]
+  ],
+  "works": [
+   "persona-5",
+   "persona-4",
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cce4be0f7cda",
@@ -5538,7 +7068,15 @@
    "#44575b",
    "#818667",
    "#de2511"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "6b26c570f221",
@@ -5566,7 +7104,16 @@
    "#c9987c",
    "#b17171",
    "#115397"
-  ]
+  ],
+  "works": [
+   "kirby"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "GBA game"
  },
  {
   "id": "8c0490926dcc",
@@ -5594,7 +7141,15 @@
    "#61656d",
    "#929aa6",
    "#79808b"
-  ]
+  ],
+  "works": [
+   "life-is-strange"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "45f75324f077",
@@ -5622,7 +7177,15 @@
    "#95938d",
    "#7b7973",
    "#c4c0bb"
-  ]
+  ],
+  "works": [
+   "psycho-pass"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7e108910c591",
@@ -5649,7 +7212,15 @@
    "#03080b",
    "#3b5e6d",
    "#6f868f"
-  ]
+  ],
+  "works": [
+   "portal"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "a21b4bbe651a",
@@ -5677,7 +7248,15 @@
    "#afa491",
    "#382a24",
    "#978d79"
-  ]
+  ],
+  "works": [
+   "octopath-traveler"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "acedfde4bcd9",
@@ -5705,7 +7284,15 @@
    "#03599a",
    "#323840",
    "#052d60"
-  ]
+  ],
+  "works": [
+   "beastars"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "de4a96cdab11",
@@ -5733,7 +7320,15 @@
    "#9398a1",
    "#b7b7bc",
    "#737983"
-  ]
+  ],
+  "works": [
+   "psycho-pass"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "589da3d68dba",
@@ -5760,7 +7355,15 @@
    "#212120",
    "#373636",
    "#50504f"
-  ]
+  ],
+  "works": [
+   "sherlock"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "79f24c37e6f4",
@@ -5788,7 +7391,13 @@
    "#372b2b",
    "#918b89",
    "#0f0c0f"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "man sleeping at a desk"
  },
  {
   "id": "6afb13d238b7",
@@ -5816,7 +7425,13 @@
    "#6e6a6b",
    "#ccbeb2",
    "#4a4c54"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "couple among floating peaks, game CG"
  },
  {
   "id": "4644d1235816",
@@ -5844,7 +7459,15 @@
    "#8a99b3",
    "#181315",
    "#d9e6f2"
-  ]
+  ],
+  "works": [
+   "daft-punk"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "2fc2c112ed18",
@@ -5872,7 +7495,13 @@
    "#ece9ea",
    "#807972",
    "#50483c"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "personal": true,
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ef5062ce9b87",
@@ -5900,7 +7529,15 @@
    "#797e8f",
    "#616576",
    "#969aa7"
-  ]
+  ],
+  "works": [
+   "superman-red-son"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "137f2c98784e",
@@ -5928,7 +7565,15 @@
    "#7a4d3c",
    "#62546a",
    "#986855"
-  ]
+  ],
+  "works": [
+   "ace-attorney"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7a473b6a545a",
@@ -5956,7 +7601,16 @@
    "#8c2847",
    "#2e4f6e",
    "#bb4a58"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Sans and Papyrus in the dark"
  },
  {
   "id": "d48f5e99f1fa",
@@ -5984,7 +7638,15 @@
    "#d3c4c1",
    "#a89795",
    "#5b4c50"
-  ]
+  ],
+  "works": [
+   "school-days"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d696e88d7f43",
@@ -6012,7 +7674,13 @@
    "#819fa8",
    "#a3b9be",
    "#69848e"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "shadow figure in city crowd"
  },
  {
   "id": "365decec0b8d",
@@ -6036,7 +7704,13 @@
   ],
   "palette": [
    "#0d070f"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "title text Sever the skyline, game screen"
  },
  {
   "id": "482777fcc74c",
@@ -6063,7 +7737,13 @@
    "#44555d",
    "#444632",
    "#677f93"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "person lying in a room with a tent"
  },
  {
   "id": "b6efb241d19c",
@@ -6091,7 +7771,15 @@
    "#c3c0bd",
    "#8c8986",
    "#76716d"
-  ]
+  ],
+  "works": [
+   "sherlock"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cd12354fadf2",
@@ -6119,7 +7807,15 @@
    "#0a0a0a",
    "#514e4f",
    "#efefef"
-  ]
+  ],
+  "works": [
+   "sherlock"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "bbfea1c5db4d",
@@ -6147,7 +7843,15 @@
    "#cfb6c2",
    "#7b3c60",
    "#c283a1"
-  ]
+  ],
+  "works": [
+   "kuzu-no-honkai"
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "57d72a550c95",
@@ -6175,7 +7879,15 @@
    "#2c1b5e",
    "#78677b",
    "#614068"
-  ]
+  ],
+  "works": [
+   "no-game-no-life"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f941c63f44b3",
@@ -6203,7 +7915,13 @@
    "#1d1f2f",
    "#2e2e4b",
    "#010101"
-  ]
+  ],
+  "emotion": {
+   "primary": "embarrassment"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime couple kissing"
  },
  {
   "id": "b2e1400f4cef",
@@ -6231,7 +7949,15 @@
    "#69ac76",
    "#080503",
    "#7db6da"
-  ]
+  ],
+  "works": [
+   "kirby"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false
  },
  {
   "id": "56eeaae4f4c7",
@@ -6259,7 +7985,13 @@
    "#a9a179",
    "#828672",
    "#212725"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime girl on train platform"
  },
  {
   "id": "da0dfad35856",
@@ -6287,7 +8019,15 @@
    "#c2bdb3",
    "#888170",
    "#9f9e99"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "9f16be5b2986",
@@ -6315,7 +8055,15 @@
    "#010205",
    "#4e5661",
    "#6a7883"
-  ]
+  ],
+  "works": [
+   "death-stranding"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ee0668b02ee2",
@@ -6343,7 +8091,16 @@
    "#986472",
    "#2a302e",
    "#7f4747"
-  ]
+  ],
+  "works": [
+   "final-fantasy-x"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Yuna sending, caption summoner"
  },
  {
   "id": "6594428c4ff9",
@@ -6371,7 +8128,15 @@
    "#a7cceb",
    "#f6e2a9",
    "#090f1c"
-  ]
+  ],
+  "works": [
+   "kirby"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false
  },
  {
   "id": "495d10492958",
@@ -6399,7 +8164,15 @@
    "#4c18bb",
    "#303160",
    "#53548a"
-  ]
+  ],
+  "works": [
+   "la-la-land"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "614e1f475ff6",
@@ -6423,7 +8196,15 @@
   ],
   "palette": [
    "#e90000"
-  ]
+  ],
+  "works": [
+   "persona-5"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d99f67a7d42d",
@@ -6451,7 +8232,15 @@
    "#d2c2ad",
    "#882944",
    "#685a40"
-  ]
+  ],
+  "works": [
+   "ace-attorney"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "fb76afb12519",
@@ -6479,7 +8268,15 @@
    "#7b6847",
    "#8e8268",
    "#b3a585"
-  ]
+  ],
+  "works": [
+   "octopath-traveler"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b91cec0b287d",
@@ -6507,7 +8304,13 @@
    "#83887f",
    "#c8cdb2",
    "#646861"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "blade in cloth"
  },
  {
   "id": "8789986362f4",
@@ -6535,7 +8338,15 @@
    "#467c8d",
    "#2f4044",
    "#2d5c71"
-  ]
+  ],
+  "works": [
+   "tenet"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "790fe5ab355d",
@@ -6563,7 +8374,16 @@
    "#312b2f",
    "#8c8995",
    "#62677c"
-  ]
+  ],
+  "works": [
+   "5-centimeters-per-second"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "man facing train"
  },
  {
   "id": "82ac527cd058",
@@ -6589,7 +8409,15 @@
    "#030404",
    "#0f1d26",
    "#442914"
-  ]
+  ],
+  "works": [
+   "portal"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "5ac9e927582d",
@@ -6617,7 +8445,15 @@
    "#676060",
    "#33343c",
    "#7e96a4"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "64b506e5df3c",
@@ -6645,7 +8481,13 @@
    "#6d5a52",
    "#4f576b",
    "#918072"
-  ]
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "waiting room with a stove, hooded figure"
  },
  {
   "id": "73ae20e214d3",
@@ -6673,7 +8515,16 @@
    "#cdc9b8",
    "#b6b3a4",
    "#97998f"
-  ]
+  ],
+  "works": [
+   "death-stranding"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "crater"
  },
  {
   "id": "92c4ce2a4c8c",
@@ -6701,7 +8552,15 @@
    "#929bb9",
    "#1b2147",
    "#b5baca"
-  ]
+  ],
+  "works": [
+   "your-name"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7a5126bcfd8e",
@@ -6729,7 +8588,16 @@
    "#938b8c",
    "#48515c",
    "#ccb9aa"
-  ]
+  ],
+  "works": [
+   "mobius-final-fantasy"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "subtitle For none shall remember"
  },
  {
   "id": "8eef94ccf4e1",
@@ -6756,7 +8624,15 @@
    "#bddcf1",
    "#8fc4f1",
    "#d6cad9"
-  ]
+  ],
+  "works": [
+   "persona-3"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b32dc12cd077",
@@ -6784,7 +8660,15 @@
    "#e1b38d",
    "#a38378",
    "#5b2a1c"
-  ]
+  ],
+  "works": [
+   "life-is-strange"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "35b4f145c0d8",
@@ -6812,7 +8696,15 @@
    "#a29569",
    "#887b52",
    "#625b42"
-  ]
+  ],
+  "works": [
+   "inception"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d6a54afc8e57",
@@ -6840,7 +8732,15 @@
    "#fdfdfd",
    "#969a9a",
    "#373733"
-  ]
+  ],
+  "works": [
+   "persona-4"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "08e80ed81efc",
@@ -6868,7 +8768,15 @@
    "#054462",
    "#4f4039",
    "#fbf5dd"
-  ]
+  ],
+  "works": [
+   "attack-on-titan"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "5f0e275f0585",
@@ -6896,7 +8804,16 @@
    "#bc3523",
    "#833223",
    "#51271f"
-  ]
+  ],
+  "works": [
+   "jojos-bizarre-adventure"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "To be continued meme"
  },
  {
   "id": "0794d49ba70f",
@@ -6924,7 +8841,15 @@
    "#6c84d1",
    "#f7f5f6",
    "#cbe3f9"
-  ]
+  ],
+  "works": [
+   "steins-gate"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "08f81901f8fe",
@@ -6952,7 +8877,15 @@
    "#ded2d4",
    "#bfb1b0",
    "#8e8d8e"
-  ]
+  ],
+  "works": [
+   "tokyo-ghoul"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4635a67100e4",
@@ -6979,7 +8912,15 @@
    "#24292b",
    "#364044",
    "#50595c"
-  ]
+  ],
+  "works": [
+   "cytus"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "576580765b33",
@@ -7007,7 +8948,13 @@
    "#c8d5e2",
    "#777f93",
    "#5d6473"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "girl in neon alley"
  },
  {
   "id": "78b163e3a8ce",
@@ -7034,7 +8981,15 @@
    "#ba5d25",
    "#1f0c08",
    "#82411b"
-  ]
+  ],
+  "works": [
+   "trainspotting"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "29bd2055f278",
@@ -7062,7 +9017,15 @@
    "#584c3f",
    "#766655",
    "#9d8367"
-  ]
+  ],
+  "works": [
+   "octopath-traveler"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d789f7bb31fd",
@@ -7090,7 +9053,15 @@
    "#3e4b68",
    "#62768d",
    "#f7f9f7"
-  ]
+  ],
+  "works": [
+   "doctor-who"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d3ffcf2fec3f",
@@ -7118,7 +9089,15 @@
    "#6c5b52",
    "#50423b",
    "#8f7b6f"
-  ]
+  ],
+  "works": [
+   "doctor-who"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "623a4d9f9c0b",
@@ -7143,7 +9122,13 @@
   "palette": [
    "#080a0a",
    "#1b2324"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "dark soldiers"
  },
  {
   "id": "9ee054a0e519",
@@ -7171,7 +9156,15 @@
    "#453e49",
    "#191216",
    "#605c73"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c0520557e5dd",
@@ -7199,7 +9192,15 @@
    "#6f3a11",
    "#545454",
    "#c4c4c4"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "b8b16efb650d",
@@ -7227,7 +9228,15 @@
    "#314572",
    "#492b3d",
    "#6e658e"
-  ]
+  ],
+  "works": [
+   "up"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "4b0fdae03b95",
@@ -7254,7 +9263,15 @@
    "#c82126",
    "#401314",
    "#72181a"
-  ]
+  ],
+  "works": [
+   "v-for-vendetta"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "e4a7d1e448e7",
@@ -7282,7 +9299,15 @@
    "#25231a",
    "#6a5654",
    "#5f7f24"
-  ]
+  ],
+  "works": [
+   "undertale"
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "75ff45895790",
@@ -7310,7 +9335,13 @@
    "#4c4c4c",
    "#b2b2b2",
    "#121212"
-  ]
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "grid of repeated dialog boxes"
  },
  {
   "id": "c3c5c1078fdd",
@@ -7338,7 +9369,13 @@
    "#e9e9ea",
    "#353945",
    "#c8c5cb"
-  ]
+  ],
+  "emotion": {
+   "primary": "fear"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "shadow figures with WC?"
  },
  {
   "id": "23c9bec0b37a",
@@ -7366,7 +9403,13 @@
    "#806e71",
    "#76292f",
    "#aa7277"
-  ]
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "girl in red hood"
  },
  {
   "id": "c1a8c64ad3ae",
@@ -7394,7 +9437,13 @@
    "#333333",
    "#484848",
    "#878787"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "manga panels"
  },
  {
   "id": "e3bc66cad120",
@@ -7422,7 +9471,15 @@
    "#28261f",
    "#aaaeaa",
    "#cacac1"
-  ]
+  ],
+  "works": [
+   "deemo"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "9e8637983c57",
@@ -7446,7 +9503,15 @@
   ],
   "palette": [
    "#010001"
-  ]
+  ],
+  "works": [
+   "mobius-final-fantasy"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "d3623b87d79e",
@@ -7474,7 +9539,16 @@
    "#c4b5ac",
    "#414043",
    "#e8ddd1"
-  ]
+  ],
+  "works": [
+   "mobius-final-fantasy"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "Warrior of Light"
  },
  {
   "id": "d8993f1ca634",
@@ -7502,7 +9576,15 @@
    "#b8a799",
    "#e6e5f6",
    "#42465d"
-  ]
+  ],
+  "works": [
+   "saiki-k"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7b099814f9a4",
@@ -7530,7 +9612,15 @@
    "#566ea4",
    "#2a72cc",
    "#21366b"
-  ]
+  ],
+  "works": [
+   "final-fantasy-x"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ea9b5216ec93",
@@ -7558,7 +9648,15 @@
    "#e0c9c9",
    "#241a19",
    "#827a74"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xiii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "c4fa834bbd67",
@@ -7586,7 +9684,15 @@
    "#818684",
    "#979d9a",
    "#afb7b5"
-  ]
+  ],
+  "works": [
+   "yakuza-0"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "403f1c563287",
@@ -7614,7 +9720,15 @@
    "#4e4a4d",
    "#736e72",
    "#b3dacb"
-  ]
+  ],
+  "works": [
+   "one-piece"
+  ],
+  "emotion": {
+   "primary": "anger"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "cca6d00ef2e7",
@@ -7642,7 +9756,13 @@
    "#242023",
    "#4a5170",
    "#aba2a8"
-  ]
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "couple lying in a snowy plaza"
  },
  {
   "id": "5bfb16789609",
@@ -7670,7 +9790,15 @@
    "#5f655e",
    "#99bada",
    "#393b40"
-  ]
+  ],
+  "works": [
+   "your-name"
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "f6b581104ee1",
@@ -7698,7 +9826,13 @@
    "#43639d",
    "#265edb",
    "#34446c"
-  ]
+  ],
+  "emotion": {
+   "primary": "joy"
+  },
+  "confidence": "l",
+  "reviewed": false,
+  "note": "anime girl in neon city"
  },
  {
   "id": "8744b0f98054",
@@ -7726,7 +9860,15 @@
    "#ab7d41",
    "#856439",
    "#df9f47"
-  ]
+  ],
+  "works": [
+   "final-fantasy-x"
+  ],
+  "emotion": {
+   "primary": "sadness"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "7dfd9f844fbc",
@@ -7754,7 +9896,15 @@
    "#fbf9e4",
    "#ab9d6d",
    "#8e7f52"
-  ]
+  ],
+  "works": [
+   "final-fantasy-xii"
+  ],
+  "emotion": {
+   "primary": "ennui"
+  },
+  "confidence": "h",
+  "reviewed": false
  },
  {
   "id": "ed9ed48e16d6",
@@ -7780,6 +9930,15 @@
    "#000000",
    "#1c1c1c",
    "#fdfdfd"
-  ]
+  ],
+  "works": [
+   "word-game"
+  ],
+  "emotion": {
+   "primary": "anxiety"
+  },
+  "confidence": "m",
+  "reviewed": false,
+  "note": "word game title"
  }
 ]
