@@ -15,6 +15,8 @@ type Entry = {
   emotion?: { primary?: string };
   reviewed?: boolean;
   personal?: boolean;
+  confidence?: string;
+  note?: string;
 };
 type Work = { id: string; title: string; kind: string };
 
@@ -33,6 +35,8 @@ const items = (catalog as Entry[]).map((e) => ({
   emotion: e.emotion?.primary ?? '',
   reviewed: e.reviewed === true,
   personal: e.personal === true,
+  confidence: e.confidence ?? '',
+  note: e.note ?? '',
   src: `/view/${e.id}.avif`,
   raw: RAW_BASE + e.path.split('/').map(encodeURIComponent).join('/'),
 }));
@@ -68,6 +72,13 @@ const payload = { items, works };
         </div>
         <select id="work" aria-label="作品"></select>
         <select id="emotion" aria-label="情緒"></select>
+        <select id="rvfilter" aria-label="審核狀態" hidden></select>
+        <span id="rvbar" hidden>
+          <span id="rvprog"></span>
+          <button id="rvexport" type="button">匯出審核</button>
+          <button id="rvreset" type="button">清除本機審核</button>
+          <a href="?review=0">離開審核</a>
+        </span>
         <span id="count"></span>
       </div>
     </header>
@@ -78,6 +89,7 @@ const payload = { items, works };
       <button id="close" aria-label="關閉">×</button>
       <button id="prev" class="nav" aria-label="上一張" title="上一張 ←">‹</button>
       <button id="next" class="nav" aria-label="下一張" title="下一張 →">›</button>
+      <div id="lb-main">
       <img id="lb-img" alt="" />
       <footer>
         <strong id="lb-cap"></strong>
@@ -95,6 +107,32 @@ const payload = { items, works };
         <div id="lb-trail"></div>
       </section>
       <p id="lb-hint">← → 上一張 / 下一張 · 1–8 跳到聯想 · T 換聯想方式 · Esc 關閉</p>
+      </div>
+      <aside id="lb-review" hidden>
+        <h2>審核 <span id="rv-status"></span></h2>
+        <p id="rv-note"></p>
+        <div class="rv-label">情緒 <small>按數字鍵</small></div>
+        <div id="rv-emo"></div>
+        <div class="rv-label">作品 <small>按 W 輸入</small></div>
+        <div id="rv-works"></div>
+        <input id="rv-input" list="rv-list" placeholder="輸入作品名稱,Enter 加入" autocomplete="off" />
+        <datalist id="rv-list"></datalist>
+        <div id="rv-new" hidden>
+          <span>新作品「<b id="rv-new-title"></b>」類型</span>
+          <select id="rv-kind">
+            <option>game</option><option>anime</option><option>movie</option>
+            <option>show</option><option>book</option><option>music</option>
+          </select>
+          <button id="rv-new-ok" type="button">建立並加入</button>
+        </div>
+        <div class="rv-actions">
+          <button id="rv-confirm" type="button" class="primary">✓ 確認並下一張 <kbd>Enter</kbd></button>
+          <button id="rv-skip" type="button">跳過 <kbd>N</kbd></button>
+          <button id="rv-clear" type="button">清除作品 <kbd>X</kbd></button>
+          <button id="rv-personal" type="button">個人照片 <kbd>M</kbd></button>
+        </div>
+      </aside>
+      <div id="toast" hidden></div>
     </dialog>
 
     <script type="application/json" id="data" set:html={JSON.stringify(payload)} />
@@ -102,7 +140,7 @@ const payload = { items, works };
     <script>
       type Item = {
         id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string;
-        palette: string[]; similar: string[]; works: string[]; emotion: string; reviewed: boolean; personal: boolean;
+        palette: string[]; similar: string[]; works: string[]; emotion: string; reviewed: boolean; personal: boolean; confidence: string; note: string;
       };
       type WorkInfo = { id: string; title: string; kind: string; count: number };
       const { items, works }: { items: Item[]; works: WorkInfo[] } = JSON.parse(document.getElementById('data')!.textContent!);
@@ -132,14 +170,34 @@ const payload = { items, works };
       let visible: Item[] = items; // grid order after filtering; used by the arrow keys
 
       const opt = (value: string, text: string) => Object.assign(document.createElement('option'), { value, textContent: text });
-      const unassigned = items.filter((i) => i.works.length === 0).length;
-      workSel.append(opt('', '全部作品'), opt('__none', `（未歸類）${unassigned}`));
-      for (const w of works) workSel.append(opt(w.id, `${w.title}  ${w.count}`));
-      emoSel.append(opt('', '全部情緒'));
-      for (const [k, v] of Object.entries(EMOTIONS)) {
-        const n = items.filter((i) => i.emotion === k).length;
-        if (n) emoSel.append(opt(k, `${v.label}  ${n}`));
+      // Rebuilt after every review edit so the counts stay right.
+      function buildWorkOptions() {
+        const keep = workSel.value;
+        const usage = new Map<string, number>();
+        for (const it of items) for (const w of it.works) usage.set(w, (usage.get(w) ?? 0) + 1);
+        const list = works
+          .filter((w) => usage.has(w.id))
+          .map((w) => ({ ...w, count: usage.get(w.id)! }))
+          .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title));
+        const none = items.filter((i) => i.works.length === 0).length;
+        workSel.replaceChildren(opt('', '全部作品'), opt('__none', `（未歸類）${none}`), ...list.map((w) => opt(w.id, `${w.title}  ${w.count}`)));
+        workSel.value = [...workSel.options].some((o) => o.value === keep) ? keep : '';
+        document.getElementById('rv-list')!.replaceChildren(
+          ...works.map((w) => Object.assign(document.createElement('option'), { value: w.title, label: w.kind })),
+        );
       }
+      function buildEmotionOptions() {
+        const keep = emoSel.value;
+        const opts = [opt('', '全部情緒')];
+        for (const [k, v] of Object.entries(EMOTIONS)) {
+          const n = items.filter((i) => i.emotion === k).length;
+          if (n) opts.push(opt(k, `${v.label}  ${n}`));
+        }
+        emoSel.replaceChildren(...opts);
+        emoSel.value = [...emoSel.options].some((o) => o.value === keep) ? keep : '';
+      }
+      buildWorkOptions();
+      buildEmotionOptions();
 
       const cards = items.map((it) => {
         const a = document.createElement('a');
@@ -153,29 +211,39 @@ const payload = { items, works };
         img.alt = it.caption;
         img.src = `/thumbs/${it.id}.avif`;
         a.append(img);
-        const emo = EMOTIONS[it.emotion];
-        if (emo) {
-          const dot = document.createElement('i');
-          dot.className = 'dot';
-          dot.style.background = emo.color;
-          dot.title = emo.label;
-          a.append(dot);
-        }
+        const dot = document.createElement('i');
+        dot.className = 'dot';
+        a.append(dot);
         a.addEventListener('click', (ev) => { ev.preventDefault(); go(it, 'fresh'); });
         grid.append(a);
-        const hay = [it.caption, ...it.works.map((w) => workTitle.get(w) ?? w)].join(' ').toLowerCase();
-        return { it, a, hay };
+        return { it, a, dot };
       });
+      const cardOf = new Map(cards.map((c) => [c.it.id, c]));
+      function paintCard(c: { it: Item; a: HTMLElement; dot: HTMLElement }) {
+        const e = EMOTIONS[c.it.emotion];
+        c.dot.hidden = !e;
+        c.dot.style.background = e?.color ?? 'transparent';
+        c.dot.title = e?.label ?? '';
+        c.a.classList.toggle('reviewed', c.it.reviewed);
+      }
+      cards.forEach(paintCard);
+      const hayOf = (it: Item) => [it.caption, ...it.works.map((w) => workTitle.get(w) ?? w)].join(' ').toLowerCase();
 
       function apply() {
         const term = q.value.trim().toLowerCase();
         const work = workSel.value;
         const emotion = emoSel.value;
         let n = 0;
-        for (const { it, a, hay } of cards) {
+        const rf = reviewOn ? rvSel.value : '';
+        for (const { it, a } of cards) {
           const ok =
             (device === 'all' || it.device === device) &&
-            (!term || hay.includes(term)) &&
+            (!term || hayOf(it).includes(term)) &&
+            (!rf ||
+              (rf === 'todo' && !it.reviewed) ||
+              (rf === 'low' && !it.reviewed && it.confidence === 'l') ||
+              (rf === 'mid' && !it.reviewed && it.confidence !== 'h') ||
+              (rf === 'done' && it.reviewed)) &&
             (!work || (work === '__none' ? it.works.length === 0 : it.works.includes(work))) &&
             (!emotion || it.emotion === emotion);
           a.hidden = !ok;
@@ -308,7 +376,9 @@ const payload = { items, works };
           chips.push(b);
         }
         if (it.personal) chips.push(Object.assign(document.createElement('span'), { className: 'chip', textContent: '個人照片' }));
-        if (!it.reviewed && (it.works.length || emo)) {
+        if (it.reviewed) {
+          chips.push(Object.assign(document.createElement('span'), { className: 'chip', textContent: '已人工審核 ✓' }));
+        } else if (it.works.length || emo) {
           chips.push(Object.assign(document.createElement('span'), { className: 'chip note', textContent: 'AI 建議・未審核', title: '作品與情緒由 AI 判斷,尚未人工確認' }));
         }
         tags.replaceChildren(...chips);
@@ -355,6 +425,7 @@ const payload = { items, works };
           return b;
         }));
 
+        renderReview(it);
         box.scrollTop = 0;
         if (!box.open) box.showModal();
       }
@@ -370,10 +441,13 @@ const payload = { items, works };
 
       document.addEventListener('keydown', (ev) => {
         if (!box.open || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+        const tag = (ev.target as HTMLElement | null)?.tagName;
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return; // typing: leave keys alone
         const k = ev.key;
+        if (reviewOn && reviewKey(ev)) { ev.preventDefault(); return; }
         if (k === 'ArrowLeft') step(-1);
         else if (k === 'ArrowRight') step(1);
-        else if (/^[1-8]$/.test(k)) { const r = currentList[Number(k) - 1]; if (r) go(r, 'assoc'); }
+        else if (!reviewOn && /^[1-8]$/.test(k)) { const r = currentList[Number(k) - 1]; if (r) go(r, 'assoc'); }
         else if (k === 't' || k === 'T') cycleMode();
         else if (k === 'Backspace') back();
         else return;
@@ -381,6 +455,231 @@ const payload = { items, works };
       });
       document.getElementById('prev')!.addEventListener('click', () => step(-1));
       document.getElementById('next')!.addEventListener('click', () => step(1));
+
+
+      // ---- Review mode: edit the suggestions locally, then export them as a file ----
+      const REVIEW_KEY = 'afterimage-review-v1';
+      const MODE_KEY = 'afterimage-review-on';
+      const qs = new URLSearchParams(location.search);
+      if (qs.get('review') === '1') localStorage.setItem(MODE_KEY, '1');
+      if (qs.get('review') === '0') localStorage.removeItem(MODE_KEY);
+      const reviewOn = localStorage.getItem(MODE_KEY) === '1';
+
+      type Review = { works: string[]; emotion: string; personal: boolean };
+      type NewWork = { id: string; title: string; kind: string };
+      let store: { reviews: Record<string, Review>; newWorks: NewWork[] } = { reviews: {}, newWorks: [] };
+      try {
+        const raw = JSON.parse(localStorage.getItem(REVIEW_KEY) ?? 'null');
+        if (raw?.reviews) store = { reviews: raw.reviews, newWorks: raw.newWorks ?? [] };
+      } catch { /* ignore a corrupt store */ }
+      const persist = () => localStorage.setItem(REVIEW_KEY, JSON.stringify(store));
+
+      const rvSel = document.getElementById('rvfilter') as HTMLSelectElement;
+      const rvInput = document.getElementById('rv-input') as HTMLInputElement;
+      const EMO_KEYS = Object.keys(EMOTIONS);
+      const CONF: Record<string, string> = { h: '高', m: '中', l: '低' };
+      let pendingTitle = '';
+
+      function toast(msg: string) {
+        const el = document.getElementById('toast')!;
+        el.textContent = msg;
+        el.hidden = false;
+        setTimeout(() => { el.hidden = true; }, 2400);
+      }
+
+      function slug(title: string): string {
+        let id = title.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        if (!id) {
+          let h = 0;
+          for (const ch of title) h = (h * 31 + ch.codePointAt(0)!) >>> 0;
+          id = 'w-' + h.toString(36);
+        }
+        let out = id;
+        for (let n = 2; workTitle.has(out); n++) out = `${id}-${n}`;
+        return out;
+      }
+
+      function progress() {
+        const done = items.filter((i) => i.reviewed).length;
+        document.getElementById('rvprog')!.textContent =
+          `已審核 ${done}/${items.length}（本機待匯出 ${Object.keys(store.reviews).length}）`;
+      }
+
+      // Every edit stores a full snapshot of the three editable fields for that image.
+      function touch(it: Item) {
+        it.reviewed = true;
+        store.reviews[it.id] = { works: [...it.works], emotion: it.emotion, personal: it.personal };
+        persist();
+        paintCard(cardOf.get(it.id)!);
+        buildWorkOptions();
+        buildEmotionOptions();
+        progress();
+        apply();
+        show(it);
+      }
+
+      function addWork(it: Item, id: string) {
+        if (!it.works.includes(id)) it.works = [...it.works, id];
+        touch(it);
+      }
+
+      function addWorkFromInput() {
+        const v = rvInput.value.trim();
+        if (!v || !current) return;
+        const hit = works.find((w) => w.title.toLowerCase() === v.toLowerCase() || w.id === v.toLowerCase());
+        if (hit) { rvInput.value = ''; rvInput.blur(); addWork(current, hit.id); return; }
+        pendingTitle = v;
+        document.getElementById('rv-new-title')!.textContent = v;
+        document.getElementById('rv-new')!.hidden = false;
+      }
+
+      function createWork() {
+        if (!current || !pendingTitle) return;
+        const kind = (document.getElementById('rv-kind') as HTMLSelectElement).value;
+        const w: NewWork = { id: slug(pendingTitle), title: pendingTitle, kind };
+        store.newWorks.push(w);
+        works.push({ ...w, count: 0 });
+        workTitle.set(w.id, w.title);
+        pendingTitle = '';
+        rvInput.value = '';
+        rvInput.blur();
+        document.getElementById('rv-new')!.hidden = true;
+        addWork(current, w.id);
+      }
+
+      function nextUnreviewedFrom(list: Item[], idx: number) {
+        for (let k = 1; k <= list.length; k++) {
+          const c = list[(idx + k + list.length) % list.length];
+          if (!c.reviewed) { go(c, 'fresh'); return; }
+        }
+        toast('這個範圍的圖都審核完了 ✓');
+      }
+
+      function skip() {
+        if (!current) return;
+        const list = visible.length ? visible : items;
+        nextUnreviewedFrom(list, list.findIndex((x) => x.id === current!.id));
+      }
+
+      function confirmAndNext(it: Item) {
+        const list = visible.length ? visible : items; // taken before the filter reacts to this edit
+        const idx = list.findIndex((x) => x.id === it.id);
+        touch(it);
+        nextUnreviewedFrom(list, idx);
+      }
+
+      function reviewKey(ev: KeyboardEvent): boolean {
+        if (!current) return false;
+        const it = current;
+        if (/^[1-9]$/.test(ev.key)) { it.emotion = EMO_KEYS[Number(ev.key) - 1]; touch(it); return true; }
+        switch (ev.key.toLowerCase()) {
+          case 'enter': confirmAndNext(it); return true;
+          case 'n': skip(); return true;
+          case 'x': it.works = []; touch(it); return true;
+          case 'm': it.personal = !it.personal; touch(it); return true;
+          case 'w': rvInput.focus(); return true;
+        }
+        return false;
+      }
+
+      function renderReview(it: Item) {
+        const panel = document.getElementById('lb-review')!;
+        panel.hidden = !reviewOn;
+        if (!reviewOn) return;
+
+        document.getElementById('rv-status')!.textContent = it.reviewed ? '已審核 ✓' : '未審核';
+        const conf = it.confidence && !it.reviewed ? `AI 把握度「${CONF[it.confidence] ?? it.confidence}」` : '';
+        document.getElementById('rv-note')!.textContent = [conf, !it.reviewed ? it.note : ''].filter(Boolean).join(' — ');
+
+        document.getElementById('rv-emo')!.replaceChildren(...EMO_KEYS.map((k, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'rv-emo';
+          b.style.setProperty('--c', EMOTIONS[k].color);
+          b.setAttribute('aria-pressed', String(it.emotion === k));
+          b.textContent = `${i + 1} ${EMOTIONS[k].label.split(' ')[0]}`;
+          b.addEventListener('click', () => { it.emotion = k; touch(it); });
+          return b;
+        }));
+
+        const list = document.getElementById('rv-works')!;
+        list.replaceChildren(...it.works.map((id) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'chip work';
+          b.textContent = `${workTitle.get(id) ?? id} ×`;
+          b.title = '移除';
+          b.addEventListener('click', () => { it.works = it.works.filter((w) => w !== id); touch(it); });
+          return b;
+        }));
+        if (!it.works.length) list.append(Object.assign(document.createElement('span'), { className: 'chip', textContent: '（未歸類）' }));
+
+        document.getElementById('rv-personal')!.setAttribute('aria-pressed', String(it.personal));
+        document.getElementById('rv-new')!.hidden = !pendingTitle;
+      }
+
+      function exportReview() {
+        const data = { version: 1, exportedAt: new Date().toISOString(), newWorks: store.newWorks, reviews: store.reviews };
+        const text = JSON.stringify(data, null, 1);
+        const stamp = data.exportedAt.slice(0, 16).replace(/[-:T]/g, '');
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
+        a.download = `afterimage-review-${stamp}.json`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        const btn = document.getElementById('rvexport')!;
+        navigator.clipboard?.writeText(text)?.then(
+          () => { btn.textContent = '已下載並複製 ✓'; },
+          () => { btn.textContent = '已下載(複製失敗)'; },
+        );
+        setTimeout(() => { btn.textContent = '匯出審核'; }, 2500);
+      }
+
+      // wiring
+      document.getElementById('rv-confirm')!.addEventListener('click', () => current && confirmAndNext(current));
+      document.getElementById('rv-skip')!.addEventListener('click', skip);
+      document.getElementById('rv-clear')!.addEventListener('click', () => { if (current) { current.works = []; touch(current); } });
+      document.getElementById('rv-personal')!.addEventListener('click', () => { if (current) { current.personal = !current.personal; touch(current); } });
+      document.getElementById('rv-new-ok')!.addEventListener('click', createWork);
+      rvInput.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); addWorkFromInput(); } });
+      rvInput.addEventListener('change', addWorkFromInput);
+      document.getElementById('rvexport')!.addEventListener('click', exportReview);
+      document.getElementById('rvreset')!.addEventListener('click', () => {
+        if (confirm('清除這台瀏覽器裡尚未匯出的審核?此動作無法復原。')) {
+          localStorage.removeItem(REVIEW_KEY);
+          location.reload();
+        }
+      });
+      rvSel.addEventListener('change', apply);
+
+      if (reviewOn) {
+        document.body.classList.add('review');
+        rvSel.hidden = false;
+        document.getElementById('rvbar')!.hidden = false;
+        document.getElementById('lb-hint')!.textContent = '← → 上一張 / 下一張 · 點下方縮圖聯想 · T 換聯想方式 · Backspace 退回 · Esc 關閉';
+        rvSel.replaceChildren(
+          opt('', '全部審核狀態'), opt('todo', '未審核'), opt('mid', '未審核・把握度中以下'),
+          opt('low', '未審核・把握度低'), opt('done', '已審核'),
+        );
+        // re-apply what was reviewed earlier in this browser
+        for (const w of store.newWorks) {
+          if (workTitle.has(w.id)) continue;
+          works.push({ ...w, count: 0 });
+          workTitle.set(w.id, w.title);
+        }
+        for (const [id, r] of Object.entries(store.reviews)) {
+          const it = byId.get(id);
+          if (!it) continue;
+          it.works = r.works;
+          it.emotion = r.emotion;
+          it.personal = r.personal;
+          it.reviewed = true;
+        }
+        cards.forEach(paintCard);
+        buildWorkOptions();
+        buildEmotionOptions();
+        progress();
+      }
 
       q.addEventListener('input', apply);
       workSel.addEventListener('change', apply);
@@ -454,6 +753,36 @@ const payload = { items, works };
       #lb-trail button { flex: none; height: 36px; padding: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #15151a; cursor: pointer; opacity: .75; }
       #lb-trail button:hover { opacity: 1; }
       #lb-trail img { height: 100%; width: auto; display: block; }
+      [hidden] { display: none !important; }
+      body.review .card.reviewed::after { content: '✓'; position: absolute; left: 8px; top: 5px; font-size: 13px; font-weight: 700; color: #7ee787; text-shadow: 0 0 4px #000; }
+      #rvbar { display: inline-flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; font-size: 12px; color: var(--dim); }
+      #rvbar button { font: inherit; font-size: 12px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+      #rvbar a { color: var(--dim); }
+      body.review dialog[open] { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 0 20px; width: min(1560px, 96vw); }
+      body.review #lb-img { max-width: 100%; }
+      body.review dialog[open] { padding-right: 62px; } /* keep clear of the fixed next button */
+      #lb-main { min-width: 0; }
+      #lb-review { padding: 16px 16px 16px 0; font-size: 13px; position: sticky; top: 0; align-self: start; max-height: 96vh; overflow-y: auto; }
+      #lb-review h2 { margin: 0 0 4px; font-size: 14px; }
+      #rv-status { color: var(--dim); font-weight: 400; margin-left: 6px; }
+      #rv-note { min-height: 1.4em; margin: 0 0 10px; color: var(--dim); font-size: 12px; }
+      .rv-label { margin: 12px 0 6px; color: var(--dim); font-size: 12px; }
+      .rv-label small { opacity: .7; margin-left: 4px; }
+      #rv-emo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+      .rv-emo { font: inherit; font-size: 12px; color: var(--fg); background: #15151a; border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); border-radius: 6px; padding: 6px 4px; cursor: pointer; }
+      .rv-emo:hover { border-color: var(--c); }
+      .rv-emo[aria-pressed=true] { background: color-mix(in srgb, var(--c) 28%, #15151a); border-color: var(--c); font-weight: 600; }
+      #rv-works { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+      #rv-input { width: 100%; background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; font: inherit; }
+      #rv-new { margin-top: 8px; padding: 8px; border: 1px dashed var(--line); border-radius: 6px; display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; font-size: 12px; }
+      #rv-new select, #rv-new button { font: inherit; font-size: 12px; padding: 3px 8px; }
+      .rv-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 16px; }
+      .rv-actions button { font: inherit; font-size: 12px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 8px 6px; cursor: pointer; }
+      .rv-actions button:hover { border-color: var(--dim); }
+      .rv-actions .primary { grid-column: 1 / -1; background: #1f3a2a; border-color: #2f6b45; font-size: 13px; padding: 10px; }
+      .rv-actions button[aria-pressed=true] { background: #1d1d25; border-color: var(--fg); }
+      kbd { font: inherit; font-size: 10px; opacity: .7; border: 1px solid #ffffff33; border-radius: 3px; padding: 0 4px; margin-left: 4px; }
+      #toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: #000d; color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 16px; z-index: 5; }
       #lb-hint { text-align: center; color: var(--dim); font-size: 12px; margin: 4px 0 10px; }
       #lb-pal i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff33; }
             #lb-trail-wrap h2 { margin: 0 0 4px; font-size: 12px; font-weight: 500; color: var(--dim); text-align: center; letter-spacing: .08em; }
