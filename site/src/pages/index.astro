@@ -1,0 +1,155 @@
+---
+import catalog from '../data/catalog.json';
+
+type Entry = {
+  id: string;
+  path: string;
+  caption: string;
+  device: 'desktop' | 'phone';
+  size: [number, number];
+  bytes: number;
+};
+
+const RAW_BASE = 'https://raw.githubusercontent.com/skyhong2002/afterimage/master/';
+
+const items = (catalog as Entry[]).map((e) => ({
+  id: e.id,
+  caption: e.caption,
+  device: e.device,
+  w: e.size[0],
+  h: e.size[1],
+  mb: Math.round((e.bytes / 1048576) * 10) / 10,
+  src: `/view/${e.id}.avif`,
+  raw: RAW_BASE + e.path.split('/').map(encodeURIComponent).join('/'),
+}));
+---
+
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>afterimage 殘影</title>
+    <meta name="description" content="A personal wallpaper collection." />
+  </head>
+  <body>
+    <header>
+      <h1>afterimage <span>殘影</span></h1>
+      <div class="controls">
+        <input id="q" type="search" placeholder="搜尋 caption…" autocomplete="off" />
+        <div id="device" role="group" aria-label="裝置">
+          <button data-v="all" aria-pressed="true">全部</button>
+          <button data-v="desktop" aria-pressed="false">桌面</button>
+          <button data-v="phone" aria-pressed="false">手機</button>
+        </div>
+        <span id="count"></span>
+      </div>
+    </header>
+
+    <main id="grid"></main>
+
+    <dialog id="lightbox">
+      <button id="close" aria-label="關閉">×</button>
+      <img id="lb-img" alt="" />
+      <footer>
+        <strong id="lb-cap"></strong>
+        <span id="lb-meta"></span>
+        <a id="lb-open" target="_blank" rel="noopener">原圖</a>
+      </footer>
+    </dialog>
+
+    <script type="application/json" id="data" set:html={JSON.stringify(items)} />
+
+    <script>
+      type Item = { id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string };
+      const items: Item[] = JSON.parse(document.getElementById('data')!.textContent!);
+      const grid = document.getElementById('grid')!;
+      const q = document.getElementById('q') as HTMLInputElement;
+      const count = document.getElementById('count')!;
+      const box = document.getElementById('lightbox') as HTMLDialogElement;
+      let device = 'all';
+
+      const cards = items.map((it) => {
+        const a = document.createElement('a');
+        a.href = '#' + it.id;
+        a.className = 'card ' + it.device;
+        const ar = it.w / it.h;
+        a.style.aspectRatio = `${it.w} / ${it.h}`;
+        a.style.flex = `${ar * 100} 1 ${ar * 220}px`;
+        const img = new Image();
+        img.loading = 'lazy';
+        img.alt = it.caption;
+        img.src = `/thumbs/${it.id}.avif`;
+        a.append(img);
+        a.addEventListener('click', (ev) => { ev.preventDefault(); open(it); });
+        grid.append(a);
+        return { it, a };
+      });
+
+      function apply() {
+        const term = q.value.trim().toLowerCase();
+        let n = 0;
+        for (const { it, a } of cards) {
+          const ok = (device === 'all' || it.device === device) && (!term || it.caption.toLowerCase().includes(term));
+          a.hidden = !ok;
+          if (ok) n++;
+        }
+        count.textContent = `${n} / ${items.length}`;
+      }
+
+      function open(it: Item) {
+        (document.getElementById('lb-img') as HTMLImageElement).src = it.src;
+        document.getElementById('lb-cap')!.textContent = it.caption;
+        document.getElementById('lb-meta')!.textContent = `${it.w}×${it.h} · ${it.mb} MB`;
+        (document.getElementById('lb-open') as HTMLAnchorElement).href = it.raw;
+        history.replaceState(null, '', '#' + it.id);
+        box.showModal();
+      }
+
+      q.addEventListener('input', apply);
+      document.querySelectorAll<HTMLButtonElement>('#device button').forEach((b) =>
+        b.addEventListener('click', () => {
+          device = b.dataset.v!;
+          document.querySelectorAll('#device button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+          apply();
+        }),
+      );
+      document.getElementById('close')!.addEventListener('click', () => box.close());
+      box.addEventListener('click', (ev) => { if (ev.target === box) box.close(); });
+      box.addEventListener('close', () => history.replaceState(null, '', location.pathname));
+
+      apply();
+      const hit = items.find((i) => '#' + i.id === location.hash);
+      if (hit) open(hit);
+    </script>
+
+    <style is:global>
+      :root { color-scheme: dark; --bg: #0b0b0e; --fg: #e8e6e3; --dim: #8a8a93; --line: #23232a; }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, "Noto Sans TC", sans-serif; }
+      header { position: sticky; top: 0; z-index: 2; padding: 14px 20px; background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+      h1 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: .04em; }
+      h1 span { color: var(--dim); font-weight: 400; margin-left: 6px; }
+      .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; flex: 1; }
+      input[type=search] { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; min-width: 220px; }
+      #device { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      #device button { background: none; color: var(--dim); border: 0; padding: 7px 14px; cursor: pointer; font: inherit; }
+      #device button[aria-pressed=true] { background: #1d1d25; color: var(--fg); }
+      #count { color: var(--dim); font-variant-numeric: tabular-nums; margin-left: auto; }
+      #grid { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px 20px 60px; }
+      #grid::after { content: ""; flex: 10 1 0; }
+      .card { display: block; background: #15151a; border-radius: 6px; overflow: hidden; }
+      .card[hidden] { display: none; }
+      .card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s, opacity .25s; }
+      .card:hover img { transform: scale(1.03); }
+      dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; color: var(--fg); }
+      dialog::backdrop { background: rgba(0,0,0,.88); }
+      dialog img { display: block; max-width: 96vw; max-height: calc(96vh - 52px); margin: 0 auto; border-radius: 4px; }
+      dialog footer { display: flex; gap: 14px; align-items: baseline; justify-content: center; padding: 10px; }
+      dialog footer span { color: var(--dim); }
+      dialog footer a { color: var(--fg); }
+      #close { position: fixed; top: 10px; right: 16px; font-size: 28px; background: none; border: 0; color: var(--fg); cursor: pointer; }
+    </style>
+  </body>
+</html>
