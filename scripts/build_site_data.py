@@ -25,6 +25,8 @@ OUT = ROOT / "site" / "src" / "data" / "catalog.json"
 WORKS = ROOT / "catalog" / "works.yaml"
 WORKS_OUT = ROOT / "site" / "src" / "data" / "works.json"
 API_OUT = ROOT / "site" / "public" / "api" / "wallpapers.json"
+INBOX_DIR = ROOT / "catalog" / "inbox"
+INBOX_OUT = ROOT / "site" / "public" / "api" / "inbox.json"
 
 # (subdir, long edge, quality)
 VARIANTS = [("thumbs", 720, 50), ("view", 2560, 60)]
@@ -96,9 +98,19 @@ def main() -> int:
     }
     API_OUT.parent.mkdir(parents=True, exist_ok=True)
     API_OUT.write_text(json.dumps(api, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    # Discovery inbox: candidates still waiting for a decision (see scripts/discover.py).
+    pending = []
+    for f in sorted(INBOX_DIR.glob("*.json")) if INBOX_DIR.exists() else []:
+        for c in json.loads(f.read_text(encoding="utf-8")).get("candidates", []):
+            if c.get("status") == "new":
+                pending.append({k: c.get(k) for k in (
+                    "id", "source_url", "thumb_url", "preview_url", "width", "height", "favorites",
+                    "work_query", "reason", "nearest_id", "similarity")})
+    INBOX_OUT.write_text(json.dumps({"version": 1, "candidates": pending}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     print(
         f"{len(entries)} entries, {made} new files -> {OUT.relative_to(ROOT)}; {len(works)} works; "
-        f"public api: {len(api['wallpapers'])} wallpapers ({len(entries) - len(public)} personal left out)"
+        f"public api: {len(api['wallpapers'])} wallpapers ({len(entries) - len(public)} personal left out); "
+        f"{len(pending)} discovery candidates pending"
     )
     return 0
 
