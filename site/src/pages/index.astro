@@ -1,5 +1,6 @@
 ---
 import catalog from '../data/catalog.json';
+import worksData from '../data/works.json';
 
 type Entry = {
   id: string;
@@ -10,7 +11,12 @@ type Entry = {
   bytes: number;
   palette?: string[];
   similar?: string[];
+  works?: string[];
+  emotion?: { primary?: string };
+  reviewed?: boolean;
+  personal?: boolean;
 };
+type Work = { id: string; title: string; kind: string };
 
 const RAW_BASE = 'https://raw.githubusercontent.com/skyhong2002/afterimage/master/';
 
@@ -23,9 +29,23 @@ const items = (catalog as Entry[]).map((e) => ({
   mb: Math.round((e.bytes / 1048576) * 10) / 10,
   palette: e.palette ?? [],
   similar: e.similar ?? [],
+  works: e.works ?? [],
+  emotion: e.emotion?.primary ?? '',
+  reviewed: e.reviewed === true,
+  personal: e.personal === true,
   src: `/view/${e.id}.avif`,
   raw: RAW_BASE + e.path.split('/').map(encodeURIComponent).join('/'),
 }));
+
+// Only works that actually have images, most images first.
+const usage = new Map<string, number>();
+for (const it of items) for (const w of it.works) usage.set(w, (usage.get(w) ?? 0) + 1);
+const works = (worksData as Work[])
+  .filter((w) => usage.has(w.id))
+  .map((w) => ({ ...w, count: usage.get(w.id)! }))
+  .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title));
+
+const payload = { items, works };
 ---
 
 <!doctype html>
@@ -46,6 +66,8 @@ const items = (catalog as Entry[]).map((e) => ({
           <button data-v="desktop" aria-pressed="false">桌面</button>
           <button data-v="phone" aria-pressed="false">手機</button>
         </div>
+        <select id="work" aria-label="作品"></select>
+        <select id="emotion" aria-label="情緒"></select>
         <span id="count"></span>
       </div>
     </header>
@@ -61,23 +83,55 @@ const items = (catalog as Entry[]).map((e) => ({
         <a id="lb-open" target="_blank" rel="noopener">原圖</a>
         <span id="lb-pal" aria-label="主要色彩"></span>
       </footer>
+      <div id="lb-tags"></div>
       <section id="lb-sim-wrap" hidden>
         <h2>相似的圖</h2>
         <div id="lb-sim"></div>
       </section>
     </dialog>
 
-    <script type="application/json" id="data" set:html={JSON.stringify(items)} />
+    <script type="application/json" id="data" set:html={JSON.stringify(payload)} />
 
     <script>
-      type Item = { id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string; palette: string[]; similar: string[] };
-      const items: Item[] = JSON.parse(document.getElementById('data')!.textContent!);
+      type Item = {
+        id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string;
+        palette: string[]; similar: string[]; works: string[]; emotion: string; reviewed: boolean; personal: boolean;
+      };
+      type WorkInfo = { id: string; title: string; kind: string; count: number };
+      const { items, works }: { items: Item[]; works: WorkInfo[] } = JSON.parse(document.getElementById('data')!.textContent!);
       const byId = new Map(items.map((i) => [i.id, i]));
+      const workTitle = new Map(works.map((w) => [w.id, w.title]));
+
+      // Inside Out emotions and their colours
+      const EMOTIONS: Record<string, { label: string; color: string }> = {
+        joy: { label: '喜悅 Joy', color: '#f5c518' },
+        sadness: { label: '憂傷 Sadness', color: '#3b82f6' },
+        anger: { label: '憤怒 Anger', color: '#ef4444' },
+        fear: { label: '恐懼 Fear', color: '#a855f7' },
+        disgust: { label: '厭惡 Disgust', color: '#84cc16' },
+        anxiety: { label: '焦慮 Anxiety', color: '#f97316' },
+        envy: { label: '羨慕 Envy', color: '#14b8a6' },
+        ennui: { label: '無聊 Ennui', color: '#6366f1' },
+        embarrassment: { label: '尷尬 Embarrassment', color: '#ec4899' },
+      };
+
       const grid = document.getElementById('grid')!;
       const q = document.getElementById('q') as HTMLInputElement;
       const count = document.getElementById('count')!;
       const box = document.getElementById('lightbox') as HTMLDialogElement;
+      const workSel = document.getElementById('work') as HTMLSelectElement;
+      const emoSel = document.getElementById('emotion') as HTMLSelectElement;
       let device = 'all';
+
+      const opt = (value: string, text: string) => Object.assign(document.createElement('option'), { value, textContent: text });
+      const unassigned = items.filter((i) => i.works.length === 0).length;
+      workSel.append(opt('', '全部作品'), opt('__none', `（未歸類）${unassigned}`));
+      for (const w of works) workSel.append(opt(w.id, `${w.title}  ${w.count}`));
+      emoSel.append(opt('', '全部情緒'));
+      for (const [k, v] of Object.entries(EMOTIONS)) {
+        const n = items.filter((i) => i.emotion === k).length;
+        if (n) emoSel.append(opt(k, `${v.label}  ${n}`));
+      }
 
       const cards = items.map((it) => {
         const a = document.createElement('a');
@@ -91,16 +145,31 @@ const items = (catalog as Entry[]).map((e) => ({
         img.alt = it.caption;
         img.src = `/thumbs/${it.id}.avif`;
         a.append(img);
+        const emo = EMOTIONS[it.emotion];
+        if (emo) {
+          const dot = document.createElement('i');
+          dot.className = 'dot';
+          dot.style.background = emo.color;
+          dot.title = emo.label;
+          a.append(dot);
+        }
         a.addEventListener('click', (ev) => { ev.preventDefault(); open(it); });
         grid.append(a);
-        return { it, a };
+        const hay = [it.caption, ...it.works.map((w) => workTitle.get(w) ?? w)].join(' ').toLowerCase();
+        return { it, a, hay };
       });
 
       function apply() {
         const term = q.value.trim().toLowerCase();
+        const work = workSel.value;
+        const emotion = emoSel.value;
         let n = 0;
-        for (const { it, a } of cards) {
-          const ok = (device === 'all' || it.device === device) && (!term || it.caption.toLowerCase().includes(term));
+        for (const { it, a, hay } of cards) {
+          const ok =
+            (device === 'all' || it.device === device) &&
+            (!term || hay.includes(term)) &&
+            (!work || (work === '__none' ? it.works.length === 0 : it.works.includes(work))) &&
+            (!emotion || it.emotion === emotion);
           a.hidden = !ok;
           if (ok) n++;
         }
@@ -121,6 +190,33 @@ const items = (catalog as Entry[]).map((e) => ({
           s.title = c;
           return s;
         }));
+
+        const tags = document.getElementById('lb-tags')!;
+        const chips: HTMLElement[] = it.works.map((id) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'chip work';
+          b.textContent = workTitle.get(id) ?? id;
+          b.title = '只看這部作品';
+          b.addEventListener('click', () => { workSel.value = id; apply(); box.close(); });
+          return b;
+        });
+        const emo = EMOTIONS[it.emotion];
+        if (emo) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'chip emo';
+          b.style.setProperty('--c', emo.color);
+          b.textContent = emo.label;
+          b.title = '只看這種情緒';
+          b.addEventListener('click', () => { emoSel.value = it.emotion; apply(); box.close(); });
+          chips.push(b);
+        }
+        if (it.personal) chips.push(Object.assign(document.createElement('span'), { className: 'chip', textContent: '個人照片' }));
+        if (!it.reviewed && (it.works.length || emo)) {
+          chips.push(Object.assign(document.createElement('span'), { className: 'chip note', textContent: 'AI 建議・未審核', title: '作品與情緒由 AI 判斷,尚未人工確認' }));
+        }
+        tags.replaceChildren(...chips);
 
         const sim = document.getElementById('lb-sim')!;
         const related = it.similar.map((id) => byId.get(id)).filter((x): x is Item => !!x);
@@ -143,6 +239,8 @@ const items = (catalog as Entry[]).map((e) => ({
       }
 
       q.addEventListener('input', apply);
+      workSel.addEventListener('change', apply);
+      emoSel.addEventListener('change', apply);
       document.querySelectorAll<HTMLButtonElement>('#device button').forEach((b) =>
         b.addEventListener('click', () => {
           device = b.dataset.v!;
@@ -182,8 +280,17 @@ const items = (catalog as Entry[]).map((e) => ({
       dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; color: var(--fg); }
       dialog::backdrop { background: rgba(0,0,0,.88); }
       dialog { overflow-y: auto; }
-      #lb-img { display: block; max-width: 96vw; max-height: calc(96vh - 190px); margin: 0 auto; border-radius: 4px; }
+      #lb-img { display: block; max-width: 96vw; max-height: calc(96vh - 230px); margin: 0 auto; border-radius: 4px; }
       dialog footer { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; justify-content: center; padding: 10px; }
+      select { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; max-width: 220px; font: inherit; }
+      .card { position: relative; }
+      .dot { position: absolute; top: 8px; right: 8px; width: 9px; height: 9px; border-radius: 50%; box-shadow: 0 0 0 2px #0008; }
+      #lb-tags { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 0 10px 10px; }
+      .chip { font: inherit; font-size: 12px; color: var(--dim); background: #15151a; border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; }
+      button.chip { cursor: pointer; color: var(--fg); }
+      button.chip:hover { border-color: var(--dim); }
+      .chip.emo { border-color: var(--c); }
+      .chip.note { font-style: italic; }
       #lb-pal { display: inline-flex; gap: 4px; }
       #lb-pal i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff33; }
       #lb-sim-wrap { padding: 0 10px 14px; }
