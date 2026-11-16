@@ -1,5 +1,10 @@
 [
  {
+  "id": "a-place-further-than-the-universe",
+  "title": "A Place Further Than the Universe",
+  "kind": "anime"
+ },
+ {
   "id": "ajin",
   "title": "Ajin",
   "kind": "anime"
@@ -20,6 +25,16 @@
   "kind": "anime"
  },
  {
+  "id": "domestic-girlfriend",
+  "title": "Domestic Girlfriend",
+  "kind": "anime"
+ },
+ {
+  "id": "fullmetal-alchemist",
+  "title": "Fullmetal Alchemist",
+  "kind": "anime"
+ },
+ {
   "id": "jojos-bizarre-adventure",
   "title": "JoJo's Bizarre Adventure",
   "kind": "anime"
@@ -27,6 +42,11 @@
  {
   "id": "kinos-journey",
   "title": "Kino's Journey",
+  "kind": "anime"
+ },
+ {
+  "id": "love-death-robots",
+  "title": "Love, Death & Robots",
   "kind": "anime"
  },
  {
@@ -100,6 +120,11 @@
   "kind": "anime"
  },
  {
+  "id": "white-album-2",
+  "title": "White Album 2",
+  "kind": "anime"
+ },
+ {
   "id": "your-lie-in-april",
   "title": "Your Lie in April",
   "kind": "anime"
@@ -130,8 +155,23 @@
   "kind": "game"
  },
  {
+  "id": "another-world",
+  "title": "Another World",
+  "kind": "game"
+ },
+ {
+  "id": "boom-beach",
+  "title": "Boom Beach",
+  "kind": "game"
+ },
+ {
   "id": "bravely-default",
   "title": "Bravely Default",
+  "kind": "game"
+ },
+ {
+  "id": "celeste",
+  "title": "Celeste",
   "kind": "game"
  },
  {
@@ -142,6 +182,11 @@
  {
   "id": "cytus",
   "title": "Cytus",
+  "kind": "game"
+ },
+ {
+  "id": "data-wing",
+  "title": "Data Wing",
   "kind": "game"
  },
  {
@@ -220,6 +265,11 @@
   "kind": "game"
  },
  {
+  "id": "mini-metro",
+  "title": "Mini Metro",
+  "kind": "game"
+ },
+ {
   "id": "mobius-final-fantasy",
   "title": "Mobius Final Fantasy",
   "kind": "game"
@@ -272,6 +322,11 @@
  {
   "id": "yakuza-0",
   "title": "Yakuza 0",
+  "kind": "game"
+ },
+ {
+  "id": "you-and-me-and-her-a-love-story",
+  "title": "YOU and ME and HER: A Love Story",
   "kind": "game"
  },
  {
@@ -360,14 +415,44 @@
   "kind": "movie"
  },
  {
+  "id": "cy-leo",
+  "title": "Cy Leo",
+  "kind": "music"
+ },
+ {
   "id": "daft-punk",
   "title": "Daft Punk",
+  "kind": "music"
+ },
+ {
+  "id": "detr",
+  "title": "detr",
+  "kind": "music"
+ },
+ {
+  "id": "jang-li",
+  "title": "Jang Li",
+  "kind": "music"
+ },
+ {
+  "id": "judy-s-harmonica-ensemble",
+  "title": "Judy's Harmonica Ensemble",
+  "kind": "music"
+ },
+ {
+  "id": "pykamia",
+  "title": "Pykamia",
   "kind": "music"
  },
  {
   "id": "queen",
   "title": "Queen",
   "kind": "music"
+ },
+ {
+  "id": "black-mirror",
+  "title": "Black Mirror",
+  "kind": "show"
  },
  {
   "id": "cosmos",
