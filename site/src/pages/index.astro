@@ -8,6 +8,8 @@ type Entry = {
   device: 'desktop' | 'phone';
   size: [number, number];
   bytes: number;
+  palette?: string[];
+  similar?: string[];
 };
 
 const RAW_BASE = 'https://raw.githubusercontent.com/skyhong2002/afterimage/master/';
@@ -19,6 +21,8 @@ const items = (catalog as Entry[]).map((e) => ({
   w: e.size[0],
   h: e.size[1],
   mb: Math.round((e.bytes / 1048576) * 10) / 10,
+  palette: e.palette ?? [],
+  similar: e.similar ?? [],
   src: `/view/${e.id}.avif`,
   raw: RAW_BASE + e.path.split('/').map(encodeURIComponent).join('/'),
 }));
@@ -55,14 +59,20 @@ const items = (catalog as Entry[]).map((e) => ({
         <strong id="lb-cap"></strong>
         <span id="lb-meta"></span>
         <a id="lb-open" target="_blank" rel="noopener">原圖</a>
+        <span id="lb-pal" aria-label="主要色彩"></span>
       </footer>
+      <section id="lb-sim-wrap" hidden>
+        <h2>相似的圖</h2>
+        <div id="lb-sim"></div>
+      </section>
     </dialog>
 
     <script type="application/json" id="data" set:html={JSON.stringify(items)} />
 
     <script>
-      type Item = { id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string };
+      type Item = { id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string; palette: string[]; similar: string[] };
       const items: Item[] = JSON.parse(document.getElementById('data')!.textContent!);
+      const byId = new Map(items.map((i) => [i.id, i]));
       const grid = document.getElementById('grid')!;
       const q = document.getElementById('q') as HTMLInputElement;
       const count = document.getElementById('count')!;
@@ -103,7 +113,33 @@ const items = (catalog as Entry[]).map((e) => ({
         document.getElementById('lb-meta')!.textContent = `${it.w}×${it.h} · ${it.mb} MB`;
         (document.getElementById('lb-open') as HTMLAnchorElement).href = it.raw;
         history.replaceState(null, '', '#' + it.id);
-        box.showModal();
+
+        const pal = document.getElementById('lb-pal')!;
+        pal.replaceChildren(...it.palette.map((c) => {
+          const s = document.createElement('i');
+          s.style.background = c;
+          s.title = c;
+          return s;
+        }));
+
+        const sim = document.getElementById('lb-sim')!;
+        const related = it.similar.map((id) => byId.get(id)).filter((x): x is Item => !!x);
+        document.getElementById('lb-sim-wrap')!.hidden = related.length === 0;
+        sim.replaceChildren(...related.map((r) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.title = r.caption;
+          const img = new Image();
+          img.alt = r.caption;
+          img.src = `/thumbs/${r.id}.avif`;
+          b.append(img);
+          b.addEventListener('click', () => open(r));
+          return b;
+        }));
+        sim.scrollLeft = 0;
+        box.scrollTop = 0;
+
+        if (!box.open) box.showModal();
       }
 
       q.addEventListener('input', apply);
@@ -145,8 +181,17 @@ const items = (catalog as Entry[]).map((e) => ({
       .card:hover img { transform: scale(1.03); }
       dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; color: var(--fg); }
       dialog::backdrop { background: rgba(0,0,0,.88); }
-      dialog img { display: block; max-width: 96vw; max-height: calc(96vh - 52px); margin: 0 auto; border-radius: 4px; }
-      dialog footer { display: flex; gap: 14px; align-items: baseline; justify-content: center; padding: 10px; }
+      dialog { overflow-y: auto; }
+      #lb-img { display: block; max-width: 96vw; max-height: calc(96vh - 190px); margin: 0 auto; border-radius: 4px; }
+      dialog footer { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; justify-content: center; padding: 10px; }
+      #lb-pal { display: inline-flex; gap: 4px; }
+      #lb-pal i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff33; }
+      #lb-sim-wrap { padding: 0 10px 14px; }
+      #lb-sim-wrap h2 { margin: 0 0 8px; font-size: 12px; font-weight: 500; color: var(--dim); text-align: center; letter-spacing: .08em; }
+      #lb-sim { display: flex; gap: 8px; overflow-x: auto; justify-content: center; }
+      #lb-sim button { flex: none; height: 84px; padding: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: #15151a; cursor: pointer; }
+      #lb-sim button:hover { border-color: var(--dim); }
+      #lb-sim img { height: 100%; width: auto; display: block; }
       dialog footer span { color: var(--dim); }
       dialog footer a { color: var(--fg); }
       #close { position: fixed; top: 10px; right: 16px; font-size: 28px; background: none; border: 0; color: var(--fg); cursor: pointer; }

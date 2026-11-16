@@ -9,7 +9,7 @@
 
 ## 現況
 
-- 284 張：`wallpaper/` 248 張（309 MB）、`phone wallpaper/` 36 張（22 MB），jpg 和 png 混用，最後更新在 2022 年。
+- 282 張：`wallpaper/` 248 張（309 MB）、`phone wallpaper/` 34 張（21 MB）。2026-11-17 刪除 2 張重複（內容相同的重新壓縮版），jpg 和 png 混用，最後更新在 2022 年。
 - 檔名是**個人註解**（`El Psy Congroo.jpg`、`the cake is a lie.png`、`but it refused.jpg`），本身就有意義，不能當作資料直接覆蓋掉。
 - 內容大多是遊戲、動畫、電影和影集（Persona、FF7、Steins;Gate、Undertale、Sherlock、Nolan 電影……），剛好和 infovore 的 Backloggd、Kitsu、Simkl 資料重疊。這就是可以串起來的地方。
 
