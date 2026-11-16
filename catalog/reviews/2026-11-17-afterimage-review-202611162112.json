@@ -1,0 +1,875 @@
+{
+ "version": 1,
+ "exportedAt": "2026-11-16T21:12:57.908Z",
+ "newWorks": [
+  {
+   "id": "another-world",
+   "title": "Another World",
+   "kind": "game"
+  },
+  {
+   "id": "boom-beach",
+   "title": "Boom Beach",
+   "kind": "game"
+  },
+  {
+   "id": "cy-leo",
+   "title": "Cy Leo",
+   "kind": "music"
+  },
+  {
+   "id": "data-wing",
+   "title": "Data Wing",
+   "kind": "game"
+  },
+  {
+   "id": "domestic-girlfriend",
+   "title": "Domestic Girlfriend",
+   "kind": "anime"
+  },
+  {
+   "id": "you-and-me-and-her-a-love-story",
+   "title": "YOU and ME and HER: A Love Story",
+   "kind": "game"
+  },
+  {
+   "id": "love-death-robots",
+   "title": "Love, Death & Robots",
+   "kind": "anime"
+  },
+  {
+   "id": "fullmetal-alchemist",
+   "title": "Fullmetal Alchemist",
+   "kind": "anime"
+  },
+  {
+   "id": "white-album-2",
+   "title": "White Album 2",
+   "kind": "anime"
+  },
+  {
+   "id": "jang-li",
+   "title": "Jang Li",
+   "kind": "music"
+  },
+  {
+   "id": "judy-s-harmonica-ensemble",
+   "title": "Judy's Harmonica Ensemble",
+   "kind": "music"
+  },
+  {
+   "id": "detr",
+   "title": "detr",
+   "kind": "music"
+  },
+  {
+   "id": "mini-metro",
+   "title": "Mini Metro",
+   "kind": "game"
+  },
+  {
+   "id": "black-mirror",
+   "title": "Black Mirror",
+   "kind": "show"
+  },
+  {
+   "id": "pykamia",
+   "title": "Pykamia",
+   "kind": "music"
+  },
+  {
+   "id": "celeste",
+   "title": "Celeste",
+   "kind": "game"
+  },
+  {
+   "id": "a-place-further-than-the-universe",
+   "title": "A Place Further Than the Universe",
+   "kind": "anime"
+  }
+ ],
+ "reviews": {
+  "b02dbe91bf01": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "db07cd56b951": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "c121ff24c027": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "071d329e61ea": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "ac3bfbd5aca8": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "ac54123c1159": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "4a941ef561c9": {
+   "works": [],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "fb7d962db0fb": {
+   "works": [],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "eff8e2d6abc3": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "1a8965372389": {
+   "works": [
+    "word-game"
+   ],
+   "emotion": "envy",
+   "personal": false
+  },
+  "ea240c061c70": {
+   "works": [
+    "final-fantasy-xiii"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "495a100fb7a8": {
+   "works": [
+    "word-game"
+   ],
+   "emotion": "envy",
+   "personal": false
+  },
+  "d636fc953667": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "236ea4f1e170": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "3407254324d2": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "033c1f314dfd": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "disgust",
+   "personal": false
+  },
+  "f4e4e67439d0": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "disgust",
+   "personal": false
+  },
+  "e81970fcdbe2": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "bf4fc5bb43dc": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "7df7e54cc736": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "c3f356912b7d": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "disgust",
+   "personal": false
+  },
+  "836166381b3b": {
+   "works": [
+    "persona-3"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "619a9b200ec6": {
+   "works": [
+    "final-fantasy-xv"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "ba1380d98b3a": {
+   "works": [
+    "final-fantasy-x"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "18386afc2504": {
+   "works": [
+    "final-fantasy-xiii"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "e9e8d2dc5ac6": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "cc6ba319d730": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "2baf53fb2439": {
+   "works": [
+    "persona-3"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "926b0c903117": {
+   "works": [
+    "persona-4"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "17604a74e895": {
+   "works": [
+    "persona-4"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "7339f2bba4bc": {
+   "works": [],
+   "emotion": "anger",
+   "personal": false
+  },
+  "4e1631019a4c": {
+   "works": [
+    "bravely-default"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "e430608c0fc8": {
+   "works": [
+    "persona-3"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "99f52f81bb15": {
+   "works": [
+    "steins-gate"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "8fb5febcd7dd": {
+   "works": [
+    "140"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "c014b508207a": {
+   "works": [
+    "assassination-classroom"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "66ec4f4bfc0f": {
+   "works": [
+    "one-piece"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "2e566d94a2ab": {
+   "works": [
+    "queen"
+   ],
+   "emotion": "disgust",
+   "personal": false
+  },
+  "ff80a294804b": {
+   "works": [
+    "5-centimeters-per-second"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "83a17ad0bcae": {
+   "works": [],
+   "emotion": "joy",
+   "personal": false
+  },
+  "d914fbb2c20b": {
+   "works": [
+    "made-in-abyss"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "7186f77acc74": {
+   "works": [
+    "ace-attorney"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "c6857973890c": {
+   "works": [
+    "one-piece"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "0a28f8c1c6fc": {
+   "works": [
+    "advance-wars"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "08a97e5000d5": {
+   "works": [
+    "undertale"
+   ],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "3325538d1204": {
+   "works": [
+    "final-fantasy-vii"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "d5d81accb09e": {
+   "works": [
+    "sword-art-online"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "f82845ed3862": {
+   "works": [
+    "ajin"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "bdeb1d004cd1": {
+   "works": [],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "6b6f2db908fb": {
+   "works": [
+    "alphago"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "189c71dfd024": {
+   "works": [
+    "cytus"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "456ca1cb5edc": {
+   "works": [
+    "another-world"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "482ea049bece": {
+   "works": [
+    "boom-beach"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "35f765091a04": {
+   "works": [
+    "vvvvvv"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "1f0ed6523ac7": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "1bb5aec217d6": {
+   "works": [],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "21c73ba54ffa": {
+   "works": [
+    "final-fantasy-vii"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "c856400f6e07": {
+   "works": [
+    "tokyo-ghoul"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "814cc5fb9efd": {
+   "works": [
+    "vvvvvv"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "74636daf2131": {
+   "works": [
+    "parasite"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "211963efce7e": {
+   "works": [
+    "life-is-strange"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "955b84fca5e5": {
+   "works": [
+    "your-lie-in-april"
+   ],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "8ff355094252": {
+   "works": [
+    "bravely-default"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "d25635c25114": {
+   "works": [
+    "cy-leo"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "0c4b856b93f1": {
+   "works": [
+    "data-wing"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "4e0dc5a6205a": {
+   "works": [],
+   "emotion": "anxiety",
+   "personal": true
+  },
+  "93b9425b6fe3": {
+   "works": [],
+   "emotion": "joy",
+   "personal": false
+  },
+  "82def1ec6ce3": {
+   "works": [],
+   "emotion": "anxiety",
+   "personal": true
+  },
+  "56801f39ec5f": {
+   "works": [],
+   "emotion": "joy",
+   "personal": false
+  },
+  "b0d4244b174c": {
+   "works": [
+    "v-for-vendetta"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "7fa106a974ec": {
+   "works": [],
+   "emotion": "ennui",
+   "personal": true
+  },
+  "bada3e28785d": {
+   "works": [
+    "detroit-become-human"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "7689327cf255": {
+   "works": [],
+   "emotion": "joy",
+   "personal": true
+  },
+  "a314385eb17a": {
+   "works": [
+    "domestic-girlfriend"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "13ace94993e6": {
+   "works": [
+    "mobius-final-fantasy"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "554e2eeda9f6": {
+   "works": [
+    "naruto"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "d0e9aa200d38": {
+   "works": [
+    "you-and-me-and-her-a-love-story"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "555ba2f4dbd1": {
+   "works": [
+    "love-death-robots"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "e6544a6075cf": {
+   "works": [
+    "fullmetal-alchemist"
+   ],
+   "emotion": "envy",
+   "personal": false
+  },
+  "b4e0d9a04de7": {
+   "works": [
+    "gris"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "946dbdc0642e": {
+   "works": [],
+   "emotion": "joy",
+   "personal": true
+  },
+  "67b570f63327": {
+   "works": [
+    "gris"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "a4a8c421aa28": {
+   "works": [
+    "tokyo-ghoul"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "96864c670929": {
+   "works": [
+    "parasite"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "2d6f95f8c658": {
+   "works": [
+    "you-and-me-and-her-a-love-story"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "d76bbc39d5bf": {
+   "works": [
+    "white-album-2"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "138f7b580b30": {
+   "works": [
+    "white-album-2"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "4ce78fd63cbe": {
+   "works": [
+    "attack-on-titan"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "78c47da3dd60": {
+   "works": [
+    "jang-li"
+   ],
+   "emotion": "joy",
+   "personal": true
+  },
+  "f62fba36731f": {
+   "works": [
+    "judy-s-harmonica-ensemble"
+   ],
+   "emotion": "joy",
+   "personal": false
+  },
+  "da726a217281": {
+   "works": [],
+   "emotion": "ennui",
+   "personal": true
+  },
+  "2906884645b2": {
+   "works": [
+    "you-and-me-and-her-a-love-story"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "fdd4f0e9f70b": {
+   "works": [
+    "you-and-me-and-her-a-love-story"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "946f70566ea4": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "08c1ddc456a2": {
+   "works": [
+    "detroit-become-human"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "61c69c9864a8": {
+   "works": [
+    "mini-metro"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "44624dd4edad": {
+   "works": [
+    "undertale"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "910185001dc5": {
+   "works": [
+    "black-mirror"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "79f24c37e6f4": {
+   "works": [
+    "pykamia"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "6afb13d238b7": {
+   "works": [
+    "mobius-final-fantasy"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "2fc2c112ed18": {
+   "works": [],
+   "emotion": "joy",
+   "personal": true
+  },
+  "d696e88d7f43": {
+   "works": [
+    "ajin"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "365decec0b8d": {
+   "works": [
+    "celeste"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "482777fcc74c": {
+   "works": [
+    "parasite"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "f941c63f44b3": {
+   "works": [
+    "you-and-me-and-her-a-love-story"
+   ],
+   "emotion": "embarrassment",
+   "personal": false
+  },
+  "56eeaae4f4c7": {
+   "works": [
+    "persona-5"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "b91cec0b287d": {
+   "works": [
+    "assassination-classroom"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "64b506e5df3c": {
+   "works": [
+    "5-centimeters-per-second"
+   ],
+   "emotion": "ennui",
+   "personal": false
+  },
+  "576580765b33": {
+   "works": [
+    "love-death-robots"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "623a4d9f9c0b": {
+   "works": [
+    "death-stranding"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "75ff45895790": {
+   "works": [
+    "undertale"
+   ],
+   "emotion": "anxiety",
+   "personal": false
+  },
+  "c3c5c1078fdd": {
+   "works": [
+    "psycho-pass"
+   ],
+   "emotion": "fear",
+   "personal": false
+  },
+  "23c9bec0b37a": {
+   "works": [
+    "cytus"
+   ],
+   "emotion": "anger",
+   "personal": false
+  },
+  "c1a8c64ad3ae": {
+   "works": [
+    "attack-on-titan"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "cca6d00ef2e7": {
+   "works": [
+    "persona-3"
+   ],
+   "emotion": "sadness",
+   "personal": false
+  },
+  "f6b581104ee1": {
+   "works": [
+    "a-place-further-than-the-universe"
+   ],
+   "emotion": "joy",
+   "personal": false
+  }
+ }
+}

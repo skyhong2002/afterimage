@@ -9,10 +9,8 @@
   palette: ['#000000']
   works: [persona-5]
   emotion:
-    primary: fear
-  confidence: m
-  reviewed: false
-  note: dark Tokyo map
+    primary: ennui
+  reviewed: true
 - id: 2436df657b32
   path: phone wallpaper/1927240.png
   caption: '1927240'
@@ -38,9 +36,8 @@
   palette: ['#13090c', '#380405', '#2c262f', '#8b716f', '#574953']
   works: [persona-5]
   emotion:
-    primary: anger
-  confidence: h
-  reviewed: false
+    primary: joy
+  reviewed: true
 - id: c121ff24c027
   path: phone wallpaper/2128634.jpg
   caption: '2128634'
@@ -52,9 +49,8 @@
   palette: ['#f40000', '#000000', '#670101']
   works: [persona-5]
   emotion:
-    primary: anger
-  confidence: h
-  reviewed: false
+    primary: anxiety
+  reviewed: true
 - id: 071d329e61ea
   path: phone wallpaper/2128640.jpg
   caption: '2128640'
@@ -67,9 +63,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: Akechi with gun
+  reviewed: true
 - id: ac3bfbd5aca8
   path: phone wallpaper/476307.png
   caption: '476307'
@@ -82,8 +76,7 @@
   works: [persona-5]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ac54123c1159
   path: phone wallpaper/662899.jpg
   caption: '662899'
@@ -96,8 +89,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4a941ef561c9
   path: phone wallpaper/841340.png
   caption: '841340'
@@ -109,9 +101,7 @@
   palette: ['#798379', '#f4ece0', '#445551', '#a6a99c', '#233436']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: ruined city, lone figure
+  reviewed: true
 - id: fb7d962db0fb
   path: phone wallpaper/848644.png
   caption: '848644'
@@ -123,9 +113,7 @@
   palette: ['#4e4f4d', '#6a6b6a', '#1f1f1e', '#ededed', '#979795']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: grey ruin, figure with glowing sign
+  reviewed: true
 - id: eff8e2d6abc3
   path: phone wallpaper/9FSRNyT.jpg
   caption: 9FSRNyT
@@ -138,9 +126,7 @@
   works: [persona-5]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: Tokyo map
+  reviewed: true
 - id: 1a8965372389
   path: phone wallpaper/Android魔龍的佔據.jpg
   caption: Android魔龍的佔據
@@ -152,10 +138,8 @@
   palette: ['#000000', '#0e2108', '#254a12']
   works: [word-game]
   emotion:
-    primary: ennui
-  confidence: m
-  reviewed: false
-  note: pixel word game, Android version
+    primary: envy
+  reviewed: true
 - id: ea240c061c70
   path: phone wallpaper/crop.jpeg
   caption: crop
@@ -167,9 +151,8 @@
   palette: ['#f3f1f4', '#d7cfd2', '#6f444b', '#896c6e', '#a79191']
   works: [final-fantasy-xiii]
   emotion:
-    primary: ennui
-  confidence: h
-  reviewed: false
+    primary: sadness
+  reviewed: true
 - id: 495a100fb7a8
   path: phone wallpaper/ios魔龍的佔據.jpg
   caption: ios魔龍的佔據
@@ -181,10 +164,8 @@
   palette: ['#000000', '#18330c']
   works: [word-game]
   emotion:
-    primary: ennui
-  confidence: m
-  reviewed: false
-  note: pixel word game, iOS version
+    primary: envy
+  reviewed: true
 - id: d636fc953667
   path: phone wallpaper/P5_Futaba.jpg
   caption: P5_Futaba
@@ -197,8 +178,7 @@
   works: [persona-5]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 236ea4f1e170
   path: phone wallpaper/P5_Futaba2.jpg
   caption: P5_Futaba2
@@ -211,8 +191,7 @@
   works: [persona-5]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 3407254324d2
   path: phone wallpaper/P5_Haru.jpg
   caption: P5_Haru
@@ -224,9 +203,8 @@
   palette: ['#010001', '#540202', '#eab6c5', '#f01503', '#bb8086']
   works: [persona-5]
   emotion:
-    primary: anger
-  confidence: h
-  reviewed: false
+    primary: joy
+  reviewed: true
 - id: 033c1f314dfd
   path: phone wallpaper/P5_Kawakami.jpg
   caption: P5_Kawakami
@@ -238,9 +216,8 @@
   palette: ['#e1af23', '#060505', '#28221c', '#a07616', '#4d463c']
   works: [persona-5]
   emotion:
-    primary: joy
-  confidence: h
-  reviewed: false
+    primary: disgust
+  reviewed: true
 - id: f4e4e67439d0
   path: phone wallpaper/P5_Makoto2.jpg
   caption: P5_Makoto2
@@ -252,9 +229,8 @@
   palette: ['#100a0a', '#2e2c2c', '#e80b0b', '#7f0506', '#f4f3ed']
   works: [persona-5]
   emotion:
-    primary: anger
-  confidence: h
-  reviewed: false
+    primary: disgust
+  reviewed: true
 - id: e81970fcdbe2
   path: phone wallpaper/P5_Mifune.jpg
   caption: P5_Mifune
@@ -266,9 +242,8 @@
   palette: ['#2c2c3e', '#040404', '#151623', '#ae9793', '#8c7b75']
   works: [persona-5]
   emotion:
-    primary: ennui
-  confidence: h
-  reviewed: false
+    primary: joy
+  reviewed: true
 - id: bf4fc5bb43dc
   path: phone wallpaper/P5_TakeYourTime.jpg
   caption: P5_TakeYourTime
@@ -281,8 +256,7 @@
   works: [persona-5]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7df7e54cc736
   path: phone wallpaper/P5_Togo.jpg
   caption: P5_Togo
@@ -294,9 +268,8 @@
   palette: ['#0d1e3a', '#060608', '#3f373c', '#1f3559', '#615a5d']
   works: [persona-5]
   emotion:
-    primary: ennui
-  confidence: h
-  reviewed: false
+    primary: embarrassment
+  reviewed: true
 - id: c3f356912b7d
   path: phone wallpaper/P5_Yusuke2.jpg
   caption: P5_Yusuke2
@@ -308,9 +281,8 @@
   palette: ['#140a0d', '#342933', '#bb0d0d', '#f5f6f9', '#dadce2']
   works: [persona-5]
   emotion:
-    primary: anger
-  confidence: h
-  reviewed: false
+    primary: disgust
+  reviewed: true
 - id: 836166381b3b
   path: phone wallpaper/wp2777886-persona-3-the-movie-wallpaper.jpg
   caption: wp2777886-persona-3-the-movie-wallpaper
@@ -322,9 +294,8 @@
   palette: ['#f0f1ee', '#90c5f1', '#bfdef1', '#d6cbda']
   works: [persona-3]
   emotion:
-    primary: ennui
-  confidence: h
-  reviewed: false
+    primary: sadness
+  reviewed: true
 - id: 619a9b200ec6
   path: phone wallpaper/wp3398145.jpg
   caption: wp3398145
@@ -337,9 +308,7 @@
   works: [final-fantasy-xv]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: four on a road
+  reviewed: true
 - id: ba1380d98b3a
   path: phone wallpaper/wp3722289.jpg
   caption: wp3722289
@@ -352,8 +321,7 @@
   works: [final-fantasy-x]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 18386afc2504
   path: phone wallpaper/wp3722300.jpg
   caption: wp3722300
@@ -366,9 +334,7 @@
   works: [final-fantasy-xiii]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: Lightning
+  reviewed: true
 - id: e9e8d2dc5ac6
   path: phone wallpaper/wp4738064-persona-5-minimal-wallpapers.jpg
   caption: wp4738064-persona-5-minimal-wallpapers
@@ -381,8 +347,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cc6ba319d730
   path: phone wallpaper/wp4931884-minimalist-persona-wallpapers.jpg
   caption: wp4931884-minimalist-persona-wallpapers
@@ -395,9 +360,7 @@
   works: [persona-5]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: minimal B/W city
+  reviewed: true
 - id: 2baf53fb2439
   path: phone wallpaper/wp5357207-persona-landscape-phone-wallpapers.jpg
   caption: wp5357207-persona-landscape-phone-wallpapers
@@ -410,8 +373,7 @@
   works: [persona-3]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 926b0c903117
   path: phone wallpaper/wp5881924.jpg
   caption: wp5881924
@@ -423,9 +385,8 @@
   palette: ['#010304', '#fbda37', '#fdeb60', '#16161f', '#9f9aa2']
   works: [persona-4]
   emotion:
-    primary: anxiety
-  confidence: h
-  reviewed: false
+    primary: anger
+  reviewed: true
 - id: 17604a74e895
   path: phone wallpaper/wp5881945.jpg
   caption: wp5881945
@@ -438,8 +399,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7339f2bba4bc
   path: phone wallpaper/wp6389356.jpg
   caption: wp6389356
@@ -451,9 +411,7 @@
   palette: ['#f5e8c8', '#272b28', '#3a4841', '#4b6661', '#729085']
   emotion:
     primary: anger
-  confidence: l
-  reviewed: false
-  note: busy battle art
+  reviewed: true
 - id: 4e1631019a4c
   path: phone wallpaper/wp6389550.png
   caption: wp6389550
@@ -466,9 +424,7 @@
   works: [bravely-default]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: party on cake base
+  reviewed: true
 - id: e430608c0fc8
   path: phone wallpaper/wp7509178-persona-3-phone-wallpapers.jpg
   caption: wp7509178-persona-3-phone-wallpapers
@@ -481,8 +437,7 @@
   works: [persona-3]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 99f52f81bb15
   path: wallpaper/1.048596.jpeg
   caption: '1.048596'
@@ -495,8 +450,7 @@
   works: [steins-gate]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 8fb5febcd7dd
   path: wallpaper/140.png
   caption: '140'
@@ -508,10 +462,8 @@
   palette: ['#828282', '#d95fc8', '#ed6247', '#fcaa3c']
   works: ['140']
   emotion:
-    primary: joy
-  confidence: m
-  reviewed: false
-  note: pixel pyramid on noise
+    primary: anxiety
+  reviewed: true
 - id: c014b508207a
   path: wallpaper/2E.png
   caption: 2E
@@ -524,8 +476,7 @@
   works: [assassination-classroom]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 66ec4f4bfc0f
   path: wallpaper/3D2Y.png
   caption: 3D2Y
@@ -538,8 +489,7 @@
   works: [one-piece]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 2e566d94a2ab
   path: wallpaper/4queen.jpg
   caption: 4queen
@@ -551,10 +501,8 @@
   palette: ['#010101', '#2e1c1c']
   works: [queen]
   emotion:
-    primary: ennui
-  confidence: m
-  reviewed: false
-  note: band portrait
+    primary: disgust
+  reviewed: true
 - id: ff80a294804b
   path: wallpaper/5 cm per sec.jpg
   caption: 5 cm per sec
@@ -567,8 +515,7 @@
   works: [5-centimeters-per-second]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 83a17ad0bcae
   path: wallpaper/923forever.jpg
   caption: 923forever
@@ -580,9 +527,7 @@
   palette: ['#141215', '#312f2d', '#8a8377', '#a89984', '#3c5554']
   emotion:
     primary: joy
-  personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d914fbb2c20b
   path: wallpaper/abyss.jpg
   caption: abyss
@@ -595,8 +540,7 @@
   works: [made-in-abyss]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
+  reviewed: true
 - id: 7186f77acc74
   path: wallpaper/ace attorney.jpg
   caption: ace attorney
@@ -609,8 +553,7 @@
   works: [ace-attorney]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: c6857973890c
   path: wallpaper/ace.jpg
   caption: ace
@@ -623,9 +566,7 @@
   works: [one-piece]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: Ace arms wide
+  reviewed: true
 - id: 0a28f8c1c6fc
   path: wallpaper/advance war.png
   caption: advance war
@@ -638,8 +579,7 @@
   works: [advance-wars]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 08a97e5000d5
   path: wallpaper/advanture.png
   caption: advanture
@@ -651,10 +591,8 @@
   palette: ['#000000']
   works: [undertale]
   emotion:
-    primary: anxiety
-  confidence: m
-  reviewed: false
-  note: leave here dialog
+    primary: embarrassment
+  reviewed: true
 - id: 3325538d1204
   path: wallpaper/ahhh.jpg
   caption: ahhh
@@ -666,10 +604,8 @@
   palette: ['#0d0c0b', '#f8f3ee']
   works: [final-fantasy-vii]
   emotion:
-    primary: anger
-  confidence: m
-  reviewed: false
-  note: Cloud vs Sephiroth silhouette
+    primary: fear
+  reviewed: true
 - id: d5d81accb09e
   path: wallpaper/Aincard.png
   caption: Aincard
@@ -682,9 +618,7 @@
   works: [sword-art-online]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: Aincrad
+  reviewed: true
 - id: f82845ed3862
   path: wallpaper/ajin.jpg
   caption: ajin
@@ -697,8 +631,7 @@
   works: [ajin]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: bdeb1d004cd1
   path: wallpaper/allience.jpg
   caption: allience
@@ -709,10 +642,8 @@
     e0eeefe63fe8]
   palette: ['#1e1928', '#050409', '#433448', '#765b6d', '#927177']
   emotion:
-    primary: fear
-  confidence: l
-  reviewed: false
-  note: dark group huddled
+    primary: embarrassment
+  reviewed: true
 - id: 6b6f2db908fb
   path: wallpaper/Alpha Go.png
   caption: Alpha Go
@@ -725,9 +656,7 @@
   works: [alphago]
   emotion:
     primary: anxiety
-  confidence: m
-  reviewed: false
-  note: DeepMind title
+  reviewed: true
 - id: 189c71dfd024
   path: wallpaper/alpha.jpg
   caption: alpha
@@ -739,9 +668,8 @@
   palette: ['#fdfdfe', '#d4c8c6', '#e5e6e9', '#b69b97']
   works: [cytus]
   emotion:
-    primary: ennui
-  confidence: h
-  reviewed: false
+    primary: anxiety
+  reviewed: true
 - id: 456ca1cb5edc
   path: wallpaper/another worid.jpg
   caption: another worid
@@ -752,10 +680,9 @@
     8744b0f98054]
   palette: ['#3f4361', '#1c1d29', '#a5b4cc', '#ccd6e5', '#8594b3']
   emotion:
-    primary: ennui
-  confidence: l
-  reviewed: false
-  note: cave with beast silhouette
+    primary: fear
+  reviewed: true
+  works: [another-world]
 - id: 7f2a23ec89b0
   path: wallpaper/april.JPG
   caption: april
@@ -781,9 +708,8 @@
   palette: ['#534f4c', '#eaeef2', '#182c35', '#abdaf2', '#72bbdb']
   emotion:
     primary: anger
-  confidence: l
-  reviewed: false
-  note: island with tanks and explosions
+  reviewed: true
+  works: [boom-beach]
 - id: 4103e76dce71
   path: wallpaper/AwWQdMF.jpg
   caption: AwWQdMF
@@ -824,9 +750,7 @@
   palette: ['#a32b8d', '#830fcc', '#7b81cb', '#181a1a', '#8c146b']
   emotion:
     primary: joy
-  personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a69f8951747b
   path: wallpaper/behind the mask.jpg
   caption: behind the mask
@@ -852,9 +776,8 @@
   palette: ['#76705a', '#878581', '#c9c8c6', '#f0f0f0', '#aaa8a6']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: blurry frame
+  reviewed: true
+  personal: true
 - id: 801ceadb491a
   path: wallpaper/beta.jpg
   caption: beta
@@ -880,9 +803,8 @@
   palette: ['#010101', '#d9c7d3', '#5b0148']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: pixel puzzle game, same game as 73
+  reviewed: true
+  works: [vvvvvv]
 - id: 93b9425b6fe3
   path: wallpaper/bluesound.jpg
   caption: bluesound
@@ -894,9 +816,7 @@
   palette: ['#c4b7a3', '#0f1415', '#6d5a4c', '#d6dee0', '#3d3a37']
   emotion:
     primary: joy
-  personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 44cf034ba930
   path: wallpaper/bohemian_rhapsody.jpg
   caption: bohemian_rhapsody
@@ -979,9 +899,8 @@
   palette: ['#000000', '#1e1c1e', '#3e383c', '#666369']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: crowd watching two players at monitors
+  reviewed: true
+  personal: true
 - id: 1f0ed6523ac7
   path: wallpaper/Checkmate.jpg
   caption: Checkmate
@@ -993,9 +912,8 @@
   palette: ['#48453d', '#20170e', '#848573', '#5c605b', '#7c704d']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: anime girl in bookshop
+  reviewed: true
+  works: [persona-5]
 - id: 1bb5aec217d6
   path: wallpaper/choco.png
   caption: choco
@@ -1007,9 +925,7 @@
   palette: ['#1e1310', '#cbb295', '#856a5b']
   emotion:
     primary: embarrassment
-  confidence: l
-  reviewed: false
-  note: anime close-up, subtitle wants chocolate
+  reviewed: true
 - id: 21c73ba54ffa
   path: wallpaper/cloud remake.jpg
   caption: cloud remake
@@ -1022,8 +938,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: c856400f6e07
   path: wallpaper/coffee.png
   caption: coffee
@@ -1035,9 +950,8 @@
   palette: ['#fffef8', '#060304', '#d6aa96', '#2c100f', '#938a7f']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: guy in red hoodie with coffee
+  reviewed: true
+  works: [tokyo-ghoul]
 - id: 814cc5fb9efd
   path: wallpaper/combine!.png
   caption: combine!
@@ -1049,9 +963,8 @@
   palette: ['#010101', '#6d0c3d', '#221625', '#4b4d58']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: pixel puzzle game combine
+  reviewed: true
+  works: [vvvvvv]
 - id: 74636daf2131
   path: wallpaper/conceal.jpg
   caption: conceal
@@ -1063,9 +976,8 @@
   palette: ['#1d1e1f', '#6e7372', '#31383c', '#524d3f', '#838c96']
   emotion:
     primary: joy
-  confidence: l
-  reviewed: false
-  note: people clapping around a cake, live action
+  reviewed: true
+  works: [parasite]
 - id: 211963efce7e
   path: wallpaper/Consequences.jpg
   caption: Consequences
@@ -1077,9 +989,8 @@
   palette: ['#1e2724', '#67797f', '#485557', '#7a8f9b', '#93aab6']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: couple embracing in storm
+  reviewed: true
+  works: [life-is-strange]
 - id: 7cc5eda81335
   path: wallpaper/continue?.png
   caption: continue?
@@ -1148,9 +1059,8 @@
   palette: ['#b9c8cf', '#e1eae8', '#010101', '#9ca09e', '#d2ceb1']
   emotion:
     primary: embarrassment
-  confidence: l
-  reviewed: false
-  note: pastel pair at vending machine
+  reviewed: true
+  works: [your-lie-in-april]
 - id: 8ff355094252
   path: wallpaper/crystal.jpg
   caption: crystal
@@ -1162,9 +1072,8 @@
   palette: ['#0a0b10', '#1f282e', '#333e44', '#7f9da3', '#667e85']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: dark cavern with crystal
+  reviewed: true
+  works: [bravely-default]
 - id: d25635c25114
   path: wallpaper/cyleo.png
   caption: cyleo
@@ -1176,9 +1085,8 @@
   palette: ['#010000', '#201c0e', '#dec7a8', '#6a5948', '#504031']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: man with harmonica
+  reviewed: true
+  works: [cy-leo]
 - id: 98a71c9db124
   path: wallpaper/dark hour.jpg
   caption: dark hour
@@ -1204,9 +1112,8 @@
   palette: ['#4f173f', '#5a2061']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: DATAWING title card
+  reviewed: true
+  works: [data-wing]
 - id: b6eb0a0f89cf
   path: wallpaper/datfpunk.jpg
   caption: datfpunk
@@ -1318,9 +1225,8 @@
   palette: ['#000000', '#24150d', '#6c5e3b', '#857956']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: falling dominoes
+  reviewed: true
+  works: [v-for-vendetta]
 - id: 507c5ccd1269
   path: wallpaper/drags.jpg
   caption: drags
@@ -1374,9 +1280,8 @@
   palette: ['#606060', '#040404', '#323232', '#4a4a4a', '#1c1c1c']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: empty music stand
+  reviewed: true
+  personal: true
 - id: 38475e375c5e
   path: wallpaper/El Psy Congroo.jpg
   caption: El Psy Congroo
@@ -1473,9 +1378,8 @@
   palette: ['#1e1a1a', '#393432', '#010001', '#514a46', '#756259']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: three men in coats, game CG
+  reviewed: true
+  works: [detroit-become-human]
 - id: b08afcd30b48
   path: wallpaper/ex machina.jpg
   caption: ex machina
@@ -1502,8 +1406,7 @@
   emotion:
     primary: joy
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a314385eb17a
   path: wallpaper/face it.jpg
   caption: face it
@@ -1515,9 +1418,8 @@
   palette: ['#11090d', '#442331', '#f7f2ee', '#683741', '#ba7e7d']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: anime embrace in pink light
+  reviewed: true
+  works: [domestic-girlfriend]
 - id: 475ecf63f597
   path: wallpaper/face to zack.jpg
   caption: face to zack
@@ -1543,9 +1445,8 @@
   palette: ['#3b444a', '#888082', '#cbaa9c', '#ae9285', '#635c5c']
   emotion:
     primary: joy
-  confidence: l
-  reviewed: false
-  note: fairy girl game CG
+  reviewed: true
+  works: [mobius-final-fantasy]
 - id: d284fe48ae82
   path: wallpaper/fall but friends.png
   caption: fall but friends
@@ -1642,9 +1543,8 @@
   palette: ['#2b1f13', '#d4b282', '#7a6040', '#5d4a33', '#967657']
   emotion:
     primary: anger
-  confidence: l
-  reviewed: false
-  note: golden landscape with clasped hands
+  reviewed: true
+  works: [naruto]
 - id: e85522d633ae
   path: wallpaper/Final-Fantasy-7-Remake-Wallpaper-11.jpg
   caption: Final-Fantasy-7-Remake-Wallpaper-11
@@ -1757,9 +1657,8 @@
   palette: ['#d9dae8', '#f1f1f7', '#adaabd', '#484265']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: visual novel heroine
+  reviewed: true
+  works: [you-and-me-and-her-a-love-story]
 - id: 64d207df72e6
   path: wallpaper/game covvvvvvlete.png
   caption: game covvvvvvlete
@@ -1785,9 +1684,8 @@
   palette: ['#100e19', '#142b41', '#1f506d', '#30a1ba']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: nebula with blue square
+  reviewed: true
+  works: [love-death-robots]
 - id: 80d53508876b
   path: wallpaper/gattaca.jpg
   caption: gattaca
@@ -1854,10 +1752,9 @@
     e9e8d2dc5ac6]
   palette: ['#d9d9d9', '#202326', '#afb0b0', '#424548', '#8d8e8f']
   emotion:
-    primary: ennui
-  confidence: l
-  reviewed: false
-  note: white silhouette kid in ink
+    primary: envy
+  reviewed: true
+  works: [fullmetal-alchemist]
 - id: b4e0d9a04de7
   path: wallpaper/gorgeous.png
   caption: gorgeous
@@ -1869,9 +1766,8 @@
   palette: ['#8193c4', '#000000', '#92959f', '#abc8dd', '#85768a']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: constellation girl art
+  reviewed: true
+  works: [gris]
 - id: 946dbdc0642e
   path: wallpaper/Graduation.png
   caption: Graduation
@@ -1884,8 +1780,7 @@
   emotion:
     primary: joy
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 67b570f63327
   path: wallpaper/gris.png
   caption: gris
@@ -1898,8 +1793,7 @@
   works: [gris]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a4a8c421aa28
   path: wallpaper/growth.jpg
   caption: growth
@@ -1912,8 +1806,7 @@
   works: [tokyo-ghoul]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 96864c670929
   path: wallpaper/half basement.jpg
   caption: half basement
@@ -1925,9 +1818,8 @@
   palette: ['#22211d', '#453b2d', '#645a47', '#8e6439', '#8b8268']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: amber lit room with figures
+  reviewed: true
+  works: [parasite]
 - id: 2d6f95f8c658
   path: wallpaper/han.png
   caption: han
@@ -1939,9 +1831,8 @@
   palette: ['#356abd', '#fafaf7', '#010101', '#dbdcda', '#435d8e']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: visual novel heroine on rooftop
+  reviewed: true
+  works: [you-and-me-and-her-a-love-story]
 - id: 46208c4ca5ee
   path: wallpaper/Harry.jpg
   caption: Harry
@@ -1967,9 +1858,8 @@
   palette: ['#848481', '#b5aaa8', '#6c6c6c', '#422e23', '#865a40']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: blurry anime shot
+  reviewed: true
+  works: [white-album-2]
 - id: 9faf430c5b6d
   path: wallpaper/Hermione.jpg
   caption: Hermione
@@ -2037,9 +1927,8 @@
   palette: ['#6c8bb7', '#4d669a', '#6f6266', '#99b2cb', '#938387']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: anime girl at snowy fence
+  reviewed: true
+  works: [white-album-2]
 - id: 4ce78fd63cbe
   path: wallpaper/i'm the average.jpg
   caption: i'm the average
@@ -2051,9 +1940,8 @@
   palette: ['#ddd9cd', '#1c1b1c', '#323231', '#55504b', '#79756c']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: large character lineup
+  reviewed: true
+  works: [attack-on-titan]
 - id: 8497371c304b
   path: wallpaper/inception.jpg
   caption: inception
@@ -2094,9 +1982,8 @@
   emotion:
     primary: joy
   personal: true
-  confidence: m
-  reviewed: false
-  note: personal stage photo, piano and singer
+  reviewed: true
+  works: [jang-li]
 - id: 3b9282bc8bcb
   path: wallpaper/jealous.jpg
   caption: jealous
@@ -2136,10 +2023,8 @@
   palette: ['#040505', '#251d1c', '#3e312f', '#584643', '#656060']
   emotion:
     primary: joy
-  personal: true
-  confidence: m
-  reviewed: false
-  note: personal or event photo, tuxedos
+  reviewed: true
+  works: [judy-s-harmonica-ensemble]
 - id: da726a217281
   path: wallpaper/junior.jpg
   caption: junior
@@ -2151,9 +2036,8 @@
   palette: ['#4d4d4d', '#b0b0b0', '#e2e2e2', '#676767', '#c8c8c8']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: chalkboard
+  reviewed: true
+  personal: true
 - id: 5b9b10a9682d
   path: wallpaper/kakashi.jpg
   caption: kakashi
@@ -2179,9 +2063,8 @@
   palette: ['#2e557f', '#50729a', '#f6ded5', '#d7b8bb', '#75697d']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: phone with galaxy call screen
+  reviewed: true
+  works: [you-and-me-and-her-a-love-story]
 - id: 868e93e3aa24
   path: wallpaper/kara.jpg
   caption: kara
@@ -2404,9 +2287,8 @@
   palette: ['#030101', '#390403', '#780b07', '#a21d0d', '#d6250a']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: girl on rooftop under red sky
+  reviewed: true
+  works: [you-and-me-and-her-a-love-story]
 - id: 946f70566ea4
   path: wallpaper/makoto.jpg
   caption: makoto
@@ -2418,9 +2300,8 @@
   palette: ['#070406', '#341c20', '#512d32', '#70494f', '#c28694']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: girl in alley bar at night
+  reviewed: true
+  works: [persona-5]
 - id: 08c1ddc456a2
   path: wallpaper/mankind.png
   caption: mankind
@@ -2432,9 +2313,8 @@
   palette: ['#2a2626', '#464240', '#010101', '#6b6760', '#848177']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: crowd in white in a stadium
+  reviewed: true
+  works: [detroit-become-human]
 - id: 61a6d18c9174
   path: wallpaper/matrix.png
   caption: matrix
@@ -2488,9 +2368,8 @@
   palette: ['#f2f2f2', '#2b1f1f', '#ebbb38', '#4e8cae', '#df5a40']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: logo with coloured bands
+  reviewed: true
+  works: [mini-metro]
 - id: 44624dd4edad
   path: wallpaper/mom.png
   caption: mom
@@ -2502,9 +2381,8 @@
   palette: ['#bf7f40', '#020101', '#361028', '#f2c512', '#49301d']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: pixel sunset and castle
+  reviewed: true
+  works: [undertale]
 - id: ad4a0cbef494
   path: wallpaper/my room.jpg
   caption: my room
@@ -2544,9 +2422,8 @@
   palette: ['#000000', '#071621', '#12323b', '#4a5c59', '#7e8170']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: Netflix still, man looking up
+  reviewed: true
+  works: [black-mirror]
 - id: ff28c0260b1b
   path: wallpaper/nice boat.png
   caption: nice boat
@@ -2968,9 +2845,8 @@
   palette: ['#77716f', '#5b504b', '#372b2b', '#918b89', '#0f0c0f']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: man sleeping at a desk
+  reviewed: true
+  works: [pykamia]
 - id: 6afb13d238b7
   path: wallpaper/queen.png
   caption: queen
@@ -2982,9 +2858,8 @@
   palette: ['#8f8a8b', '#ada29e', '#6e6a6b', '#ccbeb2', '#4a4c54']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: couple among floating peaks, game CG
+  reviewed: true
+  works: [mobius-final-fantasy]
 - id: 4644d1235816
   path: wallpaper/ram.jpg
   caption: ram
@@ -3011,8 +2886,7 @@
   emotion:
     primary: joy
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ef5062ce9b87
   path: wallpaper/red son.jpg
   caption: red son
@@ -3081,9 +2955,8 @@
   palette: ['#08090a', '#1f272d', '#819fa8', '#a3b9be', '#69848e']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: shadow figure in city crowd
+  reviewed: true
+  works: [ajin]
 - id: 365decec0b8d
   path: wallpaper/Sever the Skyline.jpg
   caption: Sever the Skyline
@@ -3095,9 +2968,8 @@
   palette: ['#0d070f']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: title text Sever the skyline, game screen
+  reviewed: true
+  works: [celeste]
 - id: 482777fcc74c
   path: wallpaper/sex.jpg
   caption: sex
@@ -3109,9 +2981,8 @@
   palette: ['#202223', '#44555d', '#444632', '#677f93']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: person lying in a room with a tent
+  reviewed: true
+  works: [parasite]
 - id: b6efb241d19c
   path: wallpaper/sherlock.jpg
   caption: sherlock
@@ -3179,9 +3050,8 @@
   palette: ['#2b3987', '#36579d', '#1d1f2f', '#2e2e4b', '#010101']
   emotion:
     primary: embarrassment
-  confidence: l
-  reviewed: false
-  note: anime couple kissing
+  reviewed: true
+  works: [you-and-me-and-her-a-love-story]
 - id: b2e1400f4cef
   path: wallpaper/star this game.png
   caption: star this game
@@ -3207,9 +3077,8 @@
   palette: ['#3a4851', '#62716c', '#a9a179', '#828672', '#212725']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: anime girl on train platform
+  reviewed: true
+  works: [persona-5]
 - id: da0dfad35856
   path: wallpaper/steinsgate.jpg
   caption: steinsgate
@@ -3334,9 +3203,8 @@
   palette: ['#fefffd', '#ecedd4', '#83887f', '#c8cdb2', '#646861']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: blade in cloth
+  reviewed: true
+  works: [assassination-classroom]
 - id: 8789986362f4
   path: wallpaper/tenet.jpg
   caption: tenet
@@ -3405,9 +3273,8 @@
   palette: ['#262c3d', '#504647', '#6d5a52', '#4f576b', '#918072']
   emotion:
     primary: ennui
-  confidence: l
-  reviewed: false
-  note: waiting room with a stove, hooded figure
+  reviewed: true
+  works: [5-centimeters-per-second]
 - id: 73ae20e214d3
   path: wallpaper/The Hole.png
   caption: The Hole
@@ -3590,9 +3457,8 @@
   palette: ['#332b2a', '#484b56', '#c8d5e2', '#777f93', '#5d6473']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: girl in neon alley
+  reviewed: true
+  works: [love-death-robots]
 - id: 78b163e3a8ce
   path: wallpaper/trainspotting.jpg
   caption: trainspotting
@@ -3660,9 +3526,8 @@
   palette: ['#080a0a', '#1b2324']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: dark soldiers
+  reviewed: true
+  works: [death-stranding]
 - id: 9ee054a0e519
   path: wallpaper/undertale.jpg
   caption: undertale
@@ -3744,9 +3609,8 @@
   palette: ['#cacaca', '#ffffff', '#4c4c4c', '#b2b2b2', '#121212']
   emotion:
     primary: anxiety
-  confidence: l
-  reviewed: false
-  note: grid of repeated dialog boxes
+  reviewed: true
+  works: [undertale]
 - id: c3c5c1078fdd
   path: wallpaper/What color?.jpg
   caption: What color?
@@ -3758,9 +3622,8 @@
   palette: ['#030306', '#22242d', '#e9e9ea', '#353945', '#c8c5cb']
   emotion:
     primary: fear
-  confidence: l
-  reviewed: false
-  note: shadow figures with WC?
+  reviewed: true
+  works: [psycho-pass]
 - id: 23c9bec0b37a
   path: wallpaper/what in the world.png
   caption: what in the world
@@ -3772,9 +3635,8 @@
   palette: ['#654a4d', '#3c2b2f', '#806e71', '#76292f', '#aa7277']
   emotion:
     primary: anger
-  confidence: l
-  reviewed: false
-  note: girl in red hood
+  reviewed: true
+  works: [cytus]
 - id: c1a8c64ad3ae
   path: wallpaper/which memory?.png
   caption: which memory?
@@ -3786,9 +3648,8 @@
   palette: ['#727272', '#fdfdfd', '#333333', '#484848', '#878787']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: manga panels
+  reviewed: true
+  works: [attack-on-titan]
 - id: e3bc66cad120
   path: wallpaper/without saying giidbye.jpg
   caption: without saying giidbye
@@ -3913,9 +3774,8 @@
   palette: ['#d7e2f5', '#a1b4e4', '#242023', '#4a5170', '#aba2a8']
   emotion:
     primary: sadness
-  confidence: l
-  reviewed: false
-  note: couple lying in a snowy plaza
+  reviewed: true
+  works: [persona-3]
 - id: 5bfb16789609
   path: wallpaper/Your-Name.png
   caption: Your-Name
@@ -3941,9 +3801,8 @@
   palette: ['#11162a', '#262944', '#43639d', '#265edb', '#34446c']
   emotion:
     primary: joy
-  confidence: l
-  reviewed: false
-  note: anime girl in neon city
+  reviewed: true
+  works: [a-place-further-than-the-universe]
 - id: 8744b0f98054
   path: wallpaper/zarkaland.jpg
   caption: zarkaland
