@@ -23,8 +23,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: db07cd56b951
   path: phone wallpaper/2128633.jpg
   caption: '2128633'
@@ -695,8 +694,7 @@
   works: [your-lie-in-april]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 482ea049bece
   path: wallpaper/ashore.jpg
   caption: ashore
@@ -722,8 +720,7 @@
   works: [deemo]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 3d7baf15d1c8
   path: wallpaper/back the memory.jpg
   caption: back the memory
@@ -736,9 +733,7 @@
   works: [about-time]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: chess scene
+  reviewed: true
 - id: 56801f39ec5f
   path: wallpaper/backto1947.jpg
   caption: backto1947
@@ -763,8 +758,7 @@
   works: [tokyo-ghoul]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 82def1ec6ce3
   path: wallpaper/best friend(?.jpg
   caption: best friend(?
@@ -790,8 +784,7 @@
   works: [steins-gate]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 35f765091a04
   path: wallpaper/bigger!.png
   caption: bigger!
@@ -829,8 +822,7 @@
   works: [bohemian-rhapsody]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 48c7e18f7ac7
   path: wallpaper/breavly deafult.jpg
   caption: breavly deafult
@@ -843,8 +835,7 @@
   works: [bravely-default]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 87ebb90617e7
   path: wallpaper/brings out your heart.png
   caption: brings out your heart
@@ -857,9 +848,7 @@
   works: [attack-on-titan]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: Levi and Eren
+  reviewed: true
 - id: cda748ffd8a4
   path: wallpaper/bully.png
   caption: bully
@@ -872,8 +861,7 @@
   works: [undertale]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: c140c02818b0
   path: wallpaper/but it refused.jpg
   caption: but it refused
@@ -886,8 +874,7 @@
   works: [undertale]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4e0dc5a6205a
   path: wallpaper/champion.png
   caption: champion
@@ -1003,8 +990,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 71611fa429e8
   path: wallpaper/cosmos.jpg
   caption: cosmos
@@ -1017,8 +1003,7 @@
   works: [cosmos]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e7f106efca88
   path: wallpaper/Creaks.png
   caption: Creaks
@@ -1031,9 +1016,7 @@
   works: [creaks]
   emotion:
     primary: fear
-  confidence: m
-  reviewed: false
-  note: dark cave robot
+  reviewed: true
 - id: 870a087f00de
   path: wallpaper/crush over a year.png
   caption: crush over a year
@@ -1046,8 +1029,7 @@
   works: [your-lie-in-april]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
+  reviewed: true
 - id: 955b84fca5e5
   path: wallpaper/crush.png
   caption: crush
@@ -1099,8 +1081,7 @@
   works: [persona-3]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 0c4b856b93f1
   path: wallpaper/datawing.jpg
   caption: datawing
@@ -1126,8 +1107,7 @@
   works: [daft-punk]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e0eeefe63fe8
   path: wallpaper/dead-fished eye.jpg
   caption: dead-fished eye
@@ -1140,9 +1120,7 @@
   works: [attack-on-titan]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: scouts on horseback
+  reviewed: true
 - id: e4f23132a996
   path: wallpaper/dejavu.jpg
   caption: dejavu
@@ -1155,8 +1133,7 @@
   works: [naruto]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e5708ff763a5
   path: wallpaper/determination.jpg
   caption: determination
@@ -1169,8 +1146,7 @@
   works: [undertale]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 3b923be1a9a0
   path: wallpaper/Did sephiroth do this?.png
   caption: Did sephiroth do this?
@@ -1183,8 +1159,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: bf2b052f142f
   path: wallpaper/doctor who.jpg
   caption: doctor who
@@ -1197,8 +1172,7 @@
   works: [doctor-who]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7c70eaccc9cd
   path: wallpaper/dominator.jpg
   caption: dominator
@@ -1211,9 +1185,7 @@
   works: [psycho-pass]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: caption says dominator
+  reviewed: true
 - id: b0d4244b174c
   path: wallpaper/domino.png
   caption: domino
@@ -1239,8 +1211,7 @@
   works: [kuzu-no-honkai]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 545aea12a04f
   path: wallpaper/dumbledore.jpg
   caption: dumbledore
@@ -1253,8 +1224,7 @@
   works: [harry-potter]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 8fd983de6d85
   path: wallpaper/dynamix.jpg
   caption: dynamix
@@ -1267,8 +1237,7 @@
   works: [dynamix]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7fa106a974ec
   path: wallpaper/Eighteenth.jpg
   caption: Eighteenth
@@ -1294,8 +1263,7 @@
   works: [steins-gate]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7f4369f5c72d
   path: wallpaper/elopement.png
   caption: elopement
@@ -1308,9 +1276,7 @@
   works: [machinarium]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: dome with propeller
+  reviewed: true
 - id: 607b4b0e3d5f
   path: wallpaper/eva.jpg
   caption: eva
@@ -1323,8 +1289,7 @@
   works: [evangelion]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 78cff59895c0
   path: wallpaper/evergarden.jpg
   caption: evergarden
@@ -1337,8 +1302,7 @@
   works: [violet-evergarden]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f86a3c50931c
   path: wallpaper/everthing is fine.jpg
   caption: everthing is fine
@@ -1351,8 +1315,7 @@
   works: [the-good-place]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f657f92570fc
   path: wallpaper/everybody lies.jpg
   caption: everybody lies
@@ -1365,8 +1328,7 @@
   works: [house-md]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: bada3e28785d
   path: wallpaper/evolution.png
   caption: evolution
@@ -1392,8 +1354,7 @@
   works: [ex-machina]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7689327cf255
   path: wallpaper/experiment.jpg
   caption: experiment
@@ -1432,8 +1393,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 13ace94993e6
   path: wallpaper/fairy.png
   caption: fairy
@@ -1459,8 +1419,7 @@
   works: [undertale]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 5b43620ed11f
   path: wallpaper/ffviiac.jpg
   caption: ffviiac
@@ -1473,8 +1432,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 424515d0a3ae
   path: wallpaper/ffviicc.jpg
   caption: ffviicc
@@ -1487,8 +1445,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 495c9391b5cf
   path: wallpaper/FFXII.jpg
   caption: FFXII
@@ -1501,8 +1458,7 @@
   works: [final-fantasy-xii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 692a73c9b417
   path: wallpaper/fight x mercy.png
   caption: fight x mercy
@@ -1515,8 +1471,7 @@
   works: [undertale]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 126c0cca7188
   path: wallpaper/fight.png
   caption: fight
@@ -1529,9 +1484,7 @@
   works: [dissidia-final-fantasy]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: battle CG
+  reviewed: true
 - id: 554e2eeda9f6
   path: wallpaper/final fight.jpg
   caption: final fight
@@ -1557,8 +1510,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 8f6d7e8cf5ef
   path: wallpaper/final-fantasy-wallpapers-eyes-console-blue-strife-veronica-background-cloud-advent-games-girl-club-blonde-dark-hair.jpg
   caption: final-fantasy-wallpapers-eyes-console-blue-strife-veronica-background-cloud-advent-games-girl-club-blonde-dark-hair
@@ -1571,8 +1523,7 @@
   works: [final-fantasy-vii]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4a27adb680d9
   path: wallpaper/Final-Fantasy-X.jpeg
   caption: Final-Fantasy-X
@@ -1585,8 +1536,7 @@
   works: [final-fantasy-x]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7c5466237a30
   path: wallpaper/four guys in a car.png
   caption: four guys in a car
@@ -1599,8 +1549,7 @@
   works: [final-fantasy-xv]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7a95a960828b
   path: wallpaper/Fran.jpg
   caption: Fran
@@ -1613,9 +1562,7 @@
   works: [final-fantasy-xii]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: Fran stylized art, caption Fran
+  reviewed: true
 - id: 9b750e34e45c
   path: wallpaper/friend.jpg
   caption: friend
@@ -1628,9 +1575,7 @@
   works: [persona-5]
   emotion:
     primary: ennui
-  confidence: m
-  reviewed: false
-  note: grey group art with red
+  reviewed: true
 - id: 8c51c927fdab
   path: wallpaper/future.png
   caption: future
@@ -1643,9 +1588,7 @@
   works: [persona-5]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: Leblanc cafe with cat
+  reviewed: true
 - id: d0e9aa200d38
   path: wallpaper/galgame?.png
   caption: galgame?
@@ -1671,8 +1614,7 @@
   works: [vvvvvv]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 555ba2f4dbd1
   path: wallpaper/gamma blue.jpg
   caption: gamma blue
@@ -1698,8 +1640,7 @@
   works: [gattaca]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ba82e7046778
   path: wallpaper/gaze.png
   caption: gaze
@@ -1712,8 +1653,7 @@
   works: [violet-evergarden]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: df32df18cee9
   path: wallpaper/get lucky.jpg
   caption: get lucky
@@ -1726,8 +1666,7 @@
   works: [daft-punk]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 485c35b1e549
   path: wallpaper/glory.jpg
   caption: glory
@@ -1740,8 +1679,7 @@
   works: [papers-please]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e6544a6075cf
   path: wallpaper/god of god.jpg
   caption: god of god
@@ -1845,8 +1783,7 @@
   works: [harry-potter]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d76bbc39d5bf
   path: wallpaper/Heartbreak.jpeg
   caption: Heartbreak
@@ -1872,8 +1809,7 @@
   works: [harry-potter]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: bee36b965226
   path: wallpaper/House-M.d..jpg
   caption: House-M.d.
@@ -1886,8 +1822,7 @@
   works: [house-md]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e8290e7b65c0
   path: wallpaper/house.jpg
   caption: house
@@ -1900,8 +1835,7 @@
   works: [house-md]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cdbc0fcb8074
   path: wallpaper/howtolove.jpg
   caption: howtolove
@@ -1914,8 +1848,7 @@
   emotion:
     primary: joy
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 138f7b580b30
   path: wallpaper/I loved you.jpeg
   caption: I loved you
@@ -1954,8 +1887,7 @@
   works: [inception]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 6b4405418a8a
   path: wallpaper/its not easy.jpg
   caption: its not easy
@@ -1968,8 +1900,7 @@
   works: [life-is-strange]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 78c47da3dd60
   path: wallpaper/jangli.jpg
   caption: jangli
@@ -1996,8 +1927,7 @@
   works: [beastars]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: de489d7593c2
   path: wallpaper/journey.jpg
   caption: journey
@@ -2010,8 +1940,7 @@
   works: [journey]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f62fba36731f
   path: wallpaper/Judy's.jpg
   caption: Judy's
@@ -2050,8 +1979,7 @@
   works: [naruto]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 2906884645b2
   path: wallpaper/kami.png
   caption: kami
@@ -2077,8 +2005,7 @@
   works: [detroit-become-human]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b4ac1eb3691e
   path: wallpaper/kids.jpg
   caption: kids
@@ -2091,8 +2018,7 @@
   works: [naruto]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ed8563f10ff0
   path: wallpaper/kino.jpg
   caption: kino
@@ -2105,8 +2031,7 @@
   works: [kinos-journey]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 8c97a61af225
   path: wallpaper/knife<-->gun.jpg
   caption: knife<-->gun
@@ -2119,8 +2044,7 @@
   works: [psycho-pass]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 6c732542cf3a
   path: wallpaper/koi.jpg
   caption: koi
@@ -2133,8 +2057,7 @@
   works: [kuzu-no-honkai]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a79f72e0fb79
   path: wallpaper/kuzoku.jpg
   caption: kuzoku
@@ -2147,8 +2070,7 @@
   works: [final-fantasy-xii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a08d345bf0ea
   path: wallpaper/kuzu-no-honkai.jpg
   caption: kuzu-no-honkai
@@ -2161,8 +2083,7 @@
   works: [kuzu-no-honkai]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a760567e77bc
   path: wallpaper/lalalalalala.jpg
   caption: lalalalalala
@@ -2175,8 +2096,7 @@
   works: [la-la-land]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 61feb0bc32dd
   path: wallpaper/left_hand.png
   caption: left_hand
@@ -2189,8 +2109,7 @@
   works: [portal]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 9cb56af4f5b3
   path: wallpaper/let_us_start_the_game.jpeg
   caption: let_us_start_the_game
@@ -2203,9 +2122,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: Strikers era group in Shibuya
+  reviewed: true
 - id: 9151e1502d68
   path: wallpaper/light.png
   caption: light
@@ -2218,8 +2135,7 @@
   works: [quintessential-quintuplets]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: fc77d80a7177
   path: wallpaper/lightning.jpg
   caption: lightning
@@ -2232,8 +2148,7 @@
   works: [final-fantasy-xiii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4eb13ed0794f
   path: wallpaper/long time.jpg
   caption: long time
@@ -2246,8 +2161,7 @@
   works: [portal]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 93a33443e8bb
   path: wallpaper/love with robot hands.png
   caption: love with robot hands
@@ -2260,8 +2174,7 @@
   works: [violet-evergarden]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 21d27b21fe2d
   path: wallpaper/mad scientists.png
   caption: mad scientists
@@ -2274,8 +2187,7 @@
   works: [steins-gate]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: fdd4f0e9f70b
   path: wallpaper/mad.png
   caption: mad
@@ -2327,8 +2239,7 @@
   works: [the-matrix]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b1b6dc80ce83
   path: wallpaper/maxresdefault (5).jpg
   caption: maxresdefault (5)
@@ -2341,8 +2252,7 @@
   works: ['140']
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 71264d82c316
   path: wallpaper/mc.jpg
   caption: mc
@@ -2355,8 +2265,7 @@
   emotion:
     primary: joy
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 61c69c9864a8
   path: wallpaper/metro.png
   caption: metro
@@ -2395,8 +2304,7 @@
   works: [life-is-strange]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e67bc6bd06b9
   path: wallpaper/Nana and Kaoru.jpeg
   caption: Nana and Kaoru
@@ -2409,8 +2317,7 @@
   works: [nana-to-kaoru]
   emotion:
     primary: embarrassment
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 910185001dc5
   path: wallpaper/netflix(?.png
   caption: netflix(?
@@ -2436,9 +2343,7 @@
   works: [school-days]
   emotion:
     primary: fear
-  confidence: m
-  reviewed: false
-  note: sunset boat, caption nice boat is the School Days meme
+  reviewed: true
 - id: 3fc976b73d99
   path: wallpaper/nier.jpg
   caption: nier
@@ -2451,8 +2356,7 @@
   works: [nier-automata]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cab77eb05ead
   path: wallpaper/not me.jpg
   caption: not me
@@ -2465,8 +2369,7 @@
   works: [attack-on-titan]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 69c544afb666
   path: wallpaper/not my fault.jpg
   caption: not my fault
@@ -2479,8 +2382,7 @@
   works: [kuzu-no-honkai]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 05004c7247c9
   path: wallpaper/obs.jpg
   caption: obs
@@ -2493,8 +2395,7 @@
   emotion:
     primary: embarrassment
   personal: true
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 633950fce6e0
   path: wallpaper/octopath.jpg
   caption: octopath
@@ -2507,8 +2408,7 @@
   works: [octopath-traveler]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 8789d35802c5
   path: wallpaper/only Chloe.jpg
   caption: only Chloe
@@ -2521,9 +2421,7 @@
   works: [life-is-strange]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: couple under the moon, caption only Chloe
+  reviewed: true
 - id: a139e30e2179
   path: wallpaper/opposite stand.jpg
   caption: opposite stand
@@ -2536,8 +2434,7 @@
   works: [psycho-pass]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 31aa3e8053cf
   path: wallpaper/opposite.jpg
   caption: opposite
@@ -2550,8 +2447,7 @@
   works: [persona-5]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f66c03949b24
   path: wallpaper/original.jpg
   caption: original
@@ -2564,8 +2460,7 @@
   works: [vvvvvv]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 2bb922a40ecc
   path: wallpaper/P12.jpg
   caption: P12
@@ -2578,9 +2473,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: group art
+  reviewed: true
 - id: 655a12a5c117
   path: wallpaper/P3P.jpg
   caption: P3P
@@ -2593,8 +2486,7 @@
   works: [persona-3]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: aa470bc51931
   path: wallpaper/p4.jpg
   caption: p4
@@ -2607,8 +2499,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b1331b507919
   path: wallpaper/p4f.jpg
   caption: p4f
@@ -2621,8 +2512,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 1dddaf606064
   path: wallpaper/p4g art.png
   caption: p4g art
@@ -2635,8 +2525,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4de8ea70ba11
   path: wallpaper/p4g.jpg
   caption: p4g
@@ -2649,8 +2538,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 3b9f41b3021c
   path: wallpaper/P4GA.jpg
   caption: P4GA
@@ -2663,8 +2551,7 @@
   works: [persona-4]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 3c5f7463c37e
   path: wallpaper/parasite.jpg
   caption: parasite
@@ -2677,8 +2564,7 @@
   works: [parasite]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e0dad055628a
   path: wallpaper/persona3.jpg
   caption: persona3
@@ -2691,8 +2577,7 @@
   works: [persona-3]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d32f7c622ca8
   path: wallpaper/Persona543.jpg
   caption: Persona543
@@ -2705,8 +2590,7 @@
   works: [persona-5, persona-4, persona-3]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cce4be0f7cda
   path: wallpaper/phantom.png
   caption: phantom
@@ -2719,8 +2603,7 @@
   works: [persona-5]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 6b26c570f221
   path: wallpaper/phewww.png
   caption: phewww
@@ -2733,9 +2616,7 @@
   works: [kirby]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: GBA game
+  reviewed: true
 - id: 8c0490926dcc
   path: wallpaper/polarized.jpg
   caption: polarized
@@ -2748,8 +2629,7 @@
   works: [life-is-strange]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 45f75324f077
   path: wallpaper/polices.jpg
   caption: polices
@@ -2762,8 +2642,7 @@
   works: [psycho-pass]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7e108910c591
   path: wallpaper/portal2.jpg
   caption: portal2
@@ -2776,8 +2655,7 @@
   works: [portal]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: a21b4bbe651a
   path: wallpaper/promirose.jpg
   caption: promirose
@@ -2790,8 +2668,7 @@
   works: [octopath-traveler]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: acedfde4bcd9
   path: wallpaper/protect&kill.jpg
   caption: protect&kill
@@ -2804,8 +2681,7 @@
   works: [beastars]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: de4a96cdab11
   path: wallpaper/psycho-pass.jpg
   caption: psycho-pass
@@ -2818,8 +2694,7 @@
   works: [psycho-pass]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 589da3d68dba
   path: wallpaper/psychopath.jpg
   caption: psychopath
@@ -2832,8 +2707,7 @@
   works: [sherlock]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 79f24c37e6f4
   path: wallpaper/PYKAMIA.png
   caption: PYKAMIA
@@ -2872,8 +2746,7 @@
   works: [daft-punk]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 2fc2c112ed18
   path: wallpaper/Ranunculus.jpg
   caption: Ranunculus
@@ -2899,8 +2772,7 @@
   works: [superman-red-son]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 137f2c98784e
   path: wallpaper/rejection.png
   caption: rejection
@@ -2913,8 +2785,7 @@
   works: [ace-attorney]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7a473b6a545a
   path: wallpaper/sans.jpg
   caption: sans
@@ -2927,9 +2798,7 @@
   works: [undertale]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: Sans and Papyrus in the dark
+  reviewed: true
 - id: d48f5e99f1fa
   path: wallpaper/school days.jpg
   caption: school days
@@ -2942,8 +2811,7 @@
   works: [school-days]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d696e88d7f43
   path: wallpaper/second me.jpg
   caption: second me
@@ -2995,8 +2863,7 @@
   works: [sherlock]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cd12354fadf2
   path: wallpaper/SHERLOCKED.jpg
   caption: SHERLOCKED
@@ -3009,8 +2876,7 @@
   works: [sherlock]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: bbfea1c5db4d
   path: wallpaper/shhhh.jpg
   caption: shhhh
@@ -3023,8 +2889,7 @@
   works: [kuzu-no-honkai]
   emotion:
     primary: embarrassment
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 57d72a550c95
   path: wallpaper/sora.png
   caption: sora
@@ -3037,8 +2902,7 @@
   works: [no-game-no-life]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f941c63f44b3
   path: wallpaper/standard.png
   caption: standard
@@ -3064,8 +2928,7 @@
   works: [kirby]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
+  reviewed: true
 - id: 56eeaae4f4c7
   path: wallpaper/station.png
   caption: station
@@ -3091,8 +2954,7 @@
   works: [steins-gate]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 9f16be5b2986
   path: wallpaper/Strands.jpg
   caption: Strands
@@ -3105,8 +2967,7 @@
   works: [death-stranding]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ee0668b02ee2
   path: wallpaper/summoner.jpg
   caption: summoner
@@ -3119,9 +2980,7 @@
   works: [final-fantasy-x]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: Yuna sending, caption summoner
+  reviewed: true
 - id: 6594428c4ff9
   path: wallpaper/sword.png
   caption: sword
@@ -3134,8 +2993,7 @@
   works: [kirby]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
+  reviewed: true
 - id: 495d10492958
   path: wallpaper/tada.jpg
   caption: tada
@@ -3148,8 +3006,7 @@
   works: [la-la-land]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 614e1f475ff6
   path: wallpaper/take your heart.png
   caption: take your heart
@@ -3162,8 +3019,7 @@
   works: [persona-5]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d99f67a7d42d
   path: wallpaper/takethis.jpg
   caption: takethis
@@ -3176,8 +3032,7 @@
   works: [ace-attorney]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: fb76afb12519
   path: wallpaper/talk.jpg
   caption: talk
@@ -3190,8 +3045,7 @@
   works: [octopath-traveler]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b91cec0b287d
   path: wallpaper/teacher.jpg
   caption: teacher
@@ -3217,8 +3071,7 @@
   works: [tenet]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 790fe5ab355d
   path: wallpaper/The boy.jpg
   caption: The boy
@@ -3231,9 +3084,7 @@
   works: [5-centimeters-per-second]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: man facing train
+  reviewed: true
 - id: 82ac527cd058
   path: wallpaper/the cake is a lie.png
   caption: the cake is a lie
@@ -3246,8 +3097,7 @@
   works: [portal]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 5ac9e927582d
   path: wallpaper/The gardian.jpg
   caption: The gardian
@@ -3260,8 +3110,7 @@
   works: [final-fantasy-xii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 64b506e5df3c
   path: wallpaper/The girl.jpg
   caption: The girl
@@ -3287,9 +3136,7 @@
   works: [death-stranding]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: crater
+  reviewed: true
 - id: 92c4ce2a4c8c
   path: wallpaper/the moment.png
   caption: the moment
@@ -3302,8 +3149,7 @@
   works: [your-name]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7a5126bcfd8e
   path: wallpaper/the name.png
   caption: the name
@@ -3316,9 +3162,7 @@
   works: [mobius-final-fantasy]
   emotion:
     primary: sadness
-  confidence: m
-  reviewed: false
-  note: subtitle For none shall remember
+  reviewed: true
 - id: 8eef94ccf4e1
   path: wallpaper/The pormised day.jpg
   caption: The pormised day
@@ -3331,8 +3175,7 @@
   works: [persona-3]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b32dc12cd077
   path: wallpaper/the Power.jpg
   caption: the Power
@@ -3345,8 +3188,7 @@
   works: [life-is-strange]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 35b4f145c0d8
   path: wallpaper/this is not a dream.png
   caption: this is not a dream
@@ -3359,8 +3201,7 @@
   works: [inception]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d6a54afc8e57
   path: wallpaper/thumb-1920-920082.jpg
   caption: thumb-1920-920082
@@ -3373,8 +3214,7 @@
   works: [persona-4]
   emotion:
     primary: anxiety
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 08e80ed81efc
   path: wallpaper/titan.jpg
   caption: titan
@@ -3387,8 +3227,7 @@
   works: [attack-on-titan]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 5f0e275f0585
   path: wallpaper/to be continued.jpg
   caption: to be continued
@@ -3401,9 +3240,7 @@
   works: [jojos-bizarre-adventure]
   emotion:
     primary: joy
-  confidence: m
-  reviewed: false
-  note: To be continued meme
+  reviewed: true
 - id: 0794d49ba70f
   path: wallpaper/to the sky.jpg
   caption: to the sky
@@ -3416,8 +3253,7 @@
   works: [steins-gate]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 08f81901f8fe
   path: wallpaper/tokyo_ghoul.jpg
   caption: tokyo_ghoul
@@ -3430,8 +3266,7 @@
   works: [tokyo-ghoul]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4635a67100e4
   path: wallpaper/touch to start.png
   caption: touch to start
@@ -3444,8 +3279,7 @@
   works: [cytus]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 576580765b33
   path: wallpaper/tracking.jpg
   caption: tracking
@@ -3471,8 +3305,7 @@
   works: [trainspotting]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 29bd2055f278
   path: wallpaper/traveler.jpg
   caption: traveler
@@ -3485,8 +3318,7 @@
   works: [octopath-traveler]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d789f7bb31fd
   path: wallpaper/trust.jpg
   caption: trust
@@ -3499,8 +3331,7 @@
   works: [doctor-who]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d3ffcf2fec3f
   path: wallpaper/tumblr_static_50th.jpg
   caption: tumblr_static_50th
@@ -3513,8 +3344,7 @@
   works: [doctor-who]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 623a4d9f9c0b
   path: wallpaper/Undead.png
   caption: Undead
@@ -3540,8 +3370,7 @@
   works: [undertale]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: c0520557e5dd
   path: wallpaper/Undying.png
   caption: Undying
@@ -3554,8 +3383,7 @@
   works: [undertale]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: b8b16efb650d
   path: wallpaper/up.jpg
   caption: up
@@ -3568,8 +3396,7 @@
   works: [up]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 4b0fdae03b95
   path: wallpaper/v.jpg
   caption: v
@@ -3582,8 +3409,7 @@
   works: [v-for-vendetta]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: e4a7d1e448e7
   path: wallpaper/wauuuttt?.png
   caption: wauuuttt?
@@ -3596,8 +3422,7 @@
   works: [undertale]
   emotion:
     primary: fear
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 75ff45895790
   path: wallpaper/wellcome.jpg
   caption: wellcome
@@ -3662,8 +3487,7 @@
   works: [deemo]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 9e8637983c57
   path: wallpaper/wod.png
   caption: wod
@@ -3676,8 +3500,7 @@
   works: [mobius-final-fantasy]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: d3623b87d79e
   path: wallpaper/wol.png
   caption: wol
@@ -3690,9 +3513,7 @@
   works: [mobius-final-fantasy]
   emotion:
     primary: anger
-  confidence: m
-  reviewed: false
-  note: Warrior of Light
+  reviewed: true
 - id: d8993f1ca634
   path: wallpaper/wut.jpg
   caption: wut
@@ -3705,8 +3526,7 @@
   works: [saiki-k]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7b099814f9a4
   path: wallpaper/x.jpg
   caption: x
@@ -3719,8 +3539,7 @@
   works: [final-fantasy-x]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ea9b5216ec93
   path: wallpaper/xiii.jpg
   caption: xiii
@@ -3733,8 +3552,7 @@
   works: [final-fantasy-xiii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: c4fa834bbd67
   path: wallpaper/Yakuza0 on telephone.jpg
   caption: Yakuza0 on telephone
@@ -3747,8 +3565,7 @@
   works: [yakuza-0]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 403f1c563287
   path: wallpaper/YOU WANNA LIVE.jpg
   caption: YOU WANNA LIVE
@@ -3761,8 +3578,7 @@
   works: [one-piece]
   emotion:
     primary: anger
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: cca6d00ef2e7
   path: wallpaper/Your eyes feel heavy.jpeg
   caption: Your eyes feel heavy
@@ -3788,8 +3604,7 @@
   works: [your-name]
   emotion:
     primary: joy
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: f6b581104ee1
   path: wallpaper/youth.jpg
   caption: youth
@@ -3815,8 +3630,7 @@
   works: [final-fantasy-x]
   emotion:
     primary: sadness
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: 7dfd9f844fbc
   path: wallpaper/zodiac.jpg
   caption: zodiac
@@ -3829,8 +3643,7 @@
   works: [final-fantasy-xii]
   emotion:
     primary: ennui
-  confidence: h
-  reviewed: false
+  reviewed: true
 - id: ed9ed48e16d6
   path: wallpaper/厄運迎刃而解.jpg
   caption: 厄運迎刃而解
@@ -3843,6 +3656,4 @@
   works: [word-game]
   emotion:
     primary: anxiety
-  confidence: m
-  reviewed: false
-  note: word game title
+  reviewed: true
