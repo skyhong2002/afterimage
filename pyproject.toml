@@ -7,3 +7,22 @@ dependencies = [
   "pillow>=11.0",
   "pyyaml>=6.0",
 ]
+
+# Heavy, only needed for scripts/enrich.py:  uv sync --group enrich
+[dependency-groups]
+enrich = [
+  "numpy>=2.0",
+  "torch>=2.5",
+  "torchvision>=0.20",
+  "open-clip-torch>=2.30",
+]
+
+# CPU-only wheels: the default Linux torch wheels pull several GB of CUDA libraries.
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

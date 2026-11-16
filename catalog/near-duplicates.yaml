@@ -1,0 +1,45 @@
+# Report only. Review by hand; nothing here is removed automatically.
+- score: 1.0
+  a:
+    id: 4f1ad1cb4a54
+    path: phone wallpaper/2331627.jpg
+    size: [1440, 2560]
+    bytes: 268021
+  b:
+    id: ac54123c1159
+    path: phone wallpaper/662899.jpg
+    size: [1440, 2560]
+    bytes: 290171
+- score: 0.9983
+  a:
+    id: 5d7407a54c43
+    path: phone wallpaper/2128630.jpg
+    size: [1500, 2668]
+    bytes: 307044
+  b:
+    id: eff8e2d6abc3
+    path: phone wallpaper/9FSRNyT.jpg
+    size: [1500, 2668]
+    bytes: 385241
+- score: 0.9609
+  a:
+    id: 836166381b3b
+    path: phone wallpaper/wp2777886-persona-3-the-movie-wallpaper.jpg
+    size: [1920, 1080]
+    bytes: 103423
+  b:
+    id: 8eef94ccf4e1
+    path: wallpaper/The pormised day.jpg
+    size: [1600, 900]
+    bytes: 102354
+- score: 0.9608
+  a:
+    id: 1a8965372389
+    path: phone wallpaper/Android魔龍的佔據.jpg
+    size: [2048, 3200]
+    bytes: 103795
+  b:
+    id: 495a100fb7a8
+    path: phone wallpaper/ios魔龍的佔據.jpg
+    size: [2048, 3200]
+    bytes: 103795

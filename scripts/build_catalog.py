@@ -13,11 +13,12 @@ import hashlib
 import sys
 from pathlib import Path
 
-import yaml
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parent.parent
-CATALOG = ROOT / "catalog" / "wallpapers.yaml"
+import catalog_io
+
+ROOT = catalog_io.ROOT
+CATALOG = catalog_io.CATALOG
 FOLDERS = {"wallpaper": "desktop", "phone wallpaper": "phone"}
 EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
@@ -31,10 +32,7 @@ def content_id(path: Path) -> str:
 
 
 def main() -> int:
-    existing: dict[str, dict] = {}
-    if CATALOG.exists():
-        for entry in yaml.safe_load(CATALOG.read_text(encoding="utf-8")) or []:
-            existing[entry["id"]] = entry
+    existing: dict[str, dict] = {e["id"]: e for e in catalog_io.load()}
 
     entries: dict[str, dict] = {}
     duplicates: list[tuple[str, str]] = []
@@ -61,11 +59,7 @@ def main() -> int:
             entries[wid] = {**existing.get(wid, {}), **derived}
 
     ordered = sorted(entries.values(), key=lambda e: e["path"].lower())
-    CATALOG.parent.mkdir(exist_ok=True)
-    CATALOG.write_text(
-        yaml.safe_dump(ordered, allow_unicode=True, sort_keys=False, width=100),
-        encoding="utf-8",
-    )
+    catalog_io.save(ordered)
 
     removed = set(existing) - set(entries)
     print(f"{len(ordered)} wallpapers -> {CATALOG.relative_to(ROOT)}")
