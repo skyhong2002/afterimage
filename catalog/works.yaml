@@ -1,0 +1,239 @@
+# Works (Inside Out: islands of personality). `kind` matches infovore MediaKind where it exists.
+# Add `ids: {kitsu: .., backloggd: .., tmdb: ..}` later to link to infovore.
+- id: ajin
+  title: Ajin
+  kind: anime
+- id: assassination-classroom
+  title: Assassination Classroom
+  kind: anime
+- id: attack-on-titan
+  title: Attack on Titan
+  kind: anime
+- id: beastars
+  title: Beastars
+  kind: anime
+- id: jojos-bizarre-adventure
+  title: JoJo's Bizarre Adventure
+  kind: anime
+- id: kinos-journey
+  title: Kino's Journey
+  kind: anime
+- id: made-in-abyss
+  title: Made in Abyss
+  kind: anime
+- id: naruto
+  title: Naruto
+  kind: anime
+- id: evangelion
+  title: Neon Genesis Evangelion
+  kind: anime
+- id: no-game-no-life
+  title: No Game No Life
+  kind: anime
+- id: one-piece
+  title: One Piece
+  kind: anime
+- id: psycho-pass
+  title: Psycho-Pass
+  kind: anime
+- id: school-days
+  title: School Days
+  kind: anime
+- id: kuzu-no-honkai
+  title: Scum's Wish
+  kind: anime
+- id: steins-gate
+  title: Steins;Gate
+  kind: anime
+- id: sword-art-online
+  title: Sword Art Online
+  kind: anime
+- id: saiki-k
+  title: The Disastrous Life of Saiki K.
+  kind: anime
+- id: quintessential-quintuplets
+  title: The Quintessential Quintuplets
+  kind: anime
+- id: tokyo-ghoul
+  title: Tokyo Ghoul
+  kind: anime
+- id: violet-evergarden
+  title: Violet Evergarden
+  kind: anime
+- id: your-lie-in-april
+  title: Your Lie in April
+  kind: anime
+- id: nana-to-kaoru
+  title: Nana to Kaoru
+  kind: book
+- id: superman-red-son
+  title: 'Superman: Red Son'
+  kind: book
+- id: '140'
+  title: '140'
+  kind: game
+- id: ace-attorney
+  title: Ace Attorney
+  kind: game
+- id: advance-wars
+  title: Advance Wars
+  kind: game
+- id: bravely-default
+  title: Bravely Default
+  kind: game
+- id: creaks
+  title: Creaks
+  kind: game
+- id: cytus
+  title: Cytus
+  kind: game
+- id: death-stranding
+  title: Death Stranding
+  kind: game
+- id: deemo
+  title: Deemo
+  kind: game
+- id: detroit-become-human
+  title: 'Detroit: Become Human'
+  kind: game
+- id: dissidia-final-fantasy
+  title: Dissidia Final Fantasy
+  kind: game
+- id: dynamix
+  title: Dynamix
+  kind: game
+- id: final-fantasy-vii
+  title: Final Fantasy VII
+  kind: game
+- id: final-fantasy-x
+  title: Final Fantasy X
+  kind: game
+- id: final-fantasy-xii
+  title: Final Fantasy XII
+  kind: game
+- id: final-fantasy-xiii
+  title: Final Fantasy XIII
+  kind: game
+- id: final-fantasy-xv
+  title: Final Fantasy XV
+  kind: game
+- id: gris
+  title: GRIS
+  kind: game
+- id: journey
+  title: Journey
+  kind: game
+- id: kirby
+  title: Kirby
+  kind: game
+- id: life-is-strange
+  title: Life is Strange
+  kind: game
+- id: machinarium
+  title: Machinarium
+  kind: game
+- id: mobius-final-fantasy
+  title: Mobius Final Fantasy
+  kind: game
+- id: nier-automata
+  title: 'NieR: Automata'
+  kind: game
+- id: octopath-traveler
+  title: Octopath Traveler
+  kind: game
+- id: papers-please
+  title: Papers, Please
+  kind: game
+- id: persona-3
+  title: Persona 3
+  kind: game
+- id: persona-4
+  title: Persona 4
+  kind: game
+- id: persona-5
+  title: Persona 5
+  kind: game
+- id: portal
+  title: Portal
+  kind: game
+- id: undertale
+  title: Undertale
+  kind: game
+- id: vvvvvv
+  title: VVVVVV
+  kind: game
+- id: yakuza-0
+  title: Yakuza 0
+  kind: game
+- id: word-game
+  title: 文字遊戲 (Word Game)
+  kind: game
+- id: 5-centimeters-per-second
+  title: 5 Centimeters per Second
+  kind: movie
+- id: about-time
+  title: About Time
+  kind: movie
+- id: alphago
+  title: AlphaGo
+  kind: movie
+- id: bohemian-rhapsody
+  title: Bohemian Rhapsody
+  kind: movie
+- id: ex-machina
+  title: Ex Machina
+  kind: movie
+- id: gattaca
+  title: Gattaca
+  kind: movie
+- id: harry-potter
+  title: Harry Potter
+  kind: movie
+- id: inception
+  title: Inception
+  kind: movie
+- id: la-la-land
+  title: La La Land
+  kind: movie
+- id: parasite
+  title: Parasite
+  kind: movie
+- id: tenet
+  title: Tenet
+  kind: movie
+- id: the-matrix
+  title: The Matrix
+  kind: movie
+- id: trainspotting
+  title: Trainspotting
+  kind: movie
+- id: up
+  title: Up
+  kind: movie
+- id: v-for-vendetta
+  title: V for Vendetta
+  kind: movie
+- id: your-name
+  title: Your Name
+  kind: movie
+- id: daft-punk
+  title: Daft Punk
+  kind: music
+- id: queen
+  title: Queen
+  kind: music
+- id: cosmos
+  title: 'Cosmos: A Spacetime Odyssey'
+  kind: show
+- id: doctor-who
+  title: Doctor Who
+  kind: show
+- id: house-md
+  title: House M.D.
+  kind: show
+- id: sherlock
+  title: Sherlock
+  kind: show
+- id: the-good-place
+  title: The Good Place
+  kind: show
