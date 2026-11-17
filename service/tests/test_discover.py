@@ -286,19 +286,31 @@ def with_tmdb(owner, web):
         if req.url.host == "api.themoviedb.org":
             assert req.headers["authorization"] == "Bearer tmdb-test-token"
             if req.url.path.endswith("/search/multi"):
-                return httpx.Response(200, json={"results": [{"media_type": "movie", "id": 5, "title": "Hello Ghost"}]})
-            return httpx.Response(200, json={"backdrops": [
-                {"file_path": "/a1.jpg", "width": 3840, "height": 2160, "vote_average": 5.1},
-                {"file_path": "/small.jpg", "width": 800, "height": 450, "vote_average": 9}]})
+                return httpx.Response(200, json={"results": [
+                    {"media_type": "movie", "id": 5, "title": "Hello Ghost", "release_date": "2010-05-01"},
+                    {"media_type": "movie", "id": 6, "title": "Hello Ghost", "release_date": "2023-01-01"},
+                    {"media_type": "person", "id": 9, "name": "Hello Ghost"},
+                    {"media_type": "movie", "id": 7, "title": "Hello Ghostbusters", "release_date": "1999-01-01"}]})
+            if "/movie/5/" in req.url.path:
+                return httpx.Response(200, json={"backdrops": [
+                    {"file_path": "/a1.jpg", "width": 3840, "height": 2160, "vote_average": 5.1, "iso_639_1": None},
+                    {"file_path": "/text.jpg", "width": 3840, "height": 2160, "vote_average": 9, "iso_639_1": "en"},
+                    {"file_path": "/small.jpg", "width": 800, "height": 450, "vote_average": 9, "iso_639_1": None}]})
+            if "/movie/6/" in req.url.path:   # only a backdrop with text on it
+                return httpx.Response(200, json={"backdrops": [{"file_path": "/b1.jpg", "width": 2248, "height": 1264, "iso_639_1": "ko"}]})
+            return httpx.Response(404)
         return orig(req)
     st.http = httpx.AsyncClient(transport=httpx.MockTransport(handler), follow_redirects=False)
 
 
-def test_tmdb_results_are_preview_only(owner, web):
+def test_tmdb_results_are_preview_only_and_cover_every_same_named_work(owner, web):
     with_tmdb(owner, web)
     items = search(owner, title="Hello Ghost", kind="movie", sources="tmdb")["tmdb"]["items"]
-    assert [i["source_id"] for i in items] == ["5:a1"], "backdrops under 1920px wide are dropped"
-    assert items[0]["importable"] is False and items[0]["source_url"] == "https://www.themoviedb.org/movie/5"
+    assert [(i["source_id"], i["label"]) for i in items] == [
+        ("5:a1", "Hello Ghost (2010) backdrop"),                    # clean backdrop preferred, small and texty ones dropped
+        ("6:b1", "Hello Ghost (2023) backdrop, has text")], "both films, the person and the 'Ghostbusters' near-miss excluded"
+    assert all(i["importable"] is False for i in items)
+    assert [i["source_url"] for i in items] == ["https://www.themoviedb.org/movie/5", "https://www.themoviedb.org/movie/6"]
     assert search(owner, sources="wallhaven")["wallhaven"]["items"][0]["importable"] is True
 
 
