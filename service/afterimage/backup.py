@@ -23,11 +23,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import multiprocessing
 import os
 import shutil
 import sqlite3
 import subprocess
 import sys
+from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -105,11 +107,20 @@ def sync(snap: dict, data_dir: Path, repo_dir: Path) -> dict[str, int]:
 
 # ---- restoring ----------------------------------------------------------------------------
 
-def restore(repo_dir: Path, data_dir: Path, log=print) -> dict[str, int]:
-    """Rebuild a data directory (database, originals, thumbnails, previews) from a backup checkout."""
+def _derive(job: tuple[str, str, str, str]) -> str:
+    """Build one image's thumbnail and preview. Module level so a process pool can run it."""
     from PIL import Image
 
     from . import imaging
+    original, image_id, thumbs, view = job
+    with Image.open(original) as im:
+        im.load()
+        imaging.write_derivatives(im, image_id, Path(thumbs), Path(view))
+    return image_id
+
+
+def restore(repo_dir: Path, data_dir: Path, log=print) -> dict[str, int]:
+    """Rebuild a data directory (database, originals, thumbnails, previews) from a backup checkout."""
     from .db import Database
 
     snap = json.loads((repo_dir / SNAPSHOT).read_text(encoding="utf-8"))
@@ -140,15 +151,23 @@ def restore(repo_dir: Path, data_dir: Path, log=print) -> dict[str, int]:
         insert(c, "candidates", snap["candidates"])
         insert(c, "edits", [r for r in snap["edits"] if r["image_id"] in have])
         counts["images"] = len(have)
+    jobs = []
     for i in full:
         if i["id"] not in have:
             continue
         shutil.copy2(repo_dir / "originals" / i["original"], data_dir / "originals" / i["original"])
         if not ((data_dir / "thumbs" / f"{i['id']}.avif").is_file() and (data_dir / "view" / f"{i['id']}.avif").is_file()):
-            with Image.open(data_dir / "originals" / i["original"]) as im:
-                im.load()
-                imaging.write_derivatives(im, i["id"], data_dir / "thumbs", data_dir / "view")
-            counts["derivatives_built"] += 1
+            jobs.append((str(data_dir / "originals" / i["original"]), i["id"], str(data_dir / "thumbs"), str(data_dir / "view")))
+    # AVIF encoding is the slow part (minutes for a few hundred images), so spread it over processes.
+    # A few workers only: each holds a decoded full-size picture, and the host may be short of memory.
+    workers = max(1, min(4, os.cpu_count() or 1, len(jobs)))
+    if jobs:
+        # spawn, not fork: forking a multi-threaded process can deadlock
+        with ProcessPoolExecutor(max_workers=workers, mp_context=multiprocessing.get_context("spawn")) as pool:
+            for n, _ in enumerate(pool.map(_derive, jobs, chunksize=2), 1):
+                if n % 50 == 0:
+                    log(f"  thumbnails {n}/{len(jobs)}")
+    counts["derivatives_built"] = len(jobs)
     db.close()
     return counts
 
