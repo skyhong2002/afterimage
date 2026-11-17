@@ -6,12 +6,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0b0b0e" />
     <title>afterimage 殘影</title>
     <meta name="description" content="A personal wallpaper collection." />
   </head>
   <body>
     <header>
-      <h1>afterimage <span>殘影</span></h1>
+      <h1><img class="mark" src="/favicon.svg" alt="" width="24" height="24" />afterimage <span>殘影</span></h1>
       <div class="controls">
         <input id="q" type="search" placeholder="搜尋 caption…" autocomplete="off" />
         <div id="device" role="group" aria-label="裝置">
@@ -667,6 +670,7 @@
       header { position: sticky; top: 0; z-index: 2; padding: 14px 20px; background: color-mix(in srgb, var(--bg) 88%, transparent);
         backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
       h1 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: .04em; }
+      h1 .mark { width: 1.7em; height: 1.7em; vertical-align: -0.5em; margin: 0 6px 0 -4px; }
       h1 span { color: var(--dim); font-weight: 400; margin-left: 6px; }
       .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; flex: 1; }
       input[type=search] { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; min-width: 220px; }

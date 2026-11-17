@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .card { border-radius: var(--radius, 12px); overflow: hidden; border: 1px solid var(--border, #333); background: var(--card, transparent); }
+  .stage { background: #0d0e14; padding: 16px; display: flex; align-items: center; justify-content: center; gap: 14px; height: 150px; }
+  .stage.light { background: #f4f2ec; height: 56px; padding: 8px 16px; justify-content: flex-start; }
+  .stage svg.big { width: 118px; height: 118px; }
+  .stage svg.small { width: 32px; height: 32px; }
+  .stage svg.tiny { width: 16px; height: 16px; }
+  .meta { padding: 10px 14px 14px; }
+  .meta b { display: block; font-size: 14px; margin-bottom: 4px; }
+  .meta span { font-size: 12.5px; line-height: 1.5; color: var(--muted-foreground, #999); }
+  .wm { font: 700 34px/1 ui-rounded, "SF Pro Rounded", "Nunito", var(--font-sans, system-ui), sans-serif; letter-spacing: -0.5px; position: relative; color: #f4f2ec; }
+  .wm .g1, .wm .g2 { position: absolute; inset: 0; mix-blend-mode: screen; }
+  .wm .g1 { color: #3B7DD8; transform: translate(4px, 3px); opacity: .85; filter: blur(.6px); }
+  .wm .g2 { color: #F9D649; transform: translate(-2px, -1px); opacity: .55; }
+  .wm .t { position: relative; }
+  .light .wm { font-size: 24px; color: #15161c; }
+  .light .wm .g1, .light .wm .g2 { mix-blend-mode: multiply; }
+</style>
+</head>
+<body>
+<div class="grid" id="grid"></div>
+
+<script>
+const E = { joy:'#F9D649', sadness:'#3B7DD8', anger:'#E5452F', fear:'#9B5DE5', disgust:'#5CC46A',
+            anxiety:'#F28C28', envy:'#2EC4B6', ennui:'#3D3B8E', embarrassment:'#F06C9B' };
+let uid = 0;
+
+function orbGrad(id, c0, c1, c2) {
+  return `<radialGradient id="${id}" cx="36%" cy="32%" r="75%">
+    <stop offset="0" stop-color="${c0}"/><stop offset=".55" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></radialGradient>`;
+}
+
+const concepts = [
+  {
+    name: 'A．補色殘影',
+    desc: '盯著黃色看，移開後會看到藍色殘影，這是 afterimage 的真實生理現象。黃色是樂樂，藍色是憂憂，剛好就是電影的主角組合。',
+    svg: () => { const u = ++uid; return `
+      <defs>${orbGrad('a'+u, '#FFF6C4', E.joy, '#D99A00')}
+        <filter id="ab${u}" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter></defs>
+      <circle cx="72" cy="70" r="31" fill="${E.sadness}" opacity=".55" filter="url(#ab${u})"/>
+      <circle cx="72" cy="70" r="31" fill="none" stroke="#6FA5FF" stroke-width="1.6" opacity=".9"/>
+      <circle cx="50" cy="50" r="31" fill="url(#a${u})"/>
+      <ellipse cx="40" cy="38" rx="10" ry="5.5" fill="#fff" opacity=".6" transform="rotate(-35 40 38)"/>`; }
+  },
+  {
+    name: 'B．裝著畫面的記憶球',
+    desc: '記憶球裡封著一幅風景：太陽、山、地平線。一看就知道是「圖片」，也是「一段記憶」。',
+    svg: () => { const u = ++uid; return `
+      <defs>
+        <linearGradient id="bs${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2f6b"/><stop offset="1" stop-color="#F06C9B"/></linearGradient>
+        <radialGradient id="bg${u}" cx="50%" cy="50%" r="50%"><stop offset=".78" stop-color="${E.joy}" stop-opacity="0"/><stop offset=".92" stop-color="${E.joy}" stop-opacity=".35"/><stop offset="1" stop-color="${E.joy}" stop-opacity="0"/></radialGradient>
+        <clipPath id="bc${u}"><circle cx="60" cy="60" r="40"/></clipPath></defs>
+      <circle cx="60" cy="60" r="52" fill="url(#bg${u})"/>
+      <g clip-path="url(#bc${u})">
+        <rect x="0" y="0" width="120" height="120" fill="url(#bs${u})"/>
+        <circle cx="74" cy="56" r="10" fill="${E.joy}"/>
+        <polygon points="14,100 44,60 60,78 80,52 112,100" fill="${E.sadness}"/>
+        <polygon points="14,100 34,80 52,100" fill="${E.ennui}"/>
+        <rect x="0" y="86" width="120" height="40" fill="${E.ennui}" opacity=".9"/>
+      </g>
+      <circle cx="60" cy="60" r="40" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/>
+      <path d="M34 42 A30 30 0 0 1 56 26" stroke="#fff" stroke-opacity=".7" stroke-width="3.5" fill="none" stroke-linecap="round"/>`; }
+  },
+  {
+    name: 'C．情緒光圈',
+    desc: '相機光圈的九片葉片，每片是一種情緒的顏色（第一集 5 種加第二集 4 種）。「拍照」和「記憶分類」的意思都在裡面，中間的洞就是看出去的視野。',
+    svg: () => {
+      const keys = Object.keys(E); const cx = 60, cy = 60, R = 46, r = 15, n = 9, step = 360 / n, twist = 38;
+      const P = (rad, deg) => [cx + rad * Math.cos((deg - 90) * Math.PI / 180), cy + rad * Math.sin((deg - 90) * Math.PI / 180)].map(v => v.toFixed(2)).join(',');
+      let s = '';
+      keys.forEach((k, i) => {
+        const a = i * step;
+        s += `<path d="M${P(R, a)} A${R} ${R} 0 0 1 ${P(R, a + step)} L${P(r, a + step + twist)} L${P(r, a + twist)} Z" fill="${E[k]}" stroke="#0d0e14" stroke-width="1.6" stroke-linejoin="round"/>`;
+      });
+      return s + `<circle cx="60" cy="60" r="${R}" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1.5"/>`;
+    }
+  },
+  {
+    name: 'D．視覺暫留',
+    desc: '一顆球劃過去，在後面留下一串漸淡的殘影，顏色從憂憂的藍慢慢變成樂樂的黃。有動態感，favicon 尺寸下也很清楚。',
+    svg: () => { const u = ++uid; return `
+      <defs>${orbGrad('d'+u, '#FFF6C4', E.joy, '#D99A00')}</defs>
+      <circle cx="26" cy="72" r="13" fill="${E.sadness}" opacity=".28"/>
+      <circle cx="42" cy="64" r="16" fill="${E.fear}" opacity=".45"/>
+      <circle cx="61" cy="55" r="19" fill="${E.embarrassment}" opacity=".7"/>
+      <circle cx="84" cy="45" r="23" fill="url(#d${u})"/>
+      <ellipse cx="77" cy="36" rx="7" ry="4" fill="#fff" opacity=".6" transform="rotate(-35 77 36)"/>`; }
+  },
+  {
+    name: 'E．眼中的球',
+    desc: '眼睛裡的虹膜就是一顆記憶球，後面還疊著一道錯開的藍色殘影。意思是「看過的東西留在眼裡」，最直接說明 afterimage 這個字。',
+    svg: () => { const u = ++uid; return `
+      <defs>${orbGrad('e'+u, '#FFF6C4', E.joy, '#C98400')}</defs>
+      <path d="M14 66 Q62 24 110 66 Q62 108 14 66 Z" fill="none" stroke="${E.sadness}" stroke-width="3" opacity=".55" transform="translate(4 4)"/>
+      <path d="M10 60 Q60 18 110 60 Q60 102 10 60 Z" fill="none" stroke="#f4f2ec" stroke-width="3.5" stroke-linejoin="round"/>
+      <circle cx="60" cy="60" r="21" fill="url(#e${u})"/>
+      <circle cx="60" cy="60" r="8" fill="#0d0e14"/>
+      <circle cx="53" cy="52" r="4" fill="#fff" opacity=".85"/>`; }
+  },
+];
+
+const grid = document.getElementById('grid');
+for (const c of concepts) {
+  const svg = (cls) => `<svg class="${cls}" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">${c.svg()}</svg>`;
+  grid.insertAdjacentHTML('beforeend', `
+    <div class="card">
+      <div class="stage">${svg('big')}${svg('small')}${svg('tiny')}</div>
+      <div class="stage light">${svg('small')}<span style="font:600 15px var(--font-sans,system-ui);color:#15161c">afterimage</span></div>
+      <div class="meta"><b>${c.name}</b><span>${c.desc}</span></div>
+    </div>`);
+}
+const wm = (t) => `<div class="wm"><span class="g1">${t}</span><span class="g2">${t}</span><span class="t">${t}</span></div>`;
+grid.insertAdjacentHTML('beforeend', `
+  <div class="card">
+    <div class="stage">${wm('afterimage')}</div>
+    <div class="stage light">${wm('afterimage')}</div>
+    <div class="meta"><b>F．殘影字標</b><span>純文字標誌：字本身拖著藍色和黃色的錯位殘影，可以單獨使用，也可以跟 A～E 任一個圖形搭配。</span></div>
+  </div>`);
+</script>
+</body>
+</html>
