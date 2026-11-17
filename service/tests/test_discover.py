@@ -331,3 +331,22 @@ def test_batch_runs_never_put_tmdb_results_in_the_inbox(owner, web):
                                          "lastActivityAt": "2026-11-09T00:00:00Z", "rating": None}]}
     owner.post("/api/discover/run?max_works=3&per_work=4")
     assert {c["source"] for c in owner.get("/api/discover/inbox").json()["candidates"]} <= {"wallhaven"}
+
+
+def test_same_named_works_share_the_slots_instead_of_the_first_taking_them_all(owner, web):
+    import dataclasses
+    st = owner.app.state.discover
+    st.settings = dataclasses.replace(st.settings, tmdb_token="t")
+    many = lambda tag: [{"file_path": f"/{tag}{i}.jpg", "width": 3840, "height": 2160, "vote_average": 9 - i / 10, "iso_639_1": None} for i in range(10)]
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        if req.url.path.endswith("/search/multi"):
+            return httpx.Response(200, json={"results": [{"media_type": "movie", "id": i, "title": "Same Name", "release_date": f"{2000 + i}-01-01"} for i in (1, 2, 3)]})
+        mid = req.url.path.split("/")[-2]
+        return httpx.Response(200, json={"backdrops": many(f"m{mid}_")})
+    st.http = httpx.AsyncClient(transport=httpx.MockTransport(handler), follow_redirects=False)
+    items = search(owner, title="Same Name", kind="movie", sources="tmdb", limit=12)["tmdb"]["items"]
+    by_film = {}
+    for i in items:
+        by_film[i["source_url"]] = by_film.get(i["source_url"], 0) + 1
+    assert by_film == {f"https://www.themoviedb.org/movie/{i}": 4 for i in (1, 2, 3)}, by_film
