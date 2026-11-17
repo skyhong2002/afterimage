@@ -126,7 +126,8 @@ uv run --directory service python -m afterimage.backup restore --repo /tmp/resto
 `GET /api/discover/search`、`POST /api/discover/import`、`GET /api/discover/gaps`、
 `GET /api/discover/feed`（`limit` `offset` `kind` `source` `device` `work` `uncovered`）、`GET /api/discover/progress`、
 `POST /api/discover/run`（`?refresh=true` 叫掃描器立刻醒來並重讀歷史）、`GET /api/discover/img?u=`、
-`POST /api/discover/feed/<id>/accept|reject`、`GET /api/admin/backup`。
+`POST /api/discover/feed/<id>/accept|reject`、`POST /api/discover/reject`（body `{"ids": [...]}`，一次最多 500 個，
+只會把你列出的、還沒決定的標成不要；頁面上的「看過的 N 張全部不要」按鈕用它）、`GET /api/admin/backup`。
 
 ## 開發與測試
 
