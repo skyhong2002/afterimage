@@ -1,10 +1,12 @@
 .git
+.venv
+data
 wallpaper
 phone wallpaper
 catalog
 docs
-scripts
-.venv
 site/node_modules
 site/dist
 site/.astro
+service/tests
+**/__pycache__

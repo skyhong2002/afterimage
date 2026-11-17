@@ -1,55 +1,4 @@
 ---
-import catalog from '../data/catalog.json';
-import worksData from '../data/works.json';
-
-type Entry = {
-  id: string;
-  path: string;
-  caption: string;
-  device: 'desktop' | 'phone';
-  size: [number, number];
-  bytes: number;
-  palette?: string[];
-  similar?: string[];
-  works?: string[];
-  emotion?: { primary?: string };
-  reviewed?: boolean;
-  personal?: boolean;
-  confidence?: string;
-  note?: string;
-};
-type Work = { id: string; title: string; kind: string };
-
-const RAW_BASE = 'https://raw.githubusercontent.com/skyhong2002/afterimage/master/';
-
-const items = (catalog as Entry[]).map((e) => ({
-  id: e.id,
-  caption: e.caption,
-  device: e.device,
-  w: e.size[0],
-  h: e.size[1],
-  mb: Math.round((e.bytes / 1048576) * 10) / 10,
-  palette: e.palette ?? [],
-  similar: e.similar ?? [],
-  works: e.works ?? [],
-  emotion: e.emotion?.primary ?? '',
-  reviewed: e.reviewed === true,
-  personal: e.personal === true,
-  confidence: e.confidence ?? '',
-  note: e.note ?? '',
-  src: `/view/${e.id}.avif`,
-  raw: RAW_BASE + e.path.split('/').map(encodeURIComponent).join('/'),
-}));
-
-// Only works that actually have images, most images first.
-const usage = new Map<string, number>();
-for (const it of items) for (const w of it.works) usage.set(w, (usage.get(w) ?? 0) + 1);
-const works = (worksData as Work[])
-  .filter((w) => usage.has(w.id))
-  .map((w) => ({ ...w, count: usage.get(w.id)! }))
-  .sort((a, b) => b.count - a.count || a.title.localeCompare(b.title));
-
-const payload = { items, works };
 ---
 
 <!doctype html>
@@ -75,11 +24,10 @@ const payload = { items, works };
         <select id="rvfilter" aria-label="審核狀態" hidden></select>
         <span id="rvbar" hidden>
           <span id="rvprog"></span>
-          <button id="rvexport" type="button">匯出審核</button>
-          <button id="rvreset" type="button">清除本機審核</button>
-          <a href="?review=0">離開審核</a>
+          <a href="/">離開審核</a>
         </span>
         <span id="count"></span>
+        <span id="acct"></span>
       </div>
     </header>
 
@@ -98,6 +46,7 @@ const payload = { items, works };
         <span id="lb-pal" aria-label="主要色彩"></span>
       </footer>
       <div id="lb-tags"></div>
+      <div id="lb-out"></div>
       <section id="lb-rel">
         <div id="lb-tabs" role="tablist" aria-label="聯想方式"></div>
         <div id="lb-sim"></div>
@@ -135,15 +84,16 @@ const payload = { items, works };
       <div id="toast" hidden></div>
     </dialog>
 
-    <script type="application/json" id="data" set:html={JSON.stringify(payload)} />
-
     <script>
+      (async () => {
       type Item = {
         id: string; caption: string; device: string; w: number; h: number; mb: number; src: string; raw: string;
         palette: string[]; similar: string[]; works: string[]; emotion: string; reviewed: boolean; personal: boolean; confidence: string; note: string;
+        source: string; sourceUrl: string; artist: string; origin: string;
       };
-      type WorkInfo = { id: string; title: string; kind: string; count: number };
-      const { items, works }: { items: Item[]; works: WorkInfo[] } = JSON.parse(document.getElementById('data')!.textContent!);
+      type WorkInfo = { id: string; title: string; kind: string; count: number; links?: Record<string, string> };
+      const me: { admin: boolean } = await (await fetch('/api/me')).json();
+      const { items, works }: { items: Item[]; works: WorkInfo[] } = await (await fetch('/api/catalog')).json();
       const byId = new Map(items.map((i) => [i.id, i]));
       const workTitle = new Map(works.map((w) => [w.id, w.title]));
 
@@ -426,6 +376,7 @@ const payload = { items, works };
         }));
 
         renderReview(it);
+        renderOutbound(it);
         box.scrollTop = 0;
         if (!box.open) box.showModal();
       }
@@ -457,22 +408,10 @@ const payload = { items, works };
       document.getElementById('next')!.addEventListener('click', () => step(1));
 
 
-      // ---- Review mode: edit the suggestions locally, then export them as a file ----
-      const REVIEW_KEY = 'afterimage-review-v1';
-      const MODE_KEY = 'afterimage-review-on';
+      // ---- Review mode (owner only): every edit is saved to the server as you make it ----
       const qs = new URLSearchParams(location.search);
-      if (qs.get('review') === '1') localStorage.setItem(MODE_KEY, '1');
-      if (qs.get('review') === '0') localStorage.removeItem(MODE_KEY);
-      const reviewOn = localStorage.getItem(MODE_KEY) === '1';
-
-      type Review = { works: string[]; emotion: string; personal: boolean };
-      type NewWork = { id: string; title: string; kind: string };
-      let store: { reviews: Record<string, Review>; newWorks: NewWork[] } = { reviews: {}, newWorks: [] };
-      try {
-        const raw = JSON.parse(localStorage.getItem(REVIEW_KEY) ?? 'null');
-        if (raw?.reviews) store = { reviews: raw.reviews, newWorks: raw.newWorks ?? [] };
-      } catch { /* ignore a corrupt store */ }
-      const persist = () => localStorage.setItem(REVIEW_KEY, JSON.stringify(store));
+      const reviewOn = me.admin && qs.get('review') === '1';
+      if (qs.get('review') === '1' && !me.admin) location.replace('/login?next=' + encodeURIComponent('/?review=1'));
 
       const rvSel = document.getElementById('rvfilter') as HTMLSelectElement;
       const rvInput = document.getElementById('rv-input') as HTMLInputElement;
@@ -484,38 +423,53 @@ const payload = { items, works };
         const el = document.getElementById('toast')!;
         el.textContent = msg;
         el.hidden = false;
-        setTimeout(() => { el.hidden = true; }, 2400);
+        setTimeout(() => { el.hidden = true; }, 2800);
       }
 
-      function slug(title: string): string {
-        let id = title.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        if (!id) {
-          let h = 0;
-          for (const ch of title) h = (h * 31 + ch.codePointAt(0)!) >>> 0;
-          id = 'w-' + h.toString(36);
+      async function api(path: string, method: string, body?: unknown) {
+        const r = await fetch(path, { method, headers: { 'content-type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) });
+        if (r.status === 401) {
+          toast('登入已過期,請重新登入');
+          setTimeout(() => location.assign('/login?next=' + encodeURIComponent(location.pathname + location.search)), 800);
+          throw new Error('unauthorized');
         }
-        let out = id;
-        for (let n = 2; workTitle.has(out); n++) out = `${id}-${n}`;
-        return out;
+        if (!r.ok) throw new Error(((await r.json().catch(() => ({}))) as { detail?: string }).detail ?? r.statusText);
+        return r.json();
       }
 
       function progress() {
-        const done = items.filter((i) => i.reviewed).length;
-        document.getElementById('rvprog')!.textContent =
-          `已審核 ${done}/${items.length}（本機待匯出 ${Object.keys(store.reviews).length}）`;
+        document.getElementById('rvprog')!.textContent = `已審核 ${items.filter((i) => i.reviewed).length}/${items.length}`;
       }
 
-      // Every edit stores a full snapshot of the three editable fields for that image.
-      function touch(it: Item) {
-        it.reviewed = true;
-        store.reviews[it.id] = { works: [...it.works], emotion: it.emotion, personal: it.personal };
-        persist();
+      // The last state the server confirmed for each image, so a failed save can be undone on screen.
+      type Snap = { works: string[]; emotion: string; personal: boolean; reviewed: boolean };
+      const snap = (it: Item): Snap => ({ works: [...it.works], emotion: it.emotion, personal: it.personal, reviewed: it.reviewed });
+      const saved = new Map<string, Snap>(items.map((i) => [i.id, snap(i)]));
+      let saving: Promise<unknown> = Promise.resolve(); // saves run one after another so fast key presses stay in order
+
+      function refresh(it: Item) {
         paintCard(cardOf.get(it.id)!);
         buildWorkOptions();
         buildEmotionOptions();
         progress();
         apply();
         show(it);
+      }
+
+      // Any edit counts as a review. The screen updates at once; the save follows.
+      function touch(it: Item) {
+        it.reviewed = true;
+        refresh(it);
+        const body = { works: [...it.works], emotion: it.emotion, personal: it.personal };
+        saving = saving
+          .then(() => api(`/api/images/${it.id}`, 'PATCH', body))
+          .then(() => saved.set(it.id, snap(it)))
+          .catch((e: Error) => {
+            if (e.message === 'unauthorized') return;
+            Object.assign(it, saved.get(it.id));
+            refresh(it);
+            toast(`儲存失敗,已還原:${e.message}`);
+          });
       }
 
       function addWork(it: Item, id: string) {
@@ -533,18 +487,22 @@ const payload = { items, works };
         document.getElementById('rv-new')!.hidden = false;
       }
 
-      function createWork() {
+      async function createWork() {
         if (!current || !pendingTitle) return;
+        const it = current;
         const kind = (document.getElementById('rv-kind') as HTMLSelectElement).value;
-        const w: NewWork = { id: slug(pendingTitle), title: pendingTitle, kind };
-        store.newWorks.push(w);
-        works.push({ ...w, count: 0 });
-        workTitle.set(w.id, w.title);
-        pendingTitle = '';
-        rvInput.value = '';
-        rvInput.blur();
-        document.getElementById('rv-new')!.hidden = true;
-        addWork(current, w.id);
+        try {
+          const w = await api('/api/works', 'POST', { title: pendingTitle, kind }) as { id: string; title: string; kind: string; created: boolean };
+          if (!works.some((x) => x.id === w.id)) works.push({ id: w.id, title: w.title, kind: w.kind, count: 0 });
+          workTitle.set(w.id, w.title);
+          pendingTitle = '';
+          rvInput.value = '';
+          rvInput.blur();
+          document.getElementById('rv-new')!.hidden = true;
+          addWork(it, w.id);
+        } catch (e) {
+          if ((e as Error).message !== 'unauthorized') toast(`無法建立作品:${(e as Error).message}`);
+        }
       }
 
       function nextUnreviewedFrom(list: Item[], idx: number) {
@@ -618,21 +576,29 @@ const payload = { items, works };
         document.getElementById('rv-new')!.hidden = !pendingTitle;
       }
 
-      function exportReview() {
-        const data = { version: 1, exportedAt: new Date().toISOString(), newWorks: store.newWorks, reviews: store.reviews };
-        const text = JSON.stringify(data, null, 1);
-        const stamp = data.exportedAt.slice(0, 16).replace(/[-:T]/g, '');
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
-        a.download = `afterimage-review-${stamp}.json`;
-        a.click();
-        URL.revokeObjectURL(a.href);
-        const btn = document.getElementById('rvexport')!;
-        navigator.clipboard?.writeText(text)?.then(
-          () => { btn.textContent = '已下載並複製 ✓'; },
-          () => { btn.textContent = '已下載(複製失敗)'; },
-        );
-        setTimeout(() => { btn.textContent = '匯出審核'; }, 2500);
+      // ---- Looking further: links out to where more of this can be found ----
+      const LINK_LABEL: Record<string, string> = { steam: 'Steam', anilist: 'AniList', tmdb: 'TMDB' };
+      function renderOutbound(it: Item) {
+        const links: [string, string][] = [];
+        if (it.sourceUrl) links.push([`來源${it.artist ? '・' + it.artist : ''}`, it.sourceUrl]);
+        if (!it.personal) {
+          const u = encodeURIComponent(location.origin + it.raw);
+          links.push(['以圖搜圖 SauceNAO', `https://saucenao.com/search.php?url=${u}`], ['Google Lens', `https://lens.google.com/uploadbyurl?url=${u}`], ['TinEye', `https://tineye.com/search?url=${u}`]);
+        }
+        for (const id of it.works.slice(0, 2)) {
+          const w = works.find((x) => x.id === id);
+          if (!w) continue;
+          const q = encodeURIComponent(w.title);
+          const tag = encodeURIComponent(w.title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, ''));
+          for (const [k, url] of Object.entries(w.links ?? {})) links.push([`${w.title} · ${LINK_LABEL[k] ?? k}`, url]);
+          links.push([`Wallhaven「${w.title}」`, `https://wallhaven.cc/search?q=${q}&categories=110&purity=100&sorting=favorites`]);
+          if (tag) links.push([`Danbooru`, `https://danbooru.donmai.us/posts?tags=${tag}`]);
+          links.push(['Pixiv', `https://www.pixiv.net/tags/${q}/artworks`], ['Google 圖片', `https://www.google.com/search?tbm=isch&q=${q}+wallpaper`]);
+        }
+        const box = document.getElementById('lb-out')!;
+        box.hidden = links.length === 0;
+        box.replaceChildren(Object.assign(document.createElement('span'), { className: 'out-label', textContent: '往外找' }),
+          ...links.map(([label, href]) => Object.assign(document.createElement('a'), { className: 'out', href, textContent: label, target: '_blank', rel: 'noopener noreferrer' })));
       }
 
       // wiring
@@ -643,14 +609,19 @@ const payload = { items, works };
       document.getElementById('rv-new-ok')!.addEventListener('click', createWork);
       rvInput.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); addWorkFromInput(); } });
       rvInput.addEventListener('change', addWorkFromInput);
-      document.getElementById('rvexport')!.addEventListener('click', exportReview);
-      document.getElementById('rvreset')!.addEventListener('click', () => {
-        if (confirm('清除這台瀏覽器裡尚未匯出的審核?此動作無法復原。')) {
-          localStorage.removeItem(REVIEW_KEY);
-          location.reload();
-        }
-      });
       rvSel.addEventListener('change', apply);
+
+      // account links
+      const acct = document.getElementById('acct')!;
+      if (me.admin) {
+        acct.append(
+          Object.assign(document.createElement('a'), { href: '/discover', textContent: '發掘' }),
+          Object.assign(document.createElement('a'), { href: reviewOn ? '/' : '/?review=1', textContent: reviewOn ? '離開審核' : '審核' }),
+          Object.assign(document.createElement('button'), { textContent: '登出', type: 'button', onclick: async () => { await api('/api/logout', 'POST'); location.reload(); } }),
+        );
+      } else {
+        acct.append(Object.assign(document.createElement('a'), { href: '/login', textContent: '登入', className: 'dim' }));
+      }
 
       if (reviewOn) {
         document.body.classList.add('review');
@@ -661,23 +632,6 @@ const payload = { items, works };
           opt('', '全部審核狀態'), opt('todo', '未審核'), opt('mid', '未審核・把握度中以下'),
           opt('low', '未審核・把握度低'), opt('done', '已審核'),
         );
-        // re-apply what was reviewed earlier in this browser
-        for (const w of store.newWorks) {
-          if (workTitle.has(w.id)) continue;
-          works.push({ ...w, count: 0 });
-          workTitle.set(w.id, w.title);
-        }
-        for (const [id, r] of Object.entries(store.reviews)) {
-          const it = byId.get(id);
-          if (!it) continue;
-          it.works = r.works;
-          it.emotion = r.emotion;
-          it.personal = r.personal;
-          it.reviewed = true;
-        }
-        cards.forEach(paintCard);
-        buildWorkOptions();
-        buildEmotionOptions();
         progress();
       }
 
@@ -698,6 +652,7 @@ const payload = { items, works };
       apply();
       const hit = items.find((i) => '#' + i.id === location.hash);
       if (hit) go(hit, 'fresh');
+      })();
     </script>
 
     <style is:global>
@@ -783,6 +738,15 @@ const payload = { items, works };
       .rv-actions button[aria-pressed=true] { background: #1d1d25; border-color: var(--fg); }
       kbd { font: inherit; font-size: 10px; opacity: .7; border: 1px solid #ffffff33; border-radius: 3px; padding: 0 4px; margin-left: 4px; }
       #toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: #000d; color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 9px 16px; z-index: 5; }
+      #acct { display: inline-flex; gap: 12px; align-items: center; font-size: 13px; }
+      #acct a { color: var(--fg); text-decoration: none; opacity: .85; }
+      #acct a.dim { color: var(--dim); }
+      #acct a:hover { opacity: 1; text-decoration: underline; }
+      #acct button { font: inherit; font-size: 13px; background: none; border: 0; color: var(--dim); cursor: pointer; padding: 0; }
+      #lb-out { display: flex; flex-wrap: wrap; gap: 4px 10px; justify-content: center; align-items: baseline; padding: 0 12px 8px; font-size: 12px; }
+      .out-label { color: var(--dim); }
+      a.out { color: var(--dim); text-decoration: none; border-bottom: 1px dotted #ffffff33; }
+      a.out:hover { color: var(--fg); border-bottom-color: var(--fg); }
       #lb-hint { text-align: center; color: var(--dim); font-size: 12px; margin: 4px 0 10px; }
       #lb-pal i { width: 18px; height: 18px; border-radius: 50%; border: 1px solid #ffffff33; }
             #lb-trail-wrap h2 { margin: 0 0 4px; font-size: 12px; font-weight: 500; color: var(--dim); text-align: center; letter-spacing: .08em; }
