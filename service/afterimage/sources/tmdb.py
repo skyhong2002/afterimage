@@ -46,7 +46,9 @@ async def search(client: httpx.AsyncClient, title: str, *, limit: int = 12, tmdb
     if not tmdb_token:
         raise SourceError("TMDB_TOKEN is not set")
     found: list[Found] = []
-    for media, mid, name, year in await _matches(client, title, tmdb_token):
+    matches = await _matches(client, title, tmdb_token)
+    per_work = max(3, limit // max(len(matches), 1))   # share the slots, so an earlier work cannot crowd out a later one
+    for media, mid, name, year in matches:
         page = f"https://www.themoviedb.org/{media}/{mid}"
         doc = await get_json(client, f"{API}/{media}/{mid}/images", headers=_headers(tmdb_token))
         wide = [b for b in doc.get("backdrops", []) if b.get("width", 0) >= 1920]
@@ -59,9 +61,9 @@ async def search(client: httpx.AsyncClient, title: str, *, limit: int = 12, tmdb
                   f"{IMG}/w300{b['file_path']}", f"{IMG}/w780{b['file_path']}", f"{IMG}/original{b['file_path']}",
                   width=b["width"], height=b["height"], favorites=round((b.get("vote_average") or 0) * 10) or None,
                   label=f"{tag} {note}", importable=False)
-            for b in pool[:limit]
+            for b in pool[:per_work]
         ]
-    return found[:limit]
+    return found
 
 
 async def resolve(client: httpx.AsyncClient, title: str, token: str) -> str | None:
