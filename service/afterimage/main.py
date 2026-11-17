@@ -59,6 +59,12 @@ class ImportBody(BaseModel):
     force: bool = False
 
 
+class RejectManyBody(BaseModel):
+    """Exactly the candidates the owner was looking at. Never "everything": what the scanner finds later stays undecided."""
+    model_config = ConfigDict(extra="forbid")
+    ids: list[str] = Field(min_length=1, max_length=500)
+
+
 class AcceptBody(BaseModel):
     model_config = ConfigDict(extra="forbid")
     work_id: str | None = None
@@ -306,6 +312,17 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if not n:
             raise HTTPException(404, "no such candidate")
         return {"status": "rejected"}
+
+    @app.post("/api/discover/reject", dependencies=owner)
+    def reject_many(body: RejectManyBody, request: Request):
+        """Reject the listed candidates in one go. Only undecided ones change; accepted stay accepted, unknown ids are ignored."""
+        db = db_of(request)
+        ids = list(dict.fromkeys(body.ids))
+        with db.tx() as c:
+            n = c.execute(
+                f"UPDATE candidates SET status='rejected', decided_at=datetime('now') WHERE status='new' AND id IN ({','.join('?' * len(ids))})",
+                ids).rowcount
+        return {"rejected": n}
 
     @app.get("/api/admin/backup", dependencies=owner)
     def backup_status(request: Request):

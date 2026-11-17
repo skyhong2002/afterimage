@@ -350,6 +350,34 @@ def test_the_feed_endpoint_returns_pictures_and_progress_reports_the_scan(owner,
     assert owner.get("/api/discover/feed?device=tablet").status_code == 422
 
 
+def test_rejecting_many_touches_only_the_listed_undecided_pictures(owner, db):
+    target(db, "Celeste")
+    seen = [cand(db, "Celeste", 10 + i) for i in range(3)]
+    later = cand(db, "Celeste", 1)                      # found by the scanner, not on the owner's screen
+    taken = cand(db, "Celeste", 50, status="accepted")
+    r = owner.post("/api/discover/reject", json={"ids": seen + [taken, "steam:nope", seen[0]]})
+    assert r.status_code == 200 and r.json() == {"rejected": 3}, "accepted, unknown and repeated ids do not count"
+    status = {c["id"]: c["status"] for c in db.all("SELECT id, status FROM candidates")}
+    assert [status[i] for i in seen] == ["rejected"] * 3
+    assert status[later] == "new" and status[taken] == "accepted"
+    assert db.one("SELECT decided_at FROM candidates WHERE id=?", (seen[0],))["decided_at"]
+    assert [i["id"] for i in owner.get("/api/discover/feed").json()["items"]] == [later]
+
+
+@pytest.mark.parametrize("body", [{}, {"ids": []}, {"ids": ["a"] * 501}, {"ids": ["a"], "all": True}, {"ids": "a"}])
+def test_rejecting_many_refuses_an_empty_oversized_or_open_ended_request(owner, db, body):
+    cid = cand(db, "Celeste", 10)
+    assert owner.post("/api/discover/reject", json=body).status_code == 422
+    assert db.one("SELECT status FROM candidates WHERE id=?", (cid,))["status"] == "new"
+
+
+def test_rejecting_many_needs_a_login(client, db):
+    target(db, "Celeste")
+    cid = cand(db, "Celeste", 10)
+    assert client.post("/api/discover/reject", json={"ids": [cid]}).status_code == 401
+    assert db.one("SELECT status FROM candidates WHERE id=?", (cid,))["status"] == "new"
+
+
 def test_accepting_from_the_feed_imports_the_picture_and_rejecting_is_remembered(owner, web, db):
     web.images[WH_FULL] = encode(picture(5, (1920, 1080)), "JPEG", quality=85)
     target(db, "Celeste")

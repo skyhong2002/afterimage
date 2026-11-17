@@ -46,6 +46,9 @@
       <div id="grid" class="grid"></div>
       <p id="feed-status" class="dim center"></p>
       <div id="sentinel"></div>
+      <div id="sweep-bar" hidden>
+        <button id="sweep" type="button" class="no"></button>
+      </div>
     </main>
 
     <!-- ===== search ===== -->
@@ -204,6 +207,44 @@
           return false;
         }
       }
+
+      // ---- "reject everything I have looked at" ----
+      // Looked at = every card from the top of the page down to the bottom edge of the screen. Cards further down (loaded ahead of
+      // time) and anything the scanner finds later are not included, and the ids are sent explicitly so the server cannot widen it.
+      const lookedAt = () => items.filter((c) => {
+        const n = cards.get(c.id);
+        return n && !n.classList.contains('busy') && !n.classList.contains('gone') && n.getBoundingClientRect().top < innerHeight;
+      });
+      let sweepQueued = false;
+      function updateSweep() {
+        sweepQueued = false;
+        const n = lookedAt().length;
+        ($('sweep-bar') as HTMLElement).hidden = n < 2 || $('view-feed').hidden;
+        $('sweep').textContent = `看過的 ${n} 張全部不要`;
+      }
+      const queueSweep = () => { if (!sweepQueued) { sweepQueued = true; requestAnimationFrame(updateSweep); } };
+      addEventListener('scroll', queueSweep, { passive: true });
+      addEventListener('resize', queueSweep);
+      new MutationObserver(queueSweep).observe($('grid'), { childList: true });
+      $('sweep').addEventListener('click', async () => {
+        const list = lookedAt();
+        if (!list.length) return;
+        if (!confirm(`把畫面上看過的這 ${list.length} 張全部標成「不要」?\n往下還沒看到的不會動。`)) return;
+        const btn = $('sweep') as HTMLButtonElement;
+        btn.disabled = true;
+        try {
+          for (let i = 0; i < list.length; i += 500) {
+            await api('/api/discover/reject', 'POST', { ids: list.slice(i, i + 500).map((c) => c.id) });
+          }
+          for (const c of list) remove(c);
+          scrollTo({ top: 0 });
+          if (items.filter((x) => cards.has(x.id)).length < 12) more();
+        } catch (e) {
+          if ((e as Error).message !== 'unauthorized') alert(`沒有成功:${(e as Error).message}`);
+        }
+        btn.disabled = false;
+        queueSweep();
+      });
 
       // ---- progress ----
       let lastProgress: Progress | null = null;
@@ -440,6 +481,9 @@
       .check { font-size: 13px; color: var(--dim); display: inline-flex; gap: 6px; align-items: center; }
       .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
       .card { margin: 0; position: relative; background: #111116; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: zoom-in; transition: opacity .2s, transform .2s; }
+      #sweep-bar { position: fixed; left: 0; right: 0; bottom: 18px; display: flex; justify-content: center; pointer-events: none; z-index: 5; }
+      #sweep-bar[hidden] { display: none; }
+      #sweep { pointer-events: auto; padding: 10px 22px; border-radius: 999px; box-shadow: 0 4px 18px #000a; background: #2a1215; }
       .card.gone { opacity: 0; transform: scale(.96); }
       .card.busy { opacity: .55; pointer-events: none; }
       .card > img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; background: #000; }
