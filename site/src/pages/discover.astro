@@ -184,6 +184,7 @@
 
       async function decide(c: Cand, v: 'accept' | 'reject', force = false): Promise<boolean> {
         const node = cards.get(c.id);
+        if (node?.classList.contains('busy')) return false;   // already being added: a second press must not send a second request
         const note = (text: string, cls = 'err') => node?.querySelector('.meta')?.append(el('span', { className: `flag ${cls}`, textContent: text }));
         try {
           if (v === 'reject') {

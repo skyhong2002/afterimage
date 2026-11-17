@@ -7,6 +7,7 @@ import hashlib
 import io
 import json
 import logging
+import threading
 from urllib.parse import urlparse
 from dataclasses import dataclass, field
 from typing import Any
@@ -165,9 +166,22 @@ async def fetch_bytes(st: State, url: str, max_bytes: int) -> bytes:
     raise ImportError_("too many redirects")
 
 
+_INGEST_LOCK = threading.Lock()
+
+
 def ingest(st: State, data: bytes, *, source: str, source_url: str | None, source_ref: str | None,
            artist: str | None, work_id: str | None, caption: str | None, force: bool) -> dict[str, Any]:
-    """Store one image: files, derivatives, row. Synchronous; run it in a thread."""
+    """Store one image: files, derivatives, row. Synchronous; run it in a thread.
+
+    One at a time: the "already stored?" check and the INSERT must not interleave, or two requests for the same
+    bytes (A pressed twice) both pass the check and the second fails on the UNIQUE id."""
+    with _INGEST_LOCK:
+        return _ingest(st, data, source=source, source_url=source_url, source_ref=source_ref,
+                       artist=artist, work_id=work_id, caption=caption, force=force)
+
+
+def _ingest(st: State, data: bytes, *, source: str, source_url: str | None, source_ref: str | None,
+            artist: str | None, work_id: str | None, caption: str | None, force: bool) -> dict[str, Any]:
     try:
         im = imaging.open_image(data)
     except Exception as e:
