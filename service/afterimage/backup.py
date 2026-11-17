@@ -15,7 +15,7 @@ What is and is not in it
 Marking an image personal later removes its file from the branch tip, but it stays in git history.
 
 Only the standard library is needed to back up (restore also needs Pillow), so this runs on the host.
-Objects the repository already holds (the original 282 images live in master) are not uploaded again:
+Objects the repository already holds (the original 282 images live in main) are not uploaded again:
 git sends only what the remote does not have.
 """
 

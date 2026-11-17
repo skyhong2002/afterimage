@@ -32,15 +32,15 @@ def data_dir(c) -> Path:
 
 @pytest.fixture
 def remote(tmp_path):
-    """A bare repo standing in for GitHub, with a master branch that already holds a file."""
+    """A bare repo standing in for GitHub, with a main branch that already holds a file."""
     bare = tmp_path / "remote.git"
     work = tmp_path / "seed"
-    sh("git", "init", "--quiet", "--bare", "-b", "master", str(bare))
-    sh("git", "init", "--quiet", "-b", "master", str(work))
+    sh("git", "init", "--quiet", "--bare", "-b", "main", str(bare))
+    sh("git", "init", "--quiet", "-b", "main", str(work))
     (work / "README.md").write_text("code lives here\n")
     sh("git", "-C", str(work), "add", ".")
     sh("git", "-C", str(work), "-c", "user.name=t", "-c", "user.email=t@t", "commit", "--quiet", "-m", "init")
-    sh("git", "-C", str(work), "push", "--quiet", str(bare), "master")
+    sh("git", "-C", str(work), "push", "--quiet", str(bare), "main")
     return bare
 
 
@@ -145,8 +145,8 @@ def run_backup(c, remote, tmp_path, **kw):
 def test_run_pushes_a_branch_that_holds_only_the_backup(populated, remote, tmp_path):
     r = run_backup(populated, remote, tmp_path)
     assert r["ok"] and r["pushed"] and r["images"] == 2, r
-    assert tree(remote) == {"snapshot.json", "originals/aaa.png", "originals/bbb.png"}, "no code from master, and nothing personal"
-    assert sh("git", f"--git-dir={remote}", "show", "master:README.md") == "code lives here", "master is untouched"
+    assert tree(remote) == {"snapshot.json", "originals/aaa.png", "originals/bbb.png"}, "no code from main, and nothing personal"
+    assert sh("git", f"--git-dir={remote}", "show", "main:README.md") == "code lives here", "main is untouched"
     assert json.loads((data_dir(populated) / "backups" / backup.STATUS).read_text())["ok"] is True
 
 
