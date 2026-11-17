@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
-from . import auth, discover, store
+from . import auth, backup, discover, store
 from .config import Settings, load
 from .db import Database
 from .sources.base import SourceError
@@ -278,6 +278,12 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if not n:
             raise HTTPException(404, "no such candidate")
         return {"status": "rejected"}
+
+    @app.get("/api/admin/backup", dependencies=owner)
+    def backup_status(request: Request):
+        """What the last off-site backup run reported (written by `python -m afterimage.backup run`)."""
+        f = request.app.state.settings.backups_dir / backup.STATUS
+        return json.loads(f.read_text(encoding="utf-8")) if f.is_file() else {"ok": None, "note": "no backup has run yet"}
 
     # ---- frontend -------------------------------------------------------------
 
