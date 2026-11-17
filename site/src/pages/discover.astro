@@ -86,7 +86,7 @@
 
     <script>
       type Cand = {
-        id: string; source: string; source_url: string; thumb_url: string; preview_url: string; width: number | null; height: number | null;
+        id: string; source: string; source_url: string; thumb_url: string; preview_url: string; full_url: string; width: number | null; height: number | null;
         favorites: number | null; artist: string | null; label: string; device: string; work: string; kind: string; have_wallpapers: number;
       };
       type Progress = {
@@ -249,7 +249,17 @@
       const live = () => items.filter((c) => cards.has(c.id));
       function openViewer(c: Cand) {
         current = c;
-        ($('v-img') as HTMLImageElement).src = via(c.preview_url || c.thumb_url);
+        // Show the small preview at once (stretched to the screen), then swap in the real picture when it has loaded.
+        const big = $('v-img') as HTMLImageElement;
+        const preview = via(c.preview_url || c.thumb_url);
+        big.src = preview;
+        const full = c.full_url ? via(c.full_url) : '';
+        if (full && full !== preview) {
+          const loader = new Image();
+          loader.referrerPolicy = 'no-referrer';
+          loader.onload = () => { if (current === c) big.src = full; };   // failed or oversize: the preview stays
+          loader.src = full;
+        }
         $('v-info').replaceChildren(
           el('strong', { textContent: c.work }),
           el('span', { className: 'dim', textContent: ` ${SOURCE_NAME[c.source] ?? c.source} · ${sizeText(c)}${c.favorites ? ` · ★${c.favorites}` : ''}${c.artist ? ` · 作者 ${c.artist}` : ''}` }),
@@ -443,9 +453,10 @@
       #sentinel { height: 1px; }
 
       /* viewer */
-      dialog { border: 0; padding: 0; background: transparent; color: var(--fg); max-width: 96vw; max-height: 96vh; overflow: visible; }
-      dialog::backdrop { background: rgba(0,0,0,.9); }
-      #v-img { display: block; max-width: 94vw; max-height: calc(100vh - 170px); margin: 0 auto; border-radius: 4px; background: #000; }
+      dialog { border: 0; padding: 0; background: transparent; color: var(--fg); width: 96vw; max-width: 96vw; max-height: 98vh; overflow: visible; }
+      dialog::backdrop { background: rgba(0,0,0,.92); }
+      /* fill the screen whatever the picture's own size is; the buttons and caption take the bottom ~130px */
+      #v-img { display: block; width: 94vw; height: calc(100vh - 140px); object-fit: contain; margin: 0 auto; border-radius: 4px; background: #000; }
       #v-info { text-align: center; padding: 10px 10px 4px; }
       #v-info a { color: var(--dim); font-size: 13px; }
       .v-actions { display: flex; gap: 10px; justify-content: center; padding: 4px 0 6px; }
