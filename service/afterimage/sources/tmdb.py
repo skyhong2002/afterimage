@@ -1,4 +1,9 @@
-"""TMDB: movie and TV backdrops. Needs a free API Read Access Token (TMDB_TOKEN)."""
+"""TMDB: movie and TV backdrops. Needs a free API Read Access Token (TMDB_TOKEN).
+
+TMDB's API terms limit caching to 6 months, forbid using the content with AI/ML applications and
+require attribution. So results are preview-and-link only: they are never imported into the
+collection (enforced in discover.import_image) and the pages that show them carry the attribution.
+"""
 
 from __future__ import annotations
 
@@ -41,7 +46,8 @@ async def search(client: httpx.AsyncClient, title: str, *, limit: int = 12, tmdb
     return [
         Found(NAME, f"{mid}:{b['file_path'].strip('/').split('.')[0]}", page,
               f"{IMG}/w300{b['file_path']}", f"{IMG}/w780{b['file_path']}", f"{IMG}/original{b['file_path']}",
-              width=b["width"], height=b["height"], favorites=round((b.get("vote_average") or 0) * 10) or None, label="backdrop")
+              width=b["width"], height=b["height"], favorites=round((b.get("vote_average") or 0) * 10) or None, label="backdrop",
+              importable=False)
         for b in backdrops[:limit]
     ]
 

@@ -45,6 +45,7 @@ class Found:
     favorites: int | None = None
     artist: str | None = None
     label: str = ""
+    importable: bool = True   # False: preview and link only, never stored (see tmdb.py)
 
     @property
     def id(self) -> str:

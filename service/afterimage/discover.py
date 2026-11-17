@@ -7,6 +7,7 @@ import hashlib
 import io
 import json
 import logging
+from urllib.parse import urlparse
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -201,6 +202,8 @@ def ingest(st: State, data: bytes, *, source: str, source_url: str | None, sourc
 async def import_image(st: State, *, url: str, source: str, source_url: str | None = None, source_ref: str | None = None,
                        artist: str | None = None, work_id: str | None = None, work_title: str | None = None,
                        work_kind: str = "game", caption: str | None = None, force: bool = False) -> dict[str, Any]:
+    if source == "tmdb" or "tmdb.org" in (urlparse(url).hostname or ""):
+        raise ImportError_("TMDB images cannot be imported: the TMDB API terms only allow preview and linking")
     if work_id and not st.db.one("SELECT 1 FROM works WHERE id=?", (work_id,)):
         raise ImportError_(f"unknown work {work_id!r}")
     if not work_id and work_title:
@@ -243,7 +246,7 @@ async def run_batch(st: State, *, days: int = 60, max_works: int = 6, per_work: 
         kept = 0
         for name, r in res["sources"].items():
             for it in r["items"]:
-                if kept >= per_work * len(res["sources"]) or it["imported"] or it["decided"] or it["have"]:
+                if not it["importable"] or kept >= per_work * len(res["sources"]) or it["imported"] or it["decided"] or it["have"]:
                     continue
                 if st.db.one("SELECT 1 FROM candidates WHERE id=?", (it["id"],)):
                     continue
