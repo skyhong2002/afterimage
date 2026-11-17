@@ -396,7 +396,7 @@ def feed(db: Database, *, limit: int = 36, offset: int = 0, kind: str | None = N
         "total": len(ordered), "offset": offset,
         "items": [{
             "id": r["id"], "source": r["source"], "source_url": r["source_url"], "thumb_url": r["thumb_url"],
-            "preview_url": r["preview_url"] or r["thumb_url"], "width": r["width"], "height": r["height"],
+            "preview_url": r["preview_url"] or r["thumb_url"], "full_url": r["full_url"], "width": r["width"], "height": r["height"],
             "favorites": r["favorites"], "artist": r["artist"], "label": r["reason"], "device": r["device"],
             "work": r["work_query"], "kind": r["work_kind"], "have_wallpapers": r["cover"], "score": r["score"],
         } for r in page],

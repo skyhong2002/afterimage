@@ -342,6 +342,7 @@ def test_the_feed_endpoint_returns_pictures_and_progress_reports_the_scan(owner,
     assert body["total"] == 1 and body["items"][0]["id"] == cid
     for key in ("source", "source_url", "thumb_url", "preview_url", "width", "favorites", "work", "kind", "have_wallpapers", "label"):
         assert key in body["items"][0], key
+    assert body["items"][0]["full_url"] == f"https://f/{cid}", "the big viewer swaps the small preview for the real picture"
     p = owner.get("/api/discover/progress").json()
     assert p["running"] is False, "the scanner is off in tests"
     assert (p["works_total"], p["works_scanned"], p["candidates"]) == (1, 0, 1)
