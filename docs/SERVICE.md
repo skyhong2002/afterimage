@@ -74,10 +74,10 @@ Pixiv 沒有公開 API，沒有接。每個來源失敗時只會在那一區顯�
 每天 04:30（台北時間）伺服器把資料推到**這個 repo 的 `backup` 分支**（公開）：
 
 - `snapshot.json`：作品、圖片、作品順序、相似圖、候選、編輯紀錄，可讀的 JSON，沒有時間戳，所以沒變更就不會產生 commit。
-- `originals/`：所有**沒有標為個人照片**的原圖。已經在 `master` 裡的 282 張不會重複上傳（git 依內容去重）。
+- `originals/`：所有**沒有標為個人照片**的原圖。已經在 `main` 裡的 282 張不會重複上傳（git 依內容去重）。
 - **個人照片不推**：快照裡只剩 `{id, personal}`，檔案只留在伺服器。之後才把某張標成個人，它會從分支最新內容移除，但仍留在 git 歷史裡。
 - 縮圖和預覽不備份，還原時重新產生。
-- 這是孤兒分支，和程式碼完全分開，不會動到 `master`。
+- 這是孤兒分支，和程式碼完全分開，不會動到 `main`。
 
 **怎麼運作**：伺服器 crontab 跑 `python -m afterimage.backup run`（只用標準庫），用只能存取這個 repo 的 deploy key
 `~/.ssh/afterimage_backup`（GitHub 上叫 "afterimage-svc backup (skyhong-blog)"，讀寫）。工作目錄是
@@ -97,11 +97,11 @@ uv run --directory service python -m afterimage.backup restore --repo /tmp/resto
 
 還原會建立資料庫、複製原圖、平行重建縮圖與預覽（要求目標目錄是空的）。演練時逐項比對：6 張資料表和線上完全相同、
 271 張原圖逐位元相同、還原出來的服務回給 Infovore 的 `/api/wallpapers.json` 與線上一致。
-個人照片不在還原範圍：原本那 11 張仍在 `master` 的 `wallpaper/` 與封存的 `catalog/`（用 `migrate` 匯入），之後新增的個人照片只存在伺服器。
+個人照片不在還原範圍：原本那 11 張仍在 `main` 的 `wallpaper/` 與封存的 `catalog/`（用 `migrate` 匯入），之後新增的個人照片只存在伺服器。
 然後照「部署」一節放好 `.env` 與 compose，網址會繼續一樣。
 
 **限制**：備份是每天一次，兩次之間新增的圖可能遺失；`backup` 分支是公開的；deploy key 對這個 repo 有寫入權限
-（伺服器被入侵時等同可寫入 repo，所以 `master` 建議設分支保護）。
+（伺服器被入侵時等同可寫入 repo，所以 `main` 建議設分支保護）。
 
 ## 設定（環境變數）
 
@@ -144,7 +144,7 @@ uv run --directory service python -m afterimage.migrate --repo .. --data /tmp/da
 `data/`（volume）、`src/`（repo 的 sparse clone）。更新：
 
 ```bash
-cd /home/ubuntu/apps/afterimage-svc/src && git fetch --depth 1 origin master && git checkout -B master FETCH_HEAD
+cd /home/ubuntu/apps/afterimage-svc/src && git fetch --depth 1 origin main && git checkout -B main FETCH_HEAD
 cd .. && docker compose up -d --build
 ```
 
