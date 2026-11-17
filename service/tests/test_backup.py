@@ -194,3 +194,15 @@ def test_the_admin_endpoint_reports_the_last_run(populated, remote, tmp_path):
     run_backup(populated, remote, tmp_path)
     st = populated.get("/api/admin/backup").json()
     assert st["ok"] is True and st["pushed"] is True and st["images"] == 2
+
+
+def test_branches_whose_name_merely_ends_in_backup_are_not_mistaken_for_it(populated, remote, tmp_path):
+    """`git ls-remote --heads origin backup` matches by suffix, so feat/backup used to count as `backup`."""
+    work = tmp_path / "other"
+    sh("git", "clone", "--quiet", str(remote), str(work))
+    for name in ("feat/backup", "old/2026/backup"):
+        sh("git", "-C", str(work), "push", "--quiet", "origin", f"HEAD:refs/heads/{name}")
+    r = run_backup(populated, remote, tmp_path)
+    assert r["ok"] and r["pushed"], r
+    assert sh("git", f"--git-dir={remote}", "rev-parse", "--verify", "refs/heads/backup")
+    assert tree(remote) == {"snapshot.json", "originals/aaa.png", "originals/bbb.png"}

@@ -189,7 +189,7 @@ def prepare_repo(repo: Path, remote: str, env: dict[str, str]) -> None:
     _git(repo, "config", "user.name", "afterimage backup", env=env)
     _git(repo, "config", "user.email", "backup@afterimage.skyhong.tw", env=env)
     _git(repo, "fetch", "--quiet", "origin", env=env)
-    if _git(repo, "ls-remote", "--heads", "origin", BRANCH, env=env):
+    if _git(repo, "ls-remote", "--heads", "origin", f"refs/heads/{BRANCH}", env=env):   # full name: a bare name matches by suffix
         _git(repo, "checkout", "--quiet", "-B", BRANCH, f"origin/{BRANCH}", env=env)
     elif _git(repo, "rev-parse", "--verify", "--quiet", f"refs/heads/{BRANCH}", env=env, check=False):
         _git(repo, "checkout", "--quiet", BRANCH, env=env)
