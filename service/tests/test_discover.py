@@ -272,3 +272,50 @@ def test_the_work_links_are_looked_up_and_saved(owner, web):
 def test_generic_titles():
     assert discover.too_generic("Escape", "movie") and discover.too_generic("Dark", "show")
     assert not discover.too_generic("Celeste", "game") and not discover.too_generic("Dark Matter", "show")
+
+
+# ---- TMDB: preview only ----------------------------------------------------------------------
+
+def with_tmdb(owner, web):
+    import dataclasses
+    st = owner.app.state.discover
+    st.settings = dataclasses.replace(st.settings, tmdb_token="tmdb-test-token")
+    orig = web.__call__
+
+    def handler(req: httpx.Request) -> httpx.Response:
+        if req.url.host == "api.themoviedb.org":
+            assert req.headers["authorization"] == "Bearer tmdb-test-token"
+            if req.url.path.endswith("/search/multi"):
+                return httpx.Response(200, json={"results": [{"media_type": "movie", "id": 5, "title": "Hello Ghost"}]})
+            return httpx.Response(200, json={"backdrops": [
+                {"file_path": "/a1.jpg", "width": 3840, "height": 2160, "vote_average": 5.1},
+                {"file_path": "/small.jpg", "width": 800, "height": 450, "vote_average": 9}]})
+        return orig(req)
+    st.http = httpx.AsyncClient(transport=httpx.MockTransport(handler), follow_redirects=False)
+
+
+def test_tmdb_results_are_preview_only(owner, web):
+    with_tmdb(owner, web)
+    items = search(owner, title="Hello Ghost", kind="movie", sources="tmdb")["tmdb"]["items"]
+    assert [i["source_id"] for i in items] == ["5:a1"], "backdrops under 1920px wide are dropped"
+    assert items[0]["importable"] is False and items[0]["source_url"] == "https://www.themoviedb.org/movie/5"
+    assert search(owner, sources="wallhaven")["wallhaven"]["items"][0]["importable"] is True
+
+
+def test_tmdb_images_cannot_be_imported_even_by_calling_the_api_directly(owner, web, db):
+    web.images["https://image.tmdb.org/t/p/original/a1.jpg"] = encode(picture(5, (1920, 1080)), "JPEG")
+    for body in ({"url": "https://image.tmdb.org/t/p/original/a1.jpg", "source": "tmdb"},
+                 {"url": "https://image.tmdb.org/t/p/original/a1.jpg", "source": "wallhaven"},   # lying about the source
+                 {"url": "https://w.wallhaven.cc/x.jpg", "source": "tmdb"}):
+        r = owner.post("/api/discover/import", json={**body, "work_title": "Hello Ghost", "work_kind": "movie"})
+        assert r.status_code == 422 and "TMDB" in r.json()["detail"], body
+    assert not any("image.tmdb.org" in c for c in web.calls), "nothing was even downloaded"
+    assert db.one("SELECT COUNT(*) n FROM images")["n"] == 0
+
+
+def test_batch_runs_never_put_tmdb_results_in_the_inbox(owner, web):
+    with_tmdb(owner, web)
+    web.gaps = {"covered": [], "gaps": [{"title": "Hello Ghost", "kind": "movie", "source": "simkl", "status": "completed",
+                                         "lastActivityAt": "2026-11-09T00:00:00Z", "rating": None}]}
+    owner.post("/api/discover/run?max_works=3&per_work=4")
+    assert {c["source"] for c in owner.get("/api/discover/inbox").json()["candidates"]} <= {"wallhaven"}

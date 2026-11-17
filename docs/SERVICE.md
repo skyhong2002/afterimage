@@ -35,7 +35,12 @@ git 只放程式。`catalog/` 是搬進資料庫之前的 YAML 快照，只作�
 | Wallhaven | 社群桌布，只收 SFW | 無 |
 | Danbooru | 插畫，只收 general 分級，記錄作者 | 無 |
 | AniList | 動畫封面 | 無 |
-| TMDB | 電影、影集劇照 | `TMDB_TOKEN`（免費申請的 API Read Access Token） |
+| TMDB | 電影、影集劇照，**只能預覽和開連結，不能存入收藏** | `TMDB_TOKEN`（免費申請的 API Read Access Token，v4 那串長的） |
+
+**TMDB 的規則**（來自它的 API 使用條款，2023-10-20 版）：只限非商業用途；快取上限 6 個月，終止時要全部刪除；
+禁止用在 AI/機器學習相關的應用；網站要顯示 TMDB 標誌和「This website uses TMDB and the TMDB APIs but is not endorsed,
+certified, or otherwise approved by TMDB.」。所以：TMDB 的結果 `importable=false`，伺服器端拒絕匯入（不是只有前端隱藏按鈕），
+批次發掘也不會把它放進收件匣，首頁和 `/discover` 頁尾有標誌與聲明。**不要把 TMDB 的資料交給 Hermes 或任何模型。**
 
 Pixiv 沒有公開 API，沒有接。每個來源失敗時只會在那一區顯示錯誤，不影響其他來源。
 下載只允許已知的圖片主機（見 `sources/base.py`），重新導向也會逐跳檢查，大小上限 30 MB。
