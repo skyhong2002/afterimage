@@ -14,15 +14,42 @@
   </head>
   <body>
     <header>
-      <h1><a href="/"><img class="mark" src="/favicon.svg" alt="" width="24" height="24" />afterimage</a> <span>夢境製作所 Dream Productions</span></h1>
+      <h1><a href="/"><img class="mark" src="/favicon.svg" alt="" width="24" height="24" />afterimage</a> <span>夢境製作所</span></h1>
       <nav>
-        <button id="tab-search" type="button" aria-pressed="true">搜尋</button>
-        <button id="tab-inbox" type="button" aria-pressed="false">收件匣 <b id="inbox-n"></b></button>
+        <button id="tab-feed" type="button" aria-pressed="true">推薦</button>
+        <button id="tab-search" type="button" aria-pressed="false">搜尋</button>
       </nav>
       <a href="/?review=1">審核</a>
     </header>
 
-    <main id="view-search">
+    <!-- ===== the feed ===== -->
+    <main id="view-feed">
+      <section id="progress" class="progress">
+        <div class="bar"><i id="bar-fill"></i></div>
+        <p id="progress-text" class="dim"></p>
+        <button id="rescan" type="button" class="link">重新掃描</button>
+      </section>
+
+      <section class="filters">
+        <div id="kinds" class="chips"></div>
+        <select id="f-source" aria-label="來源">
+          <option value="">所有來源</option><option value="steam">Steam 截圖</option>
+          <option value="wallhaven">Wallhaven</option><option value="danbooru">Danbooru 插畫</option>
+        </select>
+        <select id="f-device" aria-label="裝置">
+          <option value="">桌面和手機</option><option value="desktop">桌面</option><option value="phone">手機</option>
+        </select>
+        <label class="check"><input id="f-uncovered" type="checkbox" /> 只看還沒有桌布的作品</label>
+        <button id="f-work" type="button" class="chip" hidden></button>
+      </section>
+
+      <div id="grid" class="grid"></div>
+      <p id="feed-status" class="dim center"></p>
+      <div id="sentinel"></div>
+    </main>
+
+    <!-- ===== search ===== -->
+    <main id="view-search" hidden>
       <form id="form">
         <input id="title" placeholder="輸入作品名稱,例如 Celeste、Persona 5、Hello Ghost" autocomplete="off" required />
         <select id="kind" aria-label="類型">
@@ -34,18 +61,23 @@
         <button type="submit" class="go">搜尋</button>
       </form>
       <div id="sources" class="chips" aria-label="來源"></div>
-      <div id="gaps" class="chips"></div>
       <div id="status" class="dim"></div>
       <div id="results"></div>
     </main>
 
-    <main id="view-inbox" hidden>
-      <div class="bar">
-        <button id="run" type="button" class="go">依近期缺口批次發掘</button>
-        <span id="run-status" class="dim"></span>
+    <!-- ===== big viewer ===== -->
+    <dialog id="viewer">
+      <button id="v-close" type="button" aria-label="關閉">×</button>
+      <button id="v-prev" type="button" class="nav" aria-label="上一張">‹</button>
+      <button id="v-next" type="button" class="nav" aria-label="下一張">›</button>
+      <img id="v-img" alt="" referrerpolicy="no-referrer" />
+      <div id="v-info"></div>
+      <div class="v-actions">
+        <button id="v-accept" type="button" class="yes">加入收藏 <kbd>A</kbd></button>
+        <button id="v-reject" type="button" class="no">不要 <kbd>R</kbd></button>
       </div>
-      <div id="inbox"></div>
-    </main>
+      <p class="dim center">← → 切換 · A 加入 · R 不要 · Esc 關閉</p>
+    </dialog>
 
     <footer class="tmdb">
       <a href="https://www.themoviedb.org" target="_blank" rel="noopener noreferrer"><img src="/tmdb-logo.svg" alt="TMDB" /></a>
@@ -53,23 +85,20 @@
     </footer>
 
     <script>
-      type Item = {
-        id: string; source: string; source_id: string; source_url: string; thumb_url: string; preview_url: string; full_url: string;
-        width: number | null; height: number | null; favorites: number | null; artist: string | null; label: string;
-        importable: boolean; imported: string | null; decided: string | null; have: { id: string; distance: number } | null; similar: { id: string; distance: number } | null;
-      };
       type Cand = {
-        id: string; source: string; source_url: string; thumb_url: string; preview_url: string | null; full_url: string; width: number | null;
-        height: number | null; favorites: number | null; artist: string | null; work_query: string; work_kind: string; reason: string;
-        nearest_id: string | null; distance: number | null;
+        id: string; source: string; source_url: string; thumb_url: string; preview_url: string; width: number | null; height: number | null;
+        favorites: number | null; artist: string | null; label: string; device: string; work: string; kind: string; have_wallpapers: number;
+      };
+      type Progress = {
+        running: boolean; works_total: number; works_scanned: number; candidates: number; candidates_by_kind: Record<string, number>;
+        current: string | null; error: string | null; eta_minutes: number | null;
       };
       const $ = (id: string) => document.getElementById(id)!;
-      const KIND_SOURCES: Record<string, string[]> = {
-        game: ['steam', 'wallhaven', 'danbooru'], anime: ['wallhaven', 'danbooru', 'anilist'], movie: ['tmdb', 'wallhaven'],
-        show: ['tmdb', 'wallhaven'], book: ['wallhaven'], music: ['wallhaven'],
+      const el = (tag: string, props: Record<string, unknown> = {}, ...kids: (Node | string)[]) => {
+        const e = Object.assign(document.createElement(tag), props);
+        e.append(...kids);
+        return e;
       };
-      const SOURCE_NAME: Record<string, string> = { steam: 'Steam 官方截圖', wallhaven: 'Wallhaven', danbooru: 'Danbooru 插畫', anilist: 'AniList 封面', tmdb: 'TMDB 劇照' };
-
       async function api(path: string, method = 'GET', body?: unknown) {
         const r = await fetch(path, { method, headers: { 'content-type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) });
         if (r.status === 401) { location.assign('/login?next=/discover'); throw new Error('unauthorized'); }
@@ -77,19 +106,199 @@
         if (!r.ok) throw new Error((data as { detail?: string }).detail ?? r.statusText);
         return data;
       }
-      const el = (tag: string, props: Record<string, unknown> = {}, ...kids: (Node | string)[]) => {
-        const e = Object.assign(document.createElement(tag), props);
-        e.append(...kids);
-        return e;
-      };
+      const SOURCE_NAME: Record<string, string> = { steam: 'Steam', wallhaven: 'Wallhaven', danbooru: 'Danbooru', anilist: 'AniList', tmdb: 'TMDB' };
+      const KIND_NAME: Record<string, string> = { game: '遊戲', movie: '電影', show: '影集', anime: '動畫', book: '書/漫畫' };
+      // Danbooru's image host refuses browsers hotlinking from another site, so those go through our server
+      const via = (u: string) => (u.includes('.donmai.us/') ? `/api/discover/img?u=${encodeURIComponent(u)}` : u);
+      const img = (src: string, alt = '') => el('img', { src: via(src), alt, loading: 'lazy', referrerPolicy: 'no-referrer' }) as HTMLImageElement;
 
-      // ---- source toggles ----
+      // ================= feed =================
+      const filters = { kind: '', source: '', device: '', uncovered: false, work: '' };
+      const items: Cand[] = [];                 // everything shown so far, in order
+      const seen = new Set<string>();
+      let undecidedShown = 0;                   // the server's list no longer holds decided ones, so this is the next offset
+      let total = 0, loading = false, exhausted = false, decidedCount = 0;
+
+      const cards = new Map<string, HTMLElement>();
+      const sizeText = (c: Cand) => (c.width && c.height ? `${c.width}×${c.height}` : '官方圖');
+
+      function card(c: Cand): HTMLElement {
+        const pic = img(c.preview_url || c.thumb_url, c.work);
+        pic.addEventListener('error', () => { if (c.preview_url && !pic.src.endsWith(via(c.thumb_url))) pic.src = via(c.thumb_url); }, { once: true });
+        const meta = el('div', { className: 'meta' },
+          el('button', { type: 'button', className: 'work', textContent: c.work, title: '只看這部作品' }),
+          el('span', { className: 'dim', textContent: `${SOURCE_NAME[c.source] ?? c.source} · ${sizeText(c)}${c.favorites ? ` · ★${c.favorites}` : ''}${c.have_wallpapers ? ` · 已有 ${c.have_wallpapers} 張` : ''}` }));
+        (meta.querySelector('.work') as HTMLElement).addEventListener('click', (ev) => { ev.stopPropagation(); filters.work = c.work; reload(); });
+        const yes = el('button', { type: 'button', className: 'yes', textContent: '✓ 加入', title: '加入收藏 (A)' });
+        const no = el('button', { type: 'button', className: 'no', textContent: '✗', title: '不要 (R)' });
+        yes.addEventListener('click', (ev) => { ev.stopPropagation(); decide(c, 'accept'); });
+        no.addEventListener('click', (ev) => { ev.stopPropagation(); decide(c, 'reject'); });
+        const fig = el('figure', { className: 'card' }, pic, meta, el('div', { className: 'acts' }, yes, no));
+        fig.addEventListener('click', () => openViewer(c));
+        return fig;
+      }
+
+      async function more() {
+        if (loading || exhausted) return;
+        loading = true;
+        $('feed-status').textContent = items.length ? '載入中…' : '';
+        try {
+          const q = new URLSearchParams({ limit: '36', offset: String(undecidedShown) });
+          for (const k of ['kind', 'source', 'device', 'work'] as const) if (filters[k]) q.set(k, filters[k]);
+          if (filters.uncovered) q.set('uncovered', 'true');
+          const page = await api(`/api/discover/feed?${q}`) as { total: number; items: Cand[] };
+          total = page.total;
+          const fresh = page.items.filter((c) => !seen.has(c.id));
+          for (const c of fresh) {
+            seen.add(c.id); items.push(c); undecidedShown++;
+            const node = card(c); cards.set(c.id, node); $('grid').append(node);
+          }
+          exhausted = page.items.length < 36;
+          emptyNote();
+        } catch (e) { if ((e as Error).message !== 'unauthorized') $('feed-status').textContent = `載入失敗:${(e as Error).message}`; }
+        loading = false;
+        if (!exhausted && $('sentinel').getBoundingClientRect().top < innerHeight + 400) more();
+      }
+
+      function emptyNote() {
+        const left = items.filter((c) => cards.has(c.id)).length;
+        if (left) { $('feed-status').textContent = exhausted ? `已經到底了 · 這次看了 ${decidedCount} 張` : ''; return; }
+        $('feed-status').textContent = lastProgress?.running && (lastProgress.works_scanned < lastProgress.works_total)
+          ? '還在掃描你看過的作品,第一批結果很快就會出現…'
+          : decidedCount ? `都看完了 · 這次決定了 ${decidedCount} 張` : '目前沒有候選。按「重新掃描」,或到「搜尋」直接找。';
+      }
+
+      function reload() {
+        items.length = 0; seen.clear(); cards.clear(); undecidedShown = 0; exhausted = false; $('grid').replaceChildren();
+        const w = $('f-work') as HTMLButtonElement;
+        w.hidden = !filters.work; w.textContent = filters.work ? `${filters.work}  ×` : '';
+        more();
+      }
+
+      function remove(c: Cand) {
+        const node = cards.get(c.id);
+        cards.delete(c.id); undecidedShown = Math.max(0, undecidedShown - 1); decidedCount++;
+        if (node) { node.classList.add('gone'); setTimeout(() => node.remove(), 220); }
+        emptyNote();
+      }
+
+      async function decide(c: Cand, v: 'accept' | 'reject', force = false): Promise<boolean> {
+        const node = cards.get(c.id);
+        const note = (text: string, cls = 'err') => node?.querySelector('.meta')?.append(el('span', { className: `flag ${cls}`, textContent: text }));
+        try {
+          if (v === 'reject') {
+            await api(`/api/discover/feed/${encodeURIComponent(c.id)}/reject`, 'POST');
+          } else {
+            node?.classList.add('busy');
+            const r = await api(`/api/discover/feed/${encodeURIComponent(c.id)}/accept`, 'POST', { force }) as { status: string; nearest?: { distance: number } };
+            node?.classList.remove('busy');
+            if (r.status === 'duplicate') { note(`和收藏很像(距離 ${r.nearest?.distance})`, 'sim'); return false; }
+          }
+          remove(c);
+          if ((items.filter((x) => cards.has(x.id)).length) < 12) more();
+          return true;
+        } catch (e) {
+          node?.classList.remove('busy');
+          if ((e as Error).message !== 'unauthorized') note((e as Error).message);
+          return false;
+        }
+      }
+
+      // ---- progress ----
+      let lastProgress: Progress | null = null;
+      async function refreshProgress() {
+        try {
+          const p = await api('/api/discover/progress') as Progress;
+          const was = lastProgress;
+          lastProgress = p;
+          const pct = p.works_total ? Math.round((100 * p.works_scanned) / p.works_total) : 0;
+          ($('bar-fill') as HTMLElement).style.width = `${pct}%`;
+          const done = p.works_total > 0 && p.works_scanned >= p.works_total;
+          const eta = p.eta_minutes ? `,預計還要約 ${p.eta_minutes >= 90 ? `${Math.round(p.eta_minutes / 60)} 小時` : `${p.eta_minutes} 分鐘`}` : '';
+          $('progress-text').textContent = !p.works_total
+            ? (p.error ? `還沒讀到你的作品清單:${p.error}` : '正在讀取你看過的作品…')
+            : `已掃描 ${p.works_scanned}/${p.works_total} 部你看過的作品 · 候選 ${p.candidates} 張${done ? '' : p.current ? `${eta} · 正在找「${p.current}」` : eta}${p.error ? ` · ⚠ ${p.error}` : ''}`;
+          ($('progress') as HTMLElement).classList.toggle('done', done);
+          drawKinds(p);
+          // new results arrived while the page was empty or at the bottom
+          if (was && p.candidates > was.candidates && (exhausted || !items.length)) { exhausted = false; more(); }
+        } catch { /* a missed refresh is harmless */ }
+      }
+      function drawKinds(p: Progress) {
+        const all = Object.values(p.candidates_by_kind).reduce((a, b) => a + b, 0);
+        const mk = (k: string, label: string, n: number) => {
+          const b = el('button', { type: 'button', className: 'chip', textContent: `${label} ${n}` }) as HTMLButtonElement;
+          b.setAttribute('aria-pressed', String(filters.kind === k));
+          b.addEventListener('click', () => { filters.kind = k; reload(); drawKinds(p); });
+          return b;
+        };
+        $('kinds').replaceChildren(mk('', '全部', all), ...Object.entries(KIND_NAME).filter(([k]) => p.candidates_by_kind[k]).map(([k, l]) => mk(k, l, p.candidates_by_kind[k])));
+      }
+      $('rescan').addEventListener('click', async () => { await api('/api/discover/run?refresh=true', 'POST'); refreshProgress(); });
+
+      for (const [id, key] of [['f-source', 'source'], ['f-device', 'device']] as const) {
+        $(id).addEventListener('change', (ev) => { filters[key] = (ev.target as HTMLSelectElement).value; reload(); });
+      }
+      $('f-uncovered').addEventListener('change', (ev) => { filters.uncovered = (ev.target as HTMLInputElement).checked; reload(); });
+      $('f-work').addEventListener('click', () => { filters.work = ''; reload(); });
+      new IntersectionObserver((e) => { if (e[0].isIntersecting) more(); }, { rootMargin: '600px' }).observe($('sentinel'));
+
+      // ---- big viewer ----
+      const viewer = $('viewer') as HTMLDialogElement;
+      let current: Cand | null = null;
+      const live = () => items.filter((c) => cards.has(c.id));
+      function openViewer(c: Cand) {
+        current = c;
+        ($('v-img') as HTMLImageElement).src = via(c.preview_url || c.thumb_url);
+        $('v-info').replaceChildren(
+          el('strong', { textContent: c.work }),
+          el('span', { className: 'dim', textContent: ` ${SOURCE_NAME[c.source] ?? c.source} · ${sizeText(c)}${c.favorites ? ` · ★${c.favorites}` : ''}${c.artist ? ` · 作者 ${c.artist}` : ''}` }),
+          el('a', { href: c.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: ' 來源 ↗' }));
+        if (!viewer.open) viewer.showModal();
+      }
+      function step(d: number) {
+        const l = live(); if (!l.length || !current) return;
+        const i = l.findIndex((c) => c.id === current!.id);
+        openViewer(l[(i + d + l.length) % l.length]);
+      }
+      async function decideCurrent(v: 'accept' | 'reject') {
+        if (!current) return;
+        const l = live(); const i = l.findIndex((c) => c.id === current!.id);
+        const nextOne = l[i + 1] ?? l[i - 1];
+        const ok = await decide(current, v);
+        if (ok && nextOne) openViewer(nextOne); else if (ok) viewer.close();
+      }
+      $('v-close').addEventListener('click', () => viewer.close());
+      $('v-prev').addEventListener('click', () => step(-1));
+      $('v-next').addEventListener('click', () => step(1));
+      $('v-accept').addEventListener('click', () => decideCurrent('accept'));
+      $('v-reject').addEventListener('click', () => decideCurrent('reject'));
+      viewer.addEventListener('click', (ev) => { if (ev.target === viewer) viewer.close(); });
+      document.addEventListener('keydown', (ev) => {
+        if (!viewer.open || ev.metaKey || ev.ctrlKey || ev.altKey) return;
+        const k = ev.key.toLowerCase();
+        if (k === 'arrowleft') step(-1); else if (k === 'arrowright') step(1);
+        else if (k === 'a') decideCurrent('accept'); else if (k === 'r') decideCurrent('reject'); else return;
+        ev.preventDefault();
+      });
+
+      // ================= search (unchanged behaviour) =================
+      type Item = {
+        id: string; source: string; source_id: string; source_url: string; thumb_url: string; preview_url: string; full_url: string;
+        width: number | null; height: number | null; favorites: number | null; artist: string | null; label: string; importable: boolean;
+        imported: string | null; decided: string | null; have: { id: string; distance: number } | null; similar: { id: string; distance: number } | null;
+      };
+      const KIND_SOURCES: Record<string, string[]> = {
+        game: ['steam', 'wallhaven', 'danbooru'], anime: ['wallhaven', 'danbooru', 'anilist'], movie: ['tmdb', 'wallhaven'],
+        show: ['tmdb', 'wallhaven'], book: ['wallhaven'], music: ['wallhaven'],
+      };
+      const SEARCH_SOURCE_NAME: Record<string, string> = { steam: 'Steam 官方截圖', wallhaven: 'Wallhaven', danbooru: 'Danbooru 插畫', anilist: 'AniList 封面', tmdb: 'TMDB 劇照' };
       let chosen = new Set<string>(KIND_SOURCES.game);
       function drawSources() {
         const kind = ($('kind') as HTMLSelectElement).value;
         $('sources').replaceChildren(el('span', { className: 'dim', textContent: '來源' }),
-          ...Object.keys(SOURCE_NAME).map((s) => {
-            const b = el('button', { type: 'button', className: 'chip', textContent: SOURCE_NAME[s] }) as HTMLButtonElement;
+          ...Object.keys(SEARCH_SOURCE_NAME).map((s) => {
+            const b = el('button', { type: 'button', className: 'chip', textContent: SEARCH_SOURCE_NAME[s] }) as HTMLButtonElement;
             b.setAttribute('aria-pressed', String(chosen.has(s)));
             b.title = KIND_SOURCES[kind]?.includes(s) ? '這個類型的預設來源' : '';
             b.addEventListener('click', () => { chosen.has(s) ? chosen.delete(s) : chosen.add(s); drawSources(); });
@@ -98,12 +307,9 @@
       }
       $('kind').addEventListener('change', () => { chosen = new Set(KIND_SOURCES[($('kind') as HTMLSelectElement).value]); drawSources(); });
 
-      // ---- card ----
-      function card(it: Item, onImport: (it: Item, force: boolean) => Promise<void>) {
-        const img = el('img', { loading: 'lazy', alt: it.label, src: it.preview_url || it.thumb_url }) as HTMLImageElement;
-        const info = el('div', { className: 'info' });
+      function scard(it: Item, onImport: (it: Item, force: boolean) => Promise<void>) {
         const size = it.width && it.height ? `${it.width}×${it.height}` : '官方圖';
-        info.append(el('span', {}, `${size}${it.favorites ? ` · ★${it.favorites}` : ''}`),
+        const info = el('div', { className: 'info' }, el('span', {}, `${size}${it.favorites ? ` · ★${it.favorites}` : ''}`),
           el('a', { href: it.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: it.label || '來源' }));
         if (it.artist) info.append(el('span', { className: 'dim', textContent: `作者 ${it.artist}` }));
         const flags = el('div', { className: 'flags' });
@@ -113,11 +319,10 @@
         else if (it.similar) flags.append(el('span', { className: 'flag sim', textContent: `疑似重複(距離 ${it.similar.distance})` }));
         if (it.decided) flags.append(el('span', { className: 'flag', textContent: it.decided === 'rejected' ? '曾拒絕' : '曾接受' }));
         if (have && !it.imported) flags.append(el('img', { className: 'near', src: `/thumbs/${have.id}.avif`, title: '收藏裡最像的那張', alt: '' }));
+        const pic = img(it.preview_url || it.thumb_url, it.label); pic.className = 'pic';
         if (!it.importable) {
-          // TMDB's API terms allow preview and linking only, so there is nothing to import.
           flags.append(el('span', { className: 'flag', textContent: '僅供預覽', title: 'TMDB 條款不允許存入收藏' }));
-          return el('figure', { className: 'card' }, img, info, flags,
-            el('a', { className: 'take open', href: it.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: '在 TMDB 開啟 ↗' }));
+          return el('figure', { className: 'scard' }, pic, info, flags, el('a', { className: 'take open', href: it.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: '在 TMDB 開啟 ↗' }));
         }
         const btn = el('button', { type: 'button', className: 'take', textContent: it.imported ? '已收進來' : '收進來' }) as HTMLButtonElement;
         btn.disabled = !!it.imported;
@@ -125,11 +330,10 @@
           btn.disabled = true; btn.textContent = '下載中…';
           try { await onImport(it, btn.dataset.force === '1'); } catch (e) { btn.disabled = false; btn.textContent = '收進來'; flags.append(el('span', { className: 'flag err', textContent: (e as Error).message })); }
         });
-        const c = el('figure', { className: 'card' }, img, info, flags, btn);
+        const c = el('figure', { className: 'scard' }, pic, info, flags, btn);
         (c as HTMLElement).dataset.id = it.id;
         return c;
       }
-
       async function importItem(it: Item, force: boolean, title: string, kind: string, workId: string) {
         const r = await api('/api/discover/import', 'POST', {
           url: it.full_url, source: it.source, source_url: it.source_url, source_ref: it.id, artist: it.artist,
@@ -139,16 +343,12 @@
         const flags = c.querySelector('.flags')!, btn = c.querySelector('.take') as HTMLButtonElement;
         if (r.status === 'duplicate') {
           btn.disabled = false; btn.textContent = '仍然收進來'; btn.dataset.force = '1';
-          flags.replaceChildren(el('span', { className: 'flag sim', textContent: `和收藏裡這張很像(距離 ${r.nearest!.distance})` }),
-            el('img', { className: 'near', src: `/thumbs/${r.nearest!.id}.avif`, alt: '' }));
+          flags.replaceChildren(el('span', { className: 'flag sim', textContent: `和收藏裡這張很像(距離 ${r.nearest!.distance})` }), el('img', { className: 'near', src: `/thumbs/${r.nearest!.id}.avif`, alt: '' }));
           return;
         }
         flags.replaceChildren(el('a', { href: `/#${r.id}`, className: 'flag ok', textContent: r.status === 'exists' ? '✓ 早就收藏了' : '✓ 已收進來' }));
         btn.textContent = '已收進來'; btn.disabled = true;
-        loadInboxCount();
       }
-
-      // ---- search ----
       async function runSearch() {
         const title = ($('title') as HTMLInputElement).value.trim();
         if (!title) return;
@@ -159,91 +359,36 @@
         try {
           const params = new URLSearchParams({ title, kind, device, sources: [...chosen].join(','), limit: '12' });
           const res = await api(`/api/discover/search?${params}`) as { sources: Record<string, { ok: boolean; error: string | null; items: Item[] }> };
-          const total = Object.values(res.sources).reduce((n, s) => n + s.items.length, 0);
-          $('status').textContent = total ? '' : '沒有找到。可以換個寫法(英文原名通常比較準),或到下方「往外找」的連結。';
+          const n = Object.values(res.sources).reduce((a, s) => a + s.items.length, 0);
+          $('status').textContent = n ? '' : '沒有找到。可以換個寫法(英文原名通常比較準)。';
           for (const [name, s] of Object.entries(res.sources)) {
-            const head = el('h3', {}, SOURCE_NAME[name] ?? name, el('small', { className: s.ok ? 'dim' : 'err', textContent: s.ok ? `${s.items.length} 張` : `失敗:${s.error}` }));
-            const grid = el('div', { className: 'grid' }, ...s.items.map((it) => card(it, (i, f) => importItem(i, f, title, kind, workId))));
-            $('results').append(el('section', {}, head, grid));
+            const head = el('h3', {}, SEARCH_SOURCE_NAME[name] ?? name, el('small', { className: s.ok ? 'dim' : 'err', textContent: s.ok ? `${s.items.length} 張` : `失敗:${s.error}` }));
+            $('results').append(el('section', {}, head, el('div', { className: 'sgrid' }, ...s.items.map((it) => scard(it, (i, f) => importItem(i, f, title, kind, workId))))));
           }
           const q = encodeURIComponent(title);
           $('results').append(el('p', { className: 'dim out' }, '往外找:',
             ...[['Wallhaven', `https://wallhaven.cc/search?q=${q}&categories=110&purity=100&sorting=favorites`], ['Pixiv', `https://www.pixiv.net/tags/${q}/artworks`],
               ['Google 圖片', `https://www.google.com/search?tbm=isch&q=${q}+wallpaper`], ['SteamGridDB', `https://www.steamgriddb.com/search/grids?term=${q}`]]
-              .map(([n, u]) => el('a', { href: u, target: '_blank', rel: 'noopener noreferrer', textContent: n }))));
+              .map(([nm, u]) => el('a', { href: u, target: '_blank', rel: 'noopener noreferrer', textContent: nm }))));
         } catch (e) { if ((e as Error).message !== 'unauthorized') $('status').textContent = `搜尋失敗:${(e as Error).message}`; }
       }
       $('form').addEventListener('submit', (ev) => { ev.preventDefault(); runSearch(); });
-
-      // ---- recent gaps (from infovore) ----
-      api('/api/discover/gaps').then((g: { gaps: { title: string; kind: string }[] }) => {
-        const list = g.gaps.filter((x) => ['game', 'anime', 'movie', 'show'].includes(x.kind)).slice(0, 14);
-        if (!list.length) return;
-        $('gaps').replaceChildren(el('span', { className: 'dim', textContent: '近期還沒有桌布' }),
-          ...list.map((x) => {
-            const b = el('button', { type: 'button', className: 'chip', textContent: x.title }) as HTMLButtonElement;
-            b.addEventListener('click', () => {
-              ($('title') as HTMLInputElement).value = x.title;
-              ($('kind') as HTMLSelectElement).value = x.kind;
-              chosen = new Set(KIND_SOURCES[x.kind]); drawSources(); runSearch();
-            });
-            return b;
-          }));
-      }).catch(() => { /* infovore being down only hides the shortcuts */ });
-
-      // ---- works for the "into" select ----
       api('/api/catalog').then((c: { works: { id: string; title: string }[] }) => {
         $('into').append(...c.works.map((w) => el('option', { value: w.id, textContent: `歸入:${w.title}` })));
       });
 
-      // ---- inbox ----
-      async function loadInboxCount() {
-        const r = await api('/api/discover/inbox') as { candidates: Cand[] };
-        $('inbox-n').textContent = r.candidates.length ? `(${r.candidates.length})` : '';
-        return r.candidates;
+      // ================= tabs and start =================
+      function tab(which: 'feed' | 'search') {
+        $('view-feed').hidden = which !== 'feed'; $('view-search').hidden = which !== 'search';
+        $('tab-feed').setAttribute('aria-pressed', String(which === 'feed')); $('tab-search').setAttribute('aria-pressed', String(which === 'search'));
+        history.replaceState(null, '', which === 'search' ? '#search' : location.pathname);
       }
-      async function drawInbox() {
-        const cands = await loadInboxCount();
-        if (!cands.length) { $('inbox').replaceChildren(el('p', { className: 'dim', textContent: '收件匣是空的。按上方「依近期缺口批次發掘」,或到「搜尋」直接找。' })); return; }
-        const byWork = new Map<string, Cand[]>();
-        for (const c of cands) byWork.set(c.work_query, [...(byWork.get(c.work_query) ?? []), c]);
-        $('inbox').replaceChildren(...[...byWork].map(([w, list]) => {
-          const grid = el('div', { className: 'grid' }, ...list.map((c) => {
-            const fig = card({ id: c.id, source: c.source, source_id: c.id, source_url: c.source_url, thumb_url: c.thumb_url, preview_url: c.preview_url ?? c.thumb_url,
-              full_url: c.full_url, width: c.width, height: c.height, favorites: c.favorites, artist: c.artist, label: c.reason, importable: true, imported: null, decided: null,
-              have: null, similar: c.nearest_id ? { id: c.nearest_id, distance: c.distance ?? 0 } : null },
-              async () => {
-                const r = await api(`/api/discover/inbox/${encodeURIComponent(c.id)}/accept`, 'POST', {}) as { status: string };
-                if (r.status === 'duplicate') throw new Error('和收藏很像;到「搜尋」確認後再收');
-                fig.remove(); loadInboxCount();
-              });
-            const no = el('button', { type: 'button', className: 'no', textContent: '拒絕' }) as HTMLButtonElement;
-            no.addEventListener('click', async () => { await api(`/api/discover/inbox/${encodeURIComponent(c.id)}/reject`, 'POST'); fig.remove(); loadInboxCount(); });
-            fig.append(no);
-            return fig;
-          }));
-          return el('section', {}, el('h3', {}, w, el('small', { className: 'dim', textContent: `${list.length} 張` })), grid);
-        }));
-      }
-      $('run').addEventListener('click', async () => {
-        const b = $('run') as HTMLButtonElement; b.disabled = true; $('run-status').textContent = '發掘中,可能要一分鐘…';
-        try {
-          const r = await api('/api/discover/run', 'POST') as { added: number; targets: { title: string; added: number }[] };
-          $('run-status').textContent = `新增 ${r.added} 張候選(${r.targets.map((t) => `${t.title} ${t.added}`).join('、') || '沒有目標'})`;
-          await drawInbox();
-        } catch (e) { $('run-status').textContent = `失敗:${(e as Error).message}`; }
-        b.disabled = false;
-      });
-
-      function tab(which: 'search' | 'inbox') {
-        $('view-search').hidden = which !== 'search'; $('view-inbox').hidden = which !== 'inbox';
-        $('tab-search').setAttribute('aria-pressed', String(which === 'search')); $('tab-inbox').setAttribute('aria-pressed', String(which === 'inbox'));
-        if (which === 'inbox') drawInbox();
-      }
+      $('tab-feed').addEventListener('click', () => tab('feed'));
       $('tab-search').addEventListener('click', () => tab('search'));
-      $('tab-inbox').addEventListener('click', () => tab('inbox'));
-      if (location.hash === '#inbox') tab('inbox'); else loadInboxCount();
+      if (location.hash === '#search') tab('search');
       drawSources();
+      refreshProgress().then(() => more());
+      setInterval(refreshProgress, 8000);
     </script>
 
     <style is:global>
@@ -251,7 +396,7 @@
       * { box-sizing: border-box; }
       body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, "Noto Sans TC", sans-serif; }
       [hidden] { display: none !important; }
-      header { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+      header { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 3; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); }
       h1 { margin: 0; font-size: 18px; font-weight: 600; flex: 1; }
       h1 .mark { width: 1.7em; height: 1.7em; vertical-align: -0.5em; margin: 0 6px 0 -4px; }
       h1 a, header a { color: inherit; text-decoration: none; }
@@ -260,43 +405,71 @@
       nav { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
       nav button { background: none; border: 0; color: var(--dim); padding: 7px 16px; cursor: pointer; font: inherit; }
       nav button[aria-pressed=true] { background: #1d1d25; color: var(--fg); }
-      main { padding: 16px 20px 60px; }
-      form { display: flex; flex-wrap: wrap; gap: 8px; }
-      input, select { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; font: inherit; }
-      #title { flex: 1; min-width: 260px; }
-      button { font: inherit; font-size: 13px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+      main { padding: 14px 20px 40px; }
+      input, select { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font: inherit; }
+      button { font: inherit; font-size: 13px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 7px 14px; cursor: pointer; }
       button:hover:not(:disabled) { border-color: var(--dim); }
       button:disabled { opacity: .5; cursor: default; }
-      .go { background: #1f3a2a; border-color: #2f6b45; }
-      .chips { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin: 10px 0 0; font-size: 13px; }
+      button.link { background: none; border: 0; color: var(--dim); text-decoration: underline; padding: 0; }
+      .dim { color: var(--dim); font-size: 13px; } .center { text-align: center; } .err { color: #ff7b72; font-size: 13px; margin-left: 8px; }
+      .go, .yes { background: #1f3a2a; border-color: #2f6b45; }
+      .no { background: #3a1f23; border-color: #6b2f37; }
+      kbd { font: inherit; font-size: 10px; opacity: .7; border: 1px solid #ffffff33; border-radius: 3px; padding: 0 4px; margin-left: 4px; }
+
+      /* feed */
+      .progress { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-bottom: 12px; }
+      .progress .bar { flex: 0 0 160px; height: 6px; background: #1a1a21; border-radius: 3px; overflow: hidden; }
+      .progress .bar i { display: block; height: 100%; width: 0; background: #2f6b45; transition: width .6s; }
+      .progress.done .bar i { background: #3b82f6; }
+      .progress p { margin: 0; flex: 1; min-width: 220px; }
+      .filters { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; margin-bottom: 14px; }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
       .chip { border-radius: 999px; padding: 3px 12px; font-size: 12px; }
       .chip[aria-pressed=true] { background: #1d1d25; border-color: var(--dim); }
-      .dim { color: var(--dim); font-size: 13px; }
-      .err { color: #ff7b72; font-size: 13px; margin-left: 8px; }
+      .check { font-size: 13px; color: var(--dim); display: inline-flex; gap: 6px; align-items: center; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+      .card { margin: 0; position: relative; background: #111116; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; cursor: zoom-in; transition: opacity .2s, transform .2s; }
+      .card.gone { opacity: 0; transform: scale(.96); }
+      .card.busy { opacity: .55; pointer-events: none; }
+      .card > img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; background: #000; }
+      .card .meta { display: flex; flex-direction: column; gap: 1px; padding: 8px 10px 6px; font-size: 12px; }
+      .card .work { align-self: flex-start; background: none; border: 0; padding: 0; color: var(--fg); font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; }
+      .card .work:hover { text-decoration: underline; }
+      .acts { display: flex; gap: 8px; padding: 0 10px 10px; }
+      .acts .yes { flex: 1; } .acts .no { flex: 0 0 auto; }
+      .flag { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); text-decoration: none; margin-top: 4px; align-self: flex-start; }
+      .flag.ok { color: #7ee787; border-color: #2f6b45; } .flag.have { color: #ff7b72; border-color: #6b2f37; }
+      .flag.sim { color: #f5c518; border-color: #6b5a1f; } .flag.err { color: #ff7b72; border-color: #6b2f37; }
+      #sentinel { height: 1px; }
+
+      /* viewer */
+      dialog { border: 0; padding: 0; background: transparent; color: var(--fg); max-width: 96vw; max-height: 96vh; overflow: visible; }
+      dialog::backdrop { background: rgba(0,0,0,.9); }
+      #v-img { display: block; max-width: 94vw; max-height: calc(100vh - 170px); margin: 0 auto; border-radius: 4px; background: #000; }
+      #v-info { text-align: center; padding: 10px 10px 4px; }
+      #v-info a { color: var(--dim); font-size: 13px; }
+      .v-actions { display: flex; gap: 10px; justify-content: center; padding: 4px 0 6px; }
+      .v-actions button { padding: 9px 22px; }
+      #v-close { position: fixed; top: 10px; right: 16px; font-size: 28px; background: none; border: 0; color: var(--fg); padding: 0 6px; }
+      dialog .nav { position: fixed; top: 50%; transform: translateY(-50%); width: 46px; height: 46px; border-radius: 50%; background: #000a; font-size: 28px; line-height: 1; padding: 0 0 4px; }
+      #v-prev { left: 14px; } #v-next { right: 14px; }
+
+      /* search */
+      form { display: flex; flex-wrap: wrap; gap: 8px; }
+      #title { flex: 1; min-width: 260px; }
       #status { margin: 14px 0; min-height: 1.4em; }
-      h3 { margin: 22px 0 10px; font-size: 15px; font-weight: 600; }
-      h3 small { margin-left: 10px; font-weight: 400; }
-      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-      .card { margin: 0; background: #111116; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
-      .card > img:first-child { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; display: block; }
-      .info { display: flex; flex-direction: column; padding: 8px 10px 0; font-size: 12px; }
-      .info a { color: var(--fg); }
+      h3 { margin: 22px 0 10px; font-size: 15px; font-weight: 600; } h3 small { margin-left: 10px; font-weight: 400; }
+      .sgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+      .scard { margin: 0; background: #111116; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+      .scard > .pic { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #000; }
+      .info { display: flex; flex-direction: column; padding: 8px 10px 0; font-size: 12px; } .info a { color: var(--fg); }
       .flags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 10px 0; min-height: 8px; }
-      .flag { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); text-decoration: none; }
-      .flag.ok { color: #7ee787; border-color: #2f6b45; }
-      .flag.have { color: #ff7b72; border-color: #6b2f37; }
-      .flag.sim { color: #f5c518; border-color: #6b5a1f; }
-      .flag.err { color: #ff7b72; border-color: #6b2f37; }
       .near { height: 38px; border-radius: 3px; border: 1px solid var(--line); }
-      footer.tmdb { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: center; padding: 18px 20px 28px; color: var(--dim); font-size: 12px; }
-      footer.tmdb img { height: 12px; width: auto; display: block; opacity: .85; }
-      footer.tmdb p { margin: 0; }
-      .take, .card .no { margin: 8px 10px 10px; }
+      .take { margin: 8px 10px 10px; }
       a.take.open { display: block; text-align: center; text-decoration: none; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; font-size: 13px; }
-      .card .no { background: #3a1f23; border-color: #6b2f37; }
-      .out { margin-top: 22px; }
-      .out a { color: var(--dim); margin-left: 12px; }
-      .bar { display: flex; gap: 14px; align-items: center; margin-bottom: 10px; }
+      .out { margin-top: 22px; } .out a { color: var(--dim); margin-left: 12px; }
+      footer.tmdb { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: center; padding: 18px 20px 28px; color: var(--dim); font-size: 12px; }
+      footer.tmdb img { height: 12px; width: auto; display: block; opacity: .85; } footer.tmdb p { margin: 0; }
     </style>
   </body>
 </html>

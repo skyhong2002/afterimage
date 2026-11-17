@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS candidates (
   height INTEGER,
   favorites INTEGER,
   artist TEXT,
+  dhash TEXT,                        -- difference hash of the thumbnail, to re-check against the collection later
   work_query TEXT NOT NULL,
   work_kind TEXT NOT NULL,
   reason TEXT,
@@ -75,6 +76,19 @@ CREATE TABLE IF NOT EXISTS candidates (
   status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'accepted', 'rejected')),
   found_at TEXT NOT NULL,
   decided_at TEXT
+);
+CREATE TABLE IF NOT EXISTS targets (
+  key TEXT PRIMARY KEY,              -- "<kind>:<normalised title>"
+  title TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  last_at TEXT,                      -- most recent dated activity in infovore (ISO), if any
+  rating REAL,                       -- best rating as 0..1, if any
+  plays INTEGER NOT NULL DEFAULT 1,  -- how many log entries
+  priority REAL NOT NULL DEFAULT 0,
+  scanned_at TEXT,
+  found INTEGER NOT NULL DEFAULT 0,
+  note TEXT,
+  updated_at TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS edits (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -112,6 +126,13 @@ class Database:
         self._conn.execute("PRAGMA foreign_keys=ON")
         self._conn.execute("PRAGMA busy_timeout=5000")
         self._conn.executescript(SCHEMA)
+        self._migrate()
+
+    def _migrate(self) -> None:
+        """Bring a database made by an older version up to date (CREATE IF NOT EXISTS cannot add columns)."""
+        cols = {r["name"] for r in self._conn.execute("PRAGMA table_info(candidates)")}
+        if "dhash" not in cols:
+            self._conn.execute("ALTER TABLE candidates ADD COLUMN dhash TEXT")
 
     @contextmanager
     def tx(self) -> Iterator[sqlite3.Connection]:

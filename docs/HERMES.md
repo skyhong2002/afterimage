@@ -5,21 +5,19 @@
 
 ## 現在的樣子
 
-發掘的核心已經在服務裡（[SERVICE.md](SERVICE.md)）。Hermes 不需要自己搜尋或下載，只要定期呼叫一個 API：
+服務自己就會持續掃描（[SERVICE.md](SERVICE.md)「發掘的運作」），候選一直累積在 `/discover`。所以 Hermes **不需要**自己搜尋或下載，
+也不一定需要排程：你打開 `/discover` 就有東西。Hermes 能多做的只有「提醒」：
 
 ```bash
-curl -s -X POST -H "Authorization: Bearer $AFTERIMAGE_API_TOKEN" \
-  "https://afterimage.skyhong.tw/api/discover/run?max_works=6&per_work=6"
+curl -s -H "Authorization: Bearer $AFTERIMAGE_API_TOKEN" https://afterimage.skyhong.tw/api/discover/progress
+# {"candidates": 1204, "works_scanned": 635, ...}
 ```
-
-回傳每個目標作品新增了幾張候選。候選會出現在 `/discover` 的「收件匣」，由你決定。
 
 ## 提議的分工
 
-- **服務**：依 Infovore 的缺口挑目標、搜尋多個來源、用雜湊去重、把候選存進資料庫。
-- **Hermes**：每週呼叫一次上面的 API；只有「新增 > 0」才喚醒模型，發一則 Discord 訊息到 `#for-you`：
-  「收件匣有 N 張新候選，來自 X、Y」附連結。沒有新候選時什麼都不做。
-  遵照 Hermes 既有的模式：gate 腳本（確定性）→ 模型（最小工具集）→ Discord。
+- **服務**：掃描、去重、排序、存候選。
+- **Hermes（可選）**：每週讀一次 `progress`，如果 `candidates` 比上次多很多，在 `#for-you` 發一則：
+  「推薦頁有 N 張新的圖」附連結。沒有新增就什麼都不做（gate 腳本決定，不喚醒模型）。
 - **你**：決定接受或拒絕。Hermes 不接受、不拒絕、不匯入、不改收藏。
 
 ## 需要你決定的

@@ -126,9 +126,11 @@ async def annotate(st: State, items: list[Found]) -> list[dict]:
         cand = st.db.one("SELECT status FROM candidates WHERE id=?", (f.id,))
         d["decided"] = cand["status"] if cand and cand["status"] != "new" else None
         d["have"] = d["similar"] = None
+        d["dhash"] = None
         if not d["imported"]:
             async with sem:
                 h = await _thumb_hash(st, f.thumb_url)
+            d["dhash"] = h
             n = nearest(hashes, h)
             if n and n[1] <= imaging.SAME_DISTANCE:
                 d["have"] = {"id": n[0], "distance": n[1]}
@@ -216,15 +218,6 @@ async def import_image(st: State, *, url: str, source: str, source_url: str | No
 
 # ---- gaps and batch discovery ---------------------------------------------------
 
-def too_generic(title: str, kind: str) -> bool:
-    """A single common word ("Escape", "Dark") matches unrelated art. Distinctive game/anime
-    names are fine as one word; movie and show titles are not."""
-    words = title.replace(":", " ").split()
-    if len(words) >= 2:
-        return False
-    return len(title) < (5 if kind in {"game", "anime"} else 10)
-
-
 async def gaps(st: State, days: int = 60, limit: int = 100) -> dict[str, Any]:
     rpc = {"jsonrpc": "2.0", "id": 1, "method": "tools/call",
            "params": {"name": "get_wallpaper_gaps", "arguments": {"days": days, "limit": limit}}}
@@ -235,33 +228,6 @@ async def gaps(st: State, days: int = 60, limit: int = 100) -> dict[str, Any]:
         return r.json()["result"]["structuredContent"]
     except (httpx.HTTPError, KeyError, ValueError) as e:
         raise SourceError(f"infovore unavailable: {type(e).__name__}") from e
-
-
-async def run_batch(st: State, *, days: int = 60, max_works: int = 6, per_work: int = 6, device: str = "desktop") -> dict[str, Any]:
-    data = await gaps(st, days)
-    targets = [g for g in data["gaps"] if g["kind"] in {"game", "anime", "movie", "show"} and not too_generic(g["title"], g["kind"])]
-    summary = {"targets": [], "added": 0}
-    for g in targets[:max_works]:
-        res = await search_all(st, g["title"], g["kind"], limit=per_work * 2, device=device)
-        kept = 0
-        for name, r in res["sources"].items():
-            for it in r["items"]:
-                if not it["importable"] or kept >= per_work * len(res["sources"]) or it["imported"] or it["decided"] or it["have"]:
-                    continue
-                if st.db.one("SELECT 1 FROM candidates WHERE id=?", (it["id"],)):
-                    continue
-                with st.db.tx() as c:
-                    c.execute(
-                        "INSERT INTO candidates(id, source, source_url, thumb_url, preview_url, full_url, width, height, favorites,"
-                        " artist, work_query, work_kind, reason, nearest_id, distance, found_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                        (it["id"], it["source"], it["source_url"], it["thumb_url"], it["preview_url"], it["full_url"], it["width"], it["height"],
-                         it["favorites"], it["artist"], g["title"], g["kind"], f"recent {g['kind']} ({g['source']}), no wallpaper yet",
-                         (it["similar"] or {}).get("id"), (it["similar"] or {}).get("distance"), now()))
-                kept += 1
-        summary["targets"].append({"title": g["title"], "kind": g["kind"], "added": kept,
-                                   "sources": {n: ("ok" if r["ok"] else r["error"]) for n, r in res["sources"].items()}})
-        summary["added"] += kept
-    return summary
 
 
 # ---- external links for a work ---------------------------------------------------

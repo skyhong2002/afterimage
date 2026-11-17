@@ -66,7 +66,9 @@ def test_editing_and_discovery_require_login(client):
     assert client.get("/api/discover/search?title=x").status_code == 401
     assert client.post("/api/discover/run").status_code == 401
     assert client.post("/api/discover/import", json={"url": "https://w.wallhaven.cc/a.jpg", "source": "wallhaven"}).status_code == 401
-    assert client.get("/api/discover/inbox").status_code == 401
+    assert client.get("/api/discover/feed").status_code == 401
+    assert client.get("/api/discover/progress").status_code == 401
+    assert client.get("/api/discover/gaps").status_code == 401
 
 
 def test_login_rejects_a_wrong_password_and_rate_limits(client):
