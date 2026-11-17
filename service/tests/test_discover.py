@@ -180,6 +180,32 @@ def test_the_same_file_twice_is_not_stored_twice(owner, web, db):
     assert db.one("SELECT COUNT(*) n FROM images")["n"] == 1
 
 
+def test_the_same_picture_accepted_twice_at_once_is_stored_once_and_neither_request_fails(owner, db, monkeypatch):
+    """Pressing A twice (or two candidates with identical bytes) used to give the second request a 500: both passed the
+    'already stored?' check before either wrote the row, then the second INSERT hit the UNIQUE id."""
+    import threading
+    import time
+    from afterimage import imaging
+    real = imaging.write_derivatives
+    monkeypatch.setattr(imaging, "write_derivatives", lambda *a, **k: (time.sleep(0.3), real(*a, **k))[1])   # widen the window
+    data = encode(picture(5, (800, 500)), "PNG")
+    results, errors = [], []
+
+    def go():
+        try:
+            results.append(discover.ingest(owner.app.state.discover, data, source="wallhaven", source_url=None, source_ref="wallhaven:x",
+                                           artist=None, work_id=None, caption=None, force=False)["status"])
+        except Exception as e:   # noqa: BLE001
+            errors.append(repr(e))
+
+    threads = [threading.Thread(target=go) for _ in range(4)]
+    [t.start() for t in threads]
+    [t.join() for t in threads]
+    assert errors == []
+    assert sorted(results) == ["exists", "exists", "exists", "imported"]
+    assert db.one("SELECT COUNT(*) n FROM images")["n"] == 1
+
+
 def test_a_lookalike_of_something_in_the_collection_is_refused_unless_forced(owner, web, db):
     base = add_image(owner, "mine", seed=21)
     web.images[WH_FULL] = encode(base.resize((300, 188)), "JPEG", quality=50)
