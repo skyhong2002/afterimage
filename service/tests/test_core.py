@@ -14,7 +14,8 @@ def test_password_hash_roundtrip():
     assert auth.verify_password("a long enough password", h)
     assert not auth.verify_password("a long enough passwore", h)
     assert not auth.verify_password("x", "not-a-hash")
-    assert not auth.verify_password("x", "md5$1$2$3$aa$bb")
+    assert not auth.verify_password("x", "md5:1:2:3:aa:bb")
+    assert "$" not in h, "must survive shell and Compose expansion"
 
 
 def test_session_cookie_is_signed_and_expires():
@@ -203,3 +204,14 @@ def test_every_original_extension_is_served_as_an_image(owner, db):
             c.execute("UPDATE images SET original=? WHERE id=?", (f"{iid}{ext}", iid))
         r = owner.get(f"/original/{iid}")
         assert r.status_code == 200 and r.headers["content-type"] == mime, ext
+
+
+def test_login_rate_limit_cannot_be_dodged_by_faking_forwarded_for(client):
+    """The first X-Forwarded-For entry is client-controlled; only the proxy's (last) entry counts."""
+    for i in range(auth.MAX_FAILS):
+        r = client.post("/api/login", json={"password": "nope"}, headers={"x-forwarded-for": f"10.9.9.{i}, 203.0.113.7"})
+        assert r.status_code == 401
+    r = client.post("/api/login", json={"password": PASSWORD}, headers={"x-forwarded-for": "10.1.2.3, 203.0.113.7"})
+    assert r.status_code == 429, "rotating the spoofed address did not reset the counter"
+    other = client.post("/api/login", json={"password": PASSWORD}, headers={"x-forwarded-for": "198.51.100.9"})
+    assert other.status_code == 200, "a different real address is unaffected"

@@ -1,5 +1,7 @@
 # afterimage 殘影 — 視覺品味資料庫 規劃
 
+> **2026-11-17 更新：** 這份計畫是靜態網站、資料放 git 時期的規劃。目前的架構是有後端的服務和資料庫，見 [SERVICE.md](SERVICE.md)。下面保留作為設計脈絡（世界觀、情緒分類、schema 的由來）。
+
 > 狀態：草案（2026-11-17）。repo：`skyhong2002/afterimage`（原 `image-collection`，2026-11-17 改名；T3 project：afterimage）
 
 ## 目標

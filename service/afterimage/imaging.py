@@ -11,10 +11,13 @@ THUMB_EDGE, THUMB_QUALITY = 720, 50
 VIEW_EDGE, VIEW_QUALITY = 2560, 60
 
 # Difference-hash distances (of 64 bits), measured on the real collection:
-# resized/recompressed copies <= 3, brightened <= 9, 4% crop <= 12; different images
-# start at 5 (near-black ones) and the 1st percentile is 18. A 10% crop is NOT caught.
+#   altered copies of the same picture: resized/recompressed <= 3, brightened <= 9, 4% crop <= 12
+#   different pictures: nearest 5 (near-black ones), 1st percentile 18
+# SAME_DISTANCE refuses an import; SIMILAR_DISTANCE only shows the two side by side. 36 unrelated
+# Celeste results all sat at 14 or more from anything in the collection, so 12 raises no false alarms.
+# Not caught: a 10% crop, and the same artwork at a different size and crop (16 on the one known pair).
 SAME_DISTANCE = 10
-SIMILAR_DISTANCE = 16
+SIMILAR_DISTANCE = 12
 
 
 def dhash(im: Image.Image) -> str | None:

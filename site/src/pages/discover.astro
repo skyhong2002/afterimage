@@ -1,6 +1,4 @@
 ---
-// Review the candidates found by scripts/discover.py. Decisions stay in this
-// browser (localStorage) until exported; see docs/DISCOVER.md.
 ---
 
 <!doctype html>
@@ -14,126 +12,224 @@
   <body>
     <header>
       <h1><a href="/">afterimage</a> <span>夢境製作所 Dream Productions</span></h1>
-      <span id="prog"></span>
-      <button id="export" type="button">匯出決定</button>
-      <button id="reset" type="button">清除本機決定</button>
+      <nav>
+        <button id="tab-search" type="button" aria-pressed="true">搜尋</button>
+        <button id="tab-inbox" type="button" aria-pressed="false">收件匣 <b id="inbox-n"></b></button>
+      </nav>
+      <a href="/?review=1">審核</a>
     </header>
 
-    <main id="empty" hidden>
-      <p>收件匣是空的。</p>
-      <p class="dim">用 <code>uv run --group enrich scripts/discover.py</code> 找新的候選。</p>
+    <main id="view-search">
+      <form id="form">
+        <input id="title" placeholder="輸入作品名稱,例如 Celeste、Persona 5、Hello Ghost" autocomplete="off" required />
+        <select id="kind" aria-label="類型">
+          <option value="game">遊戲</option><option value="anime">動畫</option><option value="movie">電影</option>
+          <option value="show">影集</option><option value="book">書/漫畫</option><option value="music">音樂</option>
+        </select>
+        <select id="device" aria-label="裝置"><option value="desktop">桌面</option><option value="phone">手機</option></select>
+        <select id="into" aria-label="歸入作品"><option value="">歸入:依搜尋名稱</option></select>
+        <button type="submit" class="go">搜尋</button>
+      </form>
+      <div id="sources" class="chips" aria-label="來源"></div>
+      <div id="gaps" class="chips"></div>
+      <div id="status" class="dim"></div>
+      <div id="results"></div>
     </main>
 
-    <main id="stage" hidden>
-      <section id="left">
-        <img id="cand" alt="" />
-      </section>
-      <aside id="right">
-        <h2 id="work"></h2>
-        <p id="reason" class="dim"></p>
-        <p id="meta"></p>
-        <p><a id="src" target="_blank" rel="noopener">在 Wallhaven 開啟 ↗</a></p>
-        <div id="near-wrap" hidden>
-          <p id="near-note"></p>
-          <img id="near" alt="" />
-        </div>
-        <div id="state"></div>
-        <div class="actions">
-          <button id="accept" type="button" class="yes">接受 <kbd>A</kbd></button>
-          <button id="reject" type="button" class="no">拒絕 <kbd>R</kbd></button>
-          <button id="skip" type="button">跳過 <kbd>S</kbd></button>
-          <button id="prev" type="button">上一個 <kbd>←</kbd></button>
-        </div>
-        <p class="dim" id="hint">A 接受 · R 拒絕 · S 跳過 · ← → 前後移動</p>
-      </aside>
+    <main id="view-inbox" hidden>
+      <div class="bar">
+        <button id="run" type="button" class="go">依近期缺口批次發掘</button>
+        <span id="run-status" class="dim"></span>
+      </div>
+      <div id="inbox"></div>
     </main>
 
     <script>
-      type Cand = {
-        id: string; source_url: string; thumb_url: string; preview_url?: string | null; width: number; height: number; favorites: number;
-        work_query: string; reason: string; nearest_id?: string | null; similarity?: number | null;
+      type Item = {
+        id: string; source: string; source_id: string; source_url: string; thumb_url: string; preview_url: string; full_url: string;
+        width: number | null; height: number | null; favorites: number | null; artist: string | null; label: string;
+        imported: string | null; decided: string | null; have: { id: string; distance: number } | null; similar: { id: string; distance: number } | null;
       };
-      const KEY = 'afterimage-discover-v1';
+      type Cand = {
+        id: string; source: string; source_url: string; thumb_url: string; preview_url: string | null; full_url: string; width: number | null;
+        height: number | null; favorites: number | null; artist: string | null; work_query: string; work_kind: string; reason: string;
+        nearest_id: string | null; distance: number | null;
+      };
       const $ = (id: string) => document.getElementById(id)!;
-      let cands: Cand[] = [];
-      let decisions: Record<string, 'accept' | 'reject'> = {};
-      try { decisions = JSON.parse(localStorage.getItem(KEY) ?? '{}'); } catch { /* corrupt store */ }
-      let i = 0;
+      const KIND_SOURCES: Record<string, string[]> = {
+        game: ['steam', 'wallhaven', 'danbooru'], anime: ['wallhaven', 'danbooru', 'anilist'], movie: ['tmdb', 'wallhaven'],
+        show: ['tmdb', 'wallhaven'], book: ['wallhaven'], music: ['wallhaven'],
+      };
+      const SOURCE_NAME: Record<string, string> = { steam: 'Steam 官方截圖', wallhaven: 'Wallhaven', danbooru: 'Danbooru 插畫', anilist: 'AniList 封面', tmdb: 'TMDB 劇照' };
 
-      const save = () => localStorage.setItem(KEY, JSON.stringify(decisions));
-      const undecided = () => cands.filter((c) => !decisions[c.id]).length;
+      async function api(path: string, method = 'GET', body?: unknown) {
+        const r = await fetch(path, { method, headers: { 'content-type': 'application/json' }, body: body === undefined ? undefined : JSON.stringify(body) });
+        if (r.status === 401) { location.assign('/login?next=/discover'); throw new Error('unauthorized'); }
+        const data = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error((data as { detail?: string }).detail ?? r.statusText);
+        return data;
+      }
+      const el = (tag: string, props: Record<string, unknown> = {}, ...kids: (Node | string)[]) => {
+        const e = Object.assign(document.createElement(tag), props);
+        e.append(...kids);
+        return e;
+      };
 
-      function render() {
-        $('prog').textContent = `${cands.length - undecided()}/${cands.length} 已決定 · 接受 ${Object.values(decisions).filter((v) => v === 'accept').length}`;
-        const c = cands[i];
-        $('cand').setAttribute('src', c.preview_url || c.thumb_url);
-        $('work').textContent = c.work_query;
-        $('reason').textContent = c.reason;
-        $('meta').textContent = `${c.width}×${c.height} · ★${c.favorites} · 第 ${i + 1}/${cands.length} 張`;
-        $('src').setAttribute('href', c.source_url);
-        const near = $('near-wrap');
-        near.hidden = !(c.nearest_id && (c.similarity ?? 0) >= 0.8);
-        if (!near.hidden) {
-          $('near-note').textContent = `和收藏裡這張很像(相似度 ${c.similarity!.toFixed(2)}),確認不是重複:`;
-          $('near').setAttribute('src', `/thumbs/${c.nearest_id}.avif`);
+      // ---- source toggles ----
+      let chosen = new Set<string>(KIND_SOURCES.game);
+      function drawSources() {
+        const kind = ($('kind') as HTMLSelectElement).value;
+        $('sources').replaceChildren(el('span', { className: 'dim', textContent: '來源' }),
+          ...Object.keys(SOURCE_NAME).map((s) => {
+            const b = el('button', { type: 'button', className: 'chip', textContent: SOURCE_NAME[s] }) as HTMLButtonElement;
+            b.setAttribute('aria-pressed', String(chosen.has(s)));
+            b.title = KIND_SOURCES[kind]?.includes(s) ? '這個類型的預設來源' : '';
+            b.addEventListener('click', () => { chosen.has(s) ? chosen.delete(s) : chosen.add(s); drawSources(); });
+            return b;
+          }));
+      }
+      $('kind').addEventListener('change', () => { chosen = new Set(KIND_SOURCES[($('kind') as HTMLSelectElement).value]); drawSources(); });
+
+      // ---- card ----
+      function card(it: Item, onImport: (it: Item, force: boolean) => Promise<void>) {
+        const img = el('img', { loading: 'lazy', alt: it.label, src: it.preview_url || it.thumb_url }) as HTMLImageElement;
+        const info = el('div', { className: 'info' });
+        const size = it.width && it.height ? `${it.width}×${it.height}` : '官方圖';
+        info.append(el('span', {}, `${size}${it.favorites ? ` · ★${it.favorites}` : ''}`),
+          el('a', { href: it.source_url, target: '_blank', rel: 'noopener noreferrer', textContent: it.label || '來源' }));
+        if (it.artist) info.append(el('span', { className: 'dim', textContent: `作者 ${it.artist}` }));
+        const flags = el('div', { className: 'flags' });
+        const have = it.have ?? it.similar;
+        if (it.imported) flags.append(el('a', { href: `/#${it.imported}`, className: 'flag ok', textContent: '✓ 已收進來' }));
+        else if (it.have) flags.append(el('span', { className: 'flag have', textContent: `已收藏(距離 ${it.have.distance})` }));
+        else if (it.similar) flags.append(el('span', { className: 'flag sim', textContent: `疑似重複(距離 ${it.similar.distance})` }));
+        if (it.decided) flags.append(el('span', { className: 'flag', textContent: it.decided === 'rejected' ? '曾拒絕' : '曾接受' }));
+        if (have && !it.imported) flags.append(el('img', { className: 'near', src: `/thumbs/${have.id}.avif`, title: '收藏裡最像的那張', alt: '' }));
+        const btn = el('button', { type: 'button', className: 'take', textContent: it.imported ? '已收進來' : '收進來' }) as HTMLButtonElement;
+        btn.disabled = !!it.imported;
+        btn.addEventListener('click', async () => {
+          btn.disabled = true; btn.textContent = '下載中…';
+          try { await onImport(it, btn.dataset.force === '1'); } catch (e) { btn.disabled = false; btn.textContent = '收進來'; flags.append(el('span', { className: 'flag err', textContent: (e as Error).message })); }
+        });
+        const c = el('figure', { className: 'card' }, img, info, flags, btn);
+        (c as HTMLElement).dataset.id = it.id;
+        return c;
+      }
+
+      async function importItem(it: Item, force: boolean, title: string, kind: string, workId: string) {
+        const r = await api('/api/discover/import', 'POST', {
+          url: it.full_url, source: it.source, source_url: it.source_url, source_ref: it.id, artist: it.artist,
+          ...(workId ? { work_id: workId } : { work_title: title, work_kind: kind }), force,
+        }) as { status: string; id?: string; nearest?: { id: string; distance: number } };
+        const c = document.querySelector(`[data-id="${CSS.escape(it.id)}"]`)!;
+        const flags = c.querySelector('.flags')!, btn = c.querySelector('.take') as HTMLButtonElement;
+        if (r.status === 'duplicate') {
+          btn.disabled = false; btn.textContent = '仍然收進來'; btn.dataset.force = '1';
+          flags.replaceChildren(el('span', { className: 'flag sim', textContent: `和收藏裡這張很像(距離 ${r.nearest!.distance})` }),
+            el('img', { className: 'near', src: `/thumbs/${r.nearest!.id}.avif`, alt: '' }));
+          return;
         }
-        const d = decisions[c.id];
-        $('state').textContent = d === 'accept' ? '✓ 已接受' : d === 'reject' ? '✗ 已拒絕' : '';
-        $('state').className = d ?? '';
+        flags.replaceChildren(el('a', { href: `/#${r.id}`, className: 'flag ok', textContent: r.status === 'exists' ? '✓ 早就收藏了' : '✓ 已收進來' }));
+        btn.textContent = '已收進來'; btn.disabled = true;
+        loadInboxCount();
       }
 
-      function decide(v: 'accept' | 'reject') {
-        decisions[cands[i].id] = v;
-        save();
-        const next = cands.findIndex((c, k) => k > i && !decisions[c.id]);
-        const any = next >= 0 ? next : cands.findIndex((c) => !decisions[c.id]);
-        if (any >= 0) i = any;
-        render();
+      // ---- search ----
+      async function runSearch() {
+        const title = ($('title') as HTMLInputElement).value.trim();
+        if (!title) return;
+        const kind = ($('kind') as HTMLSelectElement).value, device = ($('device') as HTMLSelectElement).value;
+        const workId = ($('into') as HTMLSelectElement).value;
+        $('status').textContent = `搜尋「${title}」…`;
+        $('results').replaceChildren();
+        try {
+          const params = new URLSearchParams({ title, kind, device, sources: [...chosen].join(','), limit: '12' });
+          const res = await api(`/api/discover/search?${params}`) as { sources: Record<string, { ok: boolean; error: string | null; items: Item[] }> };
+          const total = Object.values(res.sources).reduce((n, s) => n + s.items.length, 0);
+          $('status').textContent = total ? '' : '沒有找到。可以換個寫法(英文原名通常比較準),或到下方「往外找」的連結。';
+          for (const [name, s] of Object.entries(res.sources)) {
+            const head = el('h3', {}, SOURCE_NAME[name] ?? name, el('small', { className: s.ok ? 'dim' : 'err', textContent: s.ok ? `${s.items.length} 張` : `失敗:${s.error}` }));
+            const grid = el('div', { className: 'grid' }, ...s.items.map((it) => card(it, (i, f) => importItem(i, f, title, kind, workId))));
+            $('results').append(el('section', {}, head, grid));
+          }
+          const q = encodeURIComponent(title);
+          $('results').append(el('p', { className: 'dim out' }, '往外找:',
+            ...[['Wallhaven', `https://wallhaven.cc/search?q=${q}&categories=110&purity=100&sorting=favorites`], ['Pixiv', `https://www.pixiv.net/tags/${q}/artworks`],
+              ['Google 圖片', `https://www.google.com/search?tbm=isch&q=${q}+wallpaper`], ['SteamGridDB', `https://www.steamgriddb.com/search/grids?term=${q}`]]
+              .map(([n, u]) => el('a', { href: u, target: '_blank', rel: 'noopener noreferrer', textContent: n }))));
+        } catch (e) { if ((e as Error).message !== 'unauthorized') $('status').textContent = `搜尋失敗:${(e as Error).message}`; }
       }
-      const move = (d: number) => { i = (i + d + cands.length) % cands.length; render(); };
+      $('form').addEventListener('submit', (ev) => { ev.preventDefault(); runSearch(); });
 
-      function exportDecisions() {
-        const text = JSON.stringify({ version: 1, decisions }, null, 1);
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' }));
-        a.download = `afterimage-decisions-${new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '')}.json`;
-        a.click();
-        URL.revokeObjectURL(a.href);
-        const b = $('export');
-        navigator.clipboard?.writeText(text)?.then(() => { b.textContent = '已下載並複製 ✓'; }, () => { b.textContent = '已下載(複製失敗)'; });
-        setTimeout(() => { b.textContent = '匯出決定'; }, 2500);
-      }
+      // ---- recent gaps (from infovore) ----
+      api('/api/discover/gaps').then((g: { gaps: { title: string; kind: string }[] }) => {
+        const list = g.gaps.filter((x) => ['game', 'anime', 'movie', 'show'].includes(x.kind)).slice(0, 14);
+        if (!list.length) return;
+        $('gaps').replaceChildren(el('span', { className: 'dim', textContent: '近期還沒有桌布' }),
+          ...list.map((x) => {
+            const b = el('button', { type: 'button', className: 'chip', textContent: x.title }) as HTMLButtonElement;
+            b.addEventListener('click', () => {
+              ($('title') as HTMLInputElement).value = x.title;
+              ($('kind') as HTMLSelectElement).value = x.kind;
+              chosen = new Set(KIND_SOURCES[x.kind]); drawSources(); runSearch();
+            });
+            return b;
+          }));
+      }).catch(() => { /* infovore being down only hides the shortcuts */ });
 
-      $('accept').addEventListener('click', () => decide('accept'));
-      $('reject').addEventListener('click', () => decide('reject'));
-      $('skip').addEventListener('click', () => move(1));
-      $('prev').addEventListener('click', () => move(-1));
-      $('export').addEventListener('click', exportDecisions);
-      $('reset').addEventListener('click', () => {
-        if (confirm('清除這個瀏覽器裡尚未匯出的決定?')) { localStorage.removeItem(KEY); location.reload(); }
+      // ---- works for the "into" select ----
+      api('/api/catalog').then((c: { works: { id: string; title: string }[] }) => {
+        $('into').append(...c.works.map((w) => el('option', { value: w.id, textContent: `歸入:${w.title}` })));
       });
-      document.addEventListener('keydown', (ev) => {
-        if (!cands.length || ev.metaKey || ev.ctrlKey || ev.altKey) return;
-        const k = ev.key.toLowerCase();
-        if (k === 'a') decide('accept');
-        else if (k === 'r') decide('reject');
-        else if (k === 's' || k === 'arrowright') move(1);
-        else if (k === 'arrowleft') move(-1);
-        else return;
-        ev.preventDefault();
+
+      // ---- inbox ----
+      async function loadInboxCount() {
+        const r = await api('/api/discover/inbox') as { candidates: Cand[] };
+        $('inbox-n').textContent = r.candidates.length ? `(${r.candidates.length})` : '';
+        return r.candidates;
+      }
+      async function drawInbox() {
+        const cands = await loadInboxCount();
+        if (!cands.length) { $('inbox').replaceChildren(el('p', { className: 'dim', textContent: '收件匣是空的。按上方「依近期缺口批次發掘」,或到「搜尋」直接找。' })); return; }
+        const byWork = new Map<string, Cand[]>();
+        for (const c of cands) byWork.set(c.work_query, [...(byWork.get(c.work_query) ?? []), c]);
+        $('inbox').replaceChildren(...[...byWork].map(([w, list]) => {
+          const grid = el('div', { className: 'grid' }, ...list.map((c) => {
+            const fig = card({ id: c.id, source: c.source, source_id: c.id, source_url: c.source_url, thumb_url: c.thumb_url, preview_url: c.preview_url ?? c.thumb_url,
+              full_url: c.full_url, width: c.width, height: c.height, favorites: c.favorites, artist: c.artist, label: c.reason, imported: null, decided: null,
+              have: null, similar: c.nearest_id ? { id: c.nearest_id, distance: c.distance ?? 0 } : null },
+              async () => {
+                const r = await api(`/api/discover/inbox/${encodeURIComponent(c.id)}/accept`, 'POST', {}) as { status: string };
+                if (r.status === 'duplicate') throw new Error('和收藏很像;到「搜尋」確認後再收');
+                fig.remove(); loadInboxCount();
+              });
+            const no = el('button', { type: 'button', className: 'no', textContent: '拒絕' }) as HTMLButtonElement;
+            no.addEventListener('click', async () => { await api(`/api/discover/inbox/${encodeURIComponent(c.id)}/reject`, 'POST'); fig.remove(); loadInboxCount(); });
+            fig.append(no);
+            return fig;
+          }));
+          return el('section', {}, el('h3', {}, w, el('small', { className: 'dim', textContent: `${list.length} 張` })), grid);
+        }));
+      }
+      $('run').addEventListener('click', async () => {
+        const b = $('run') as HTMLButtonElement; b.disabled = true; $('run-status').textContent = '發掘中,可能要一分鐘…';
+        try {
+          const r = await api('/api/discover/run', 'POST') as { added: number; targets: { title: string; added: number }[] };
+          $('run-status').textContent = `新增 ${r.added} 張候選(${r.targets.map((t) => `${t.title} ${t.added}`).join('、') || '沒有目標'})`;
+          await drawInbox();
+        } catch (e) { $('run-status').textContent = `失敗:${(e as Error).message}`; }
+        b.disabled = false;
       });
 
-      fetch('/api/inbox.json').then((r) => r.json()).then((doc: { candidates: Cand[] }) => {
-        cands = doc.candidates;
-        // forget decisions about candidates that are no longer in the inbox
-        const live = new Set(cands.map((c) => c.id));
-        for (const id of Object.keys(decisions)) if (!live.has(id)) delete decisions[id];
-        save();
-        if (!cands.length) { $('empty').hidden = false; return; }
-        i = Math.max(0, cands.findIndex((c) => !decisions[c.id]));
-        $('stage').hidden = false;
-        render();
-      }).catch(() => { $('empty').hidden = false; });
+      function tab(which: 'search' | 'inbox') {
+        $('view-search').hidden = which !== 'search'; $('view-inbox').hidden = which !== 'inbox';
+        $('tab-search').setAttribute('aria-pressed', String(which === 'search')); $('tab-inbox').setAttribute('aria-pressed', String(which === 'inbox'));
+        if (which === 'inbox') drawInbox();
+      }
+      $('tab-search').addEventListener('click', () => tab('search'));
+      $('tab-inbox').addEventListener('click', () => tab('inbox'));
+      if (location.hash === '#inbox') tab('inbox'); else loadInboxCount();
+      drawSources();
     </script>
 
     <style is:global>
@@ -141,31 +237,47 @@
       * { box-sizing: border-box; }
       body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, "Noto Sans TC", sans-serif; }
       [hidden] { display: none !important; }
-      header { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+      header { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); }
       h1 { margin: 0; font-size: 18px; font-weight: 600; flex: 1; }
-      h1 a { color: inherit; text-decoration: none; }
+      h1 a, header a { color: inherit; text-decoration: none; }
       h1 span { color: var(--dim); font-weight: 400; margin-left: 8px; font-size: 14px; }
-      #prog { color: var(--dim); font-size: 13px; }
-      button { font: inherit; font-size: 13px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px; cursor: pointer; }
-      button:hover { border-color: var(--dim); }
-      main { padding: 18px 20px; }
-      #stage { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
-      #left { display: flex; justify-content: center; background: #000; border-radius: 8px; overflow: hidden; }
-      #cand { max-width: 100%; max-height: calc(100vh - 120px); display: block; object-fit: contain; }
-      #right h2 { margin: 0; font-size: 20px; }
-      #right p { margin: 6px 0; }
+      header a { color: var(--dim); font-size: 13px; }
+      nav { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+      nav button { background: none; border: 0; color: var(--dim); padding: 7px 16px; cursor: pointer; font: inherit; }
+      nav button[aria-pressed=true] { background: #1d1d25; color: var(--fg); }
+      main { padding: 16px 20px 60px; }
+      form { display: flex; flex-wrap: wrap; gap: 8px; }
+      input, select { background: #15151a; color: inherit; border: 1px solid var(--line); border-radius: 8px; padding: 9px 12px; font: inherit; }
+      #title { flex: 1; min-width: 260px; }
+      button { font: inherit; font-size: 13px; color: var(--fg); background: #15151a; border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+      button:hover:not(:disabled) { border-color: var(--dim); }
+      button:disabled { opacity: .5; cursor: default; }
+      .go { background: #1f3a2a; border-color: #2f6b45; }
+      .chips { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; margin: 10px 0 0; font-size: 13px; }
+      .chip { border-radius: 999px; padding: 3px 12px; font-size: 12px; }
+      .chip[aria-pressed=true] { background: #1d1d25; border-color: var(--dim); }
       .dim { color: var(--dim); font-size: 13px; }
-      a { color: var(--fg); }
-      #near { width: 100%; border-radius: 6px; border: 1px solid var(--line); }
-      #near-note { color: #f5c518; font-size: 13px; }
-      #state { min-height: 1.6em; font-weight: 600; margin: 8px 0; }
-      #state.accept { color: #7ee787; }
-      #state.reject { color: #ff7b72; }
-      .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
-      .actions .yes { background: #1f3a2a; border-color: #2f6b45; padding: 12px; }
-      .actions .no { background: #3a1f23; border-color: #6b2f37; padding: 12px; }
-      kbd { font: inherit; font-size: 10px; opacity: .7; border: 1px solid #ffffff33; border-radius: 3px; padding: 0 4px; margin-left: 4px; }
-      @media (max-width: 800px) { #stage { grid-template-columns: 1fr; } }
+      .err { color: #ff7b72; font-size: 13px; margin-left: 8px; }
+      #status { margin: 14px 0; min-height: 1.4em; }
+      h3 { margin: 22px 0 10px; font-size: 15px; font-weight: 600; }
+      h3 small { margin-left: 10px; font-weight: 400; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+      .card { margin: 0; background: #111116; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+      .card > img:first-child { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; display: block; }
+      .info { display: flex; flex-direction: column; padding: 8px 10px 0; font-size: 12px; }
+      .info a { color: var(--fg); }
+      .flags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 6px 10px 0; min-height: 8px; }
+      .flag { font-size: 11px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--dim); text-decoration: none; }
+      .flag.ok { color: #7ee787; border-color: #2f6b45; }
+      .flag.have { color: #ff7b72; border-color: #6b2f37; }
+      .flag.sim { color: #f5c518; border-color: #6b5a1f; }
+      .flag.err { color: #ff7b72; border-color: #6b2f37; }
+      .near { height: 38px; border-radius: 3px; border: 1px solid var(--line); }
+      .take, .card .no { margin: 8px 10px 10px; }
+      .card .no { background: #3a1f23; border-color: #6b2f37; }
+      .out { margin-top: 22px; }
+      .out a { color: var(--dim); margin-left: 12px; }
+      .bar { display: flex; gap: 14px; align-items: center; margin-bottom: 10px; }
     </style>
   </body>
 </html>

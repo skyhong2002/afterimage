@@ -5,6 +5,7 @@ Scripts and Hermes send `Authorization: Bearer <AFTERIMAGE_API_TOKEN>`.
 Reading the public collection never needs either.
 
 Make a password hash with:  python -m afterimage.auth
+(The hash uses ":" separators on purpose: "$" gets expanded by shells and Compose env files.)
 """
 
 from __future__ import annotations
@@ -32,12 +33,12 @@ MAX_FAILS, FAIL_WINDOW = 5, 15 * 60
 def hash_password(password: str) -> str:
     salt = os.urandom(16)
     digest = hashlib.scrypt(password.encode(), salt=salt, n=_N, r=_R, p=_P, dklen=32)
-    return f"scrypt${_N}${_R}${_P}${salt.hex()}${digest.hex()}"
+    return f"scrypt:{_N}:{_R}:{_P}:{salt.hex()}:{digest.hex()}"
 
 
 def verify_password(password: str, stored: str) -> bool:
     try:
-        scheme, n, r, p, salt, digest = stored.split("$")
+        scheme, n, r, p, salt, digest = stored.split(":")
         if scheme != "scrypt":
             return False
         got = hashlib.scrypt(password.encode(), salt=bytes.fromhex(salt), n=int(n), r=int(r), p=int(p), dklen=32)
@@ -100,9 +101,10 @@ def require_admin(request: Request) -> None:
 
 
 def client_id(request: Request) -> str:
-    # behind Traefik the real address is the first X-Forwarded-For entry
-    fwd = request.headers.get("x-forwarded-for", "")
-    return fwd.split(",")[0].strip() or (request.client.host if request.client else "unknown")
+    # Behind Traefik (one trusted proxy) the LAST X-Forwarded-For entry is the address Traefik
+    # saw. Earlier entries are whatever the client sent, so they must not be trusted.
+    fwd = [p.strip() for p in request.headers.get("x-forwarded-for", "").split(",") if p.strip()]
+    return fwd[-1] if fwd else (request.client.host if request.client else "unknown")
 
 
 if __name__ == "__main__":
