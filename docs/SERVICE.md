@@ -10,8 +10,10 @@ FastAPI + SQLite（`service/afterimage`），前端是 Astro 建出來的靜態�
   登入後右上角會出現「發掘」「審核」「登出」。
 - **審核**：`/?review=1`。每次修改立刻存進伺服器，不用匯出。
   `1`–`9` 設定情緒、`W` 輸入作品、`X` 清除作品、`M` 個人照片、`Enter` 確認並跳下一張、`N` 跳過、`←` `→` 前後移動。
-- **發掘**：`/discover`。輸入作品名稱，同時查多個來源，結果會標示收藏裡已經有的，按「收進來」就下載、產生縮圖、寫入資料庫。
-  「近期還沒有桌布」那排是從 Infovore 即時抓的缺口。「收件匣」是批次發掘（依缺口自動找）的候選。
+- **發掘**：`/discover` 一打開就是「推薦」：從你**所有看過的作品**（不是只有近期）找來的圖，跨作品混合、依你多可能想要排序，
+  往下捲會一直載入。每張可以 `✓ 加入` 或 `✗`；點圖開大圖，`A` 加入、`R` 不要、`← →` 切換。
+  可以按作品類型、來源、裝置篩選，或只看「還沒有桌布的作品」，點作品名稱只看那一部。
+  頁面上方是掃描進度。「搜尋」分頁是手動查一部作品（含 TMDB 劇照預覽）。
 
 ## 資料在哪
 
@@ -26,6 +28,22 @@ FastAPI + SQLite（`service/afterimage`），前端是 Astro 建出來的靜態�
 
 git 只放程式。`catalog/` 是搬進資料庫之前的 YAML 快照，只作為封存，`service/afterimage/migrate.py` 是用它匯入的。
 異地備份見下一節。
+
+## 發掘的運作
+
+1. **作品清單**：從 Infovore 的 `GET /api/activities.json` 讀出全部歷史（遊戲、電影、影集、動畫、漫畫、書，音樂不算），
+   每部作品一筆。只有「排隊中」（`planned`、`plantowatch`、`to-read`）而沒看過的不算。2026-11-17 是 635 部。
+   動畫和漫畫各只有 20 部，因為 Infovore 的 Kitsu 來源本身只抓每種狀態最近 10 筆。
+2. **背景掃描**（`feed.py` 的 `Scanner`，隨服務啟動，`AFTERIMAGE_SCANNER=0` 可關）：依優先度（評分、最近玩過、玩幾次）
+   由高到低，每部作品查 Steam（遊戲）、Wallhaven、Danbooru（遊戲和動畫），標題找不到再試去掉副標題和版本字樣的寫法
+   （`Persona 5 Royal` → `Persona 5`），把可匯入的圖存成候選。每部約 4–12 秒，全部約 1–2 小時；可以中途重啟，
+   從資料庫接續。每 21 天重掃，每 12 小時重讀歷史。太泛的單字標題（例如電影 `Escape`）會略過。
+   一部作品連續失敗 3 次就放棄（寫進 `targets.note`），不會卡住後面的。
+3. **推薦排序**：作品的想要程度（評分、最近、玩幾次，已經有越多張桌布越低）加上圖的人氣（在自己來源裡的排名）和解析度，
+   同一部作品每多出現一張就扣分，所以不會一整排都是同一部。候選圖如果後來進了收藏（相似度 ≤ 12）會自動消失。
+4. **圖片代理**：Danbooru 的圖片主機拒絕別的網站直接引用，所以那些圖走 `GET /api/discover/img`（只有你登入能用、
+   只允許白名單主機、只回傳真的圖片，不會把挑戰頁當圖傳）。伺服器自己下載時用誠實的 User-Agent 就可以；
+   **假裝成瀏覽器的請求反而會被 Cloudflare 擋下**。
 
 ## 外部來源
 
@@ -106,7 +124,9 @@ uv run --directory service python -m afterimage.backup restore --repo /tmp/resto
 
 🔒 `PATCH /api/images/<id>`、`POST /api/works`、`POST /api/works/<id>/resolve-links`、
 `GET /api/discover/search`、`POST /api/discover/import`、`GET /api/discover/gaps`、
-`POST /api/discover/run`、`GET /api/discover/inbox`、`POST /api/discover/inbox/<id>/accept|reject`。
+`GET /api/discover/feed`（`limit` `offset` `kind` `source` `device` `work` `uncovered`）、`GET /api/discover/progress`、
+`POST /api/discover/run`（`?refresh=true` 叫掃描器立刻醒來並重讀歷史）、`GET /api/discover/img?u=`、
+`POST /api/discover/feed/<id>/accept|reject`、`GET /api/admin/backup`。
 
 ## 開發與測試
 

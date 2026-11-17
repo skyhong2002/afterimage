@@ -7,6 +7,7 @@ AFTERIMAGE_ADMIN_PASSWORD_HASH   scrypt hash made by `python -m afterimage.auth`
 AFTERIMAGE_SESSION_SECRET  random string used to sign the session cookie
 AFTERIMAGE_API_TOKEN       bearer token for scripts and Hermes (empty = disabled)
 INFOVORE_MCP_URL           infovore MCP endpoint used to find wallpaper gaps
+AFTERIMAGE_SCANNER         0 turns the background scan off. Default on
 TMDB_TOKEN                 TMDB v4 "API Read Access Token" (empty = TMDB source off)
 """
 
@@ -27,6 +28,7 @@ class Settings:
     api_token: str
     infovore_mcp: str
     tmdb_token: str
+    scanner: bool = False   # background scan of the owner's whole history (on in production)
 
     @property
     def db_path(self) -> Path:
@@ -68,4 +70,5 @@ def load() -> Settings:
         api_token=os.environ.get("AFTERIMAGE_API_TOKEN", ""),
         infovore_mcp=os.environ.get("INFOVORE_MCP_URL", "https://infovore.skyhong.tw/mcp"),
         tmdb_token=os.environ.get("TMDB_TOKEN", ""),
+        scanner=os.environ.get("AFTERIMAGE_SCANNER", "1") != "0",
     )

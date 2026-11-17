@@ -66,7 +66,7 @@ def snapshot(db_path: Path) -> dict:
         "images": images,
         "image_works": [r for r in _rows(mem, "SELECT * FROM image_works ORDER BY image_id, position, work_id") if keep(r["image_id"])],
         "similar": [r for r in _rows(mem, "SELECT * FROM similar ORDER BY image_id, rank") if keep(r["image_id"]) and keep(r["other_id"])],
-        "candidates": _rows(mem, "SELECT * FROM candidates ORDER BY id"),
+        "candidates": _rows(mem, "SELECT * FROM candidates WHERE status != 'new' ORDER BY id"),   # undecided ones are re-found
         "edits": [r for r in _rows(mem, "SELECT * FROM edits ORDER BY id") if keep(r["image_id"])],
     }
     mem.close()

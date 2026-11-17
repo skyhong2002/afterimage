@@ -10,13 +10,14 @@ from datetime import date
 
 from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import Response as RawResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 
-from . import auth, backup, discover, store
+from . import auth, backup, discover, feed, store
 from .config import Settings, load
 from .db import Database
-from .sources.base import SourceError
+from .sources.base import SourceError, host_allowed
 
 log = logging.getLogger("afterimage")
 IMMUTABLE = "public, max-age=31536000, immutable"
@@ -89,11 +90,16 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         app.state.db = db
         app.state.discover = discover.State(settings=settings, db=db, http=http)
         app.state.limiter = auth.LoginLimiter()
+        scanner = feed.Scanner(app.state.discover)
+        app.state.scanner = scanner
+        if settings.scanner:
+            scanner.start()
         task = asyncio.create_task(_backup_loop(db, settings))
         try:
             yield
         finally:
             task.cancel()
+            await scanner.stop()
             await http.aclose()
             db.close()
 
@@ -239,20 +245,42 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         except SourceError as e:
             raise HTTPException(502, str(e)) from e
 
-    @app.post("/api/discover/run", dependencies=owner)
-    async def run(request: Request, days: int = Query(60, ge=1, le=365), max_works: int = Query(6, ge=1, le=20),
-                  per_work: int = Query(6, ge=1, le=20)):
+    @app.get("/api/discover/feed", dependencies=owner)
+    def discover_feed(request: Request, limit: int = Query(36, ge=1, le=100), offset: int = Query(0, ge=0),
+                      kind: str | None = None, source: str | None = None, work: str | None = None,
+                      device: str | None = Query(None, pattern="^(desktop|phone)$"), uncovered: bool = False):
+        """Pictures from every work in the owner's history, best first, never one work in a row."""
+        return feed.feed(db_of(request), limit=limit, offset=offset, kind=kind, source=source, device=device, work=work, uncovered=uncovered)
+
+    SNIFF = ((b"\xff\xd8\xff", "image/jpeg"), (b"\x89PNG\r\n\x1a\n", "image/png"), (b"RIFF", "image/webp"))
+
+    @app.get("/api/discover/img", dependencies=owner)
+    async def discover_img(request: Request, u: str = Query(min_length=8, max_length=700)):
+        """Fetch a candidate's picture for the browser. Some image hosts (Danbooru's CDN) refuse to
+        serve browsers hotlinking from another site. Only allowlisted hosts, only real images."""
+        if not host_allowed(u):
+            raise HTTPException(400, "host not allowed")
         try:
-            return await discover.run_batch(request.app.state.discover, days=days, max_works=max_works, per_work=per_work)
-        except SourceError as e:
+            data = await discover.fetch_bytes(request.app.state.discover, u, 6 * 1048576)
+        except discover.ImportError_ as e:
             raise HTTPException(502, str(e)) from e
+        kind = next((m for sig, m in SNIFF if data.startswith(sig)), None)
+        if not kind or (kind == "image/webp" and data[8:12] != b"WEBP"):
+            raise HTTPException(502, "the host did not return an image")   # e.g. a bot-check page
+        return RawResponse(data, media_type=kind, headers={"Cache-Control": "private, max-age=86400"})
 
-    @app.get("/api/discover/inbox", dependencies=owner)
-    def inbox(request: Request):
-        rows = db_of(request).all("SELECT * FROM candidates WHERE status='new' ORDER BY work_query, found_at DESC")
-        return {"candidates": [dict(r) for r in rows]}
+    @app.get("/api/discover/progress", dependencies=owner)
+    def discover_progress(request: Request):
+        return request.app.state.scanner.progress()
 
-    @app.post("/api/discover/inbox/{candidate_id:path}/accept", dependencies=owner)
+    @app.post("/api/discover/run", dependencies=owner)
+    async def run(request: Request, refresh: bool = False):   # async: the event is set from the loop that waits on it
+        """Wake the background scan now (refresh=true re-reads the history from infovore first)."""
+        sc: feed.Scanner = request.app.state.scanner
+        sc.kick(refresh=refresh)
+        return sc.progress()
+
+    @app.post("/api/discover/feed/{candidate_id:path}/accept", dependencies=owner)
     async def accept(candidate_id: str, body: AcceptBody, request: Request):
         db = db_of(request)
         c = db.one("SELECT * FROM candidates WHERE id=?", (candidate_id,))
@@ -270,7 +298,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 tx.execute("UPDATE candidates SET status='accepted', decided_at=datetime('now') WHERE id=?", (candidate_id,))
         return result
 
-    @app.post("/api/discover/inbox/{candidate_id:path}/reject", dependencies=owner)
+    @app.post("/api/discover/feed/{candidate_id:path}/reject", dependencies=owner)
     def reject(candidate_id: str, request: Request):
         db = db_of(request)
         with db.tx() as c:

@@ -27,6 +27,9 @@ class Web:
         self.redirects: dict[str, str] = {}
         self.big: set[str] = set()
         self.gaps = {"covered": [], "gaps": []}
+        self.activities: list[dict] = []      # infovore's persisted history
+        self.wh_empty: set[str] = set()       # Wallhaven queries that find nothing
+        self.wh_queries: list[str] = []
 
     def __call__(self, req: httpx.Request) -> httpx.Response:
         url = str(req.url)
@@ -41,7 +44,16 @@ class Web:
         if url in self.images:
             return httpx.Response(200, content=self.images[url])
         path = req.url.path
+        if host == "infovore.test" and path == "/api/activities.json":
+            q = req.url.params
+            rows = [r for r in self.activities if r["mediaKind"] == q.get("kind")]
+            off, lim = int(q.get("offset", 0)), int(q.get("limit", 500))
+            return httpx.Response(200, json={"data": rows[off: off + lim]})
         if host == "wallhaven.cc" and path.endswith("/search"):
+            query = req.url.params.get("q", "").strip('"')
+            self.wh_queries.append(query)
+            if query in self.wh_empty:
+                return httpx.Response(200, json={"data": []})
             hit = lambda i, res: {"id": i, "url": f"https://wallhaven.cc/w/{i}", "resolution": res, "favorites": 9,
                                   "thumbs": {"large": f"https://th.wallhaven.cc/lg/aa/{i}.jpg", "original": f"https://th.wallhaven.cc/orig/aa/{i}.jpg"},
                                   "path": f"https://w.wallhaven.cc/full/aa/wallhaven-{i}.jpg"}
@@ -225,38 +237,9 @@ GAPS = {"covered": [], "gaps": [
 ]}
 
 
-def test_batch_run_fills_the_inbox_skipping_generic_titles_and_repeats(owner, web):
-    web.gaps = GAPS
-    r = owner.post("/api/discover/run?max_works=5&per_work=4").json()
-    assert [t["title"] for t in r["targets"]] == ["Celeste"], "'Escape' is too generic and music is not searched"
-    inbox = owner.get("/api/discover/inbox").json()["candidates"]
-    assert len(inbox) == r["added"] > 0 and all(c["work_query"] == "Celeste" and c["status"] == "new" for c in inbox)
-    again = owner.post("/api/discover/run?max_works=5&per_work=4").json()
-    assert again["added"] == 0, "already-known candidates are not added twice"
-
-
-def test_accepting_imports_the_image_and_rejecting_is_remembered(owner, web, db):
-    web.gaps = GAPS
-    web.images[WH_FULL] = encode(picture(5, (1920, 1080)), "JPEG", quality=85)
-    owner.post("/api/discover/run?max_works=1&per_work=4")
-    wh = [c for c in owner.get("/api/discover/inbox").json()["candidates"] if c["source"] == "wallhaven"]
-    first, second = wh[0], wh[1]
-    ok = owner.post(f"/api/discover/inbox/{first['id']}/accept", json={})
-    assert ok.status_code == 200 and ok.json()["status"] == "imported"
-    assert db.one("SELECT status FROM candidates WHERE id=?", (first["id"],))["status"] == "accepted"
-    assert db.one("SELECT source_ref FROM images WHERE id=?", (ok.json()["id"],))["source_ref"] == first["id"]
-    assert owner.post(f"/api/discover/inbox/{second['id']}/reject").json() == {"status": "rejected"}
-    left = [c["id"] for c in owner.get("/api/discover/inbox").json()["candidates"]]
-    assert first["id"] not in left and second["id"] not in left
-    marked = {i["id"]: i for i in search(owner, sources="wallhaven")["wallhaven"]["items"]}
-    assert marked[second["id"]]["decided"] == "rejected"
-    assert owner.post("/api/discover/inbox/wallhaven:nope/reject").status_code == 404
-
-
 def test_gaps_endpoint_reports_infovore_being_down_as_502(owner, web):
     web.fail = {"infovore"}
     assert owner.get("/api/discover/gaps").status_code == 502
-    assert owner.post("/api/discover/run").status_code == 502
 
 
 def test_the_work_links_are_looked_up_and_saved(owner, web):
@@ -270,8 +253,9 @@ def test_the_work_links_are_looked_up_and_saved(owner, web):
 
 
 def test_generic_titles():
-    assert discover.too_generic("Escape", "movie") and discover.too_generic("Dark", "show")
-    assert not discover.too_generic("Celeste", "game") and not discover.too_generic("Dark Matter", "show")
+    from afterimage import feed
+    assert feed.too_generic("Escape", "movie") and feed.too_generic("Dark", "show")
+    assert not feed.too_generic("Celeste", "game") and not feed.too_generic("Dark Matter", "show")
 
 
 # ---- TMDB: preview only ----------------------------------------------------------------------
@@ -323,14 +307,6 @@ def test_tmdb_images_cannot_be_imported_even_by_calling_the_api_directly(owner, 
         assert r.status_code == 422 and "TMDB" in r.json()["detail"], body
     assert not any("image.tmdb.org" in c for c in web.calls), "nothing was even downloaded"
     assert db.one("SELECT COUNT(*) n FROM images")["n"] == 0
-
-
-def test_batch_runs_never_put_tmdb_results_in_the_inbox(owner, web):
-    with_tmdb(owner, web)
-    web.gaps = {"covered": [], "gaps": [{"title": "Hello Ghost", "kind": "movie", "source": "simkl", "status": "completed",
-                                         "lastActivityAt": "2026-11-09T00:00:00Z", "rating": None}]}
-    owner.post("/api/discover/run?max_works=3&per_work=4")
-    assert {c["source"] for c in owner.get("/api/discover/inbox").json()["candidates"]} <= {"wallhaven"}
 
 
 def test_same_named_works_share_the_slots_instead_of_the_first_taking_them_all(owner, web):
